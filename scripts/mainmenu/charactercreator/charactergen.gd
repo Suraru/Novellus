@@ -4,13 +4,30 @@ extends Node2D
 var character_data = {}
 
 # Base sizes and positions
-var head_center = Vector2(400, 300)
-var head_size = Vector2(200, 250)
+var head_center = Vector2(200, 150)
+var head_size = Vector2(150, 180)
 
 # Colors
 var skin_color = Color(0.9, 0.8, 0.7)
 var hair_color = Color(0.3, 0.2, 0.1)
 var eye_color = Color(0.2, 0.5, 0.8)
+
+func _ready():
+	# Initialize with default position if needed
+	if head_center == Vector2(400, 300):  # If still at default values
+		head_center = Vector2(200, 150)  # Adjust based on your container
+		head_size = Vector2(150, 180)    # Slightly smaller for the preview
+
+# Add this method to handle resizing
+func set_preview_size(container_size):
+	# Adjust head center to be in the center of the container
+	head_center = Vector2(container_size.x / 2, container_size.y / 2)
+	# Adjust head size based on container size
+	head_size = Vector2(
+		min(container_size.x, container_size.y) * 0.5,
+		min(container_size.x, container_size.y) * 0.6
+	)
+	queue_redraw()
 
 # Load character data from file
 func load_character(file_path):

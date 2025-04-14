@@ -1,6 +1,7 @@
 extends Control
 
 var character_data = {}
+var character_preview = null
 var body_parts = ["Hair", "Head", "Eyes", "Ears", "Nose", "Mouth", "Chin", "Neck", "Torso", "Arms", "Hands", "Belly", "Back", "Tail", "Legs", "Feet"]
 
 var part_types = {
@@ -81,6 +82,19 @@ func _ready():
 	# Load character data
 	load_character_data()
 	update_ui()
+	
+	# Create and add the character preview
+	character_preview = preload("res://scripts/mainmenu/charactercreator/charactergen.gd").new()
+	$PreviewMargin/PreviewContainer/SpriteContainer.add_child(character_preview)
+	
+	# Center the character preview in the container
+	character_preview.position = Vector2(
+		$PreviewMargin/PreviewContainer/SpriteContainer.size.x / 2,
+		$PreviewMargin/PreviewContainer/SpriteContainer.size.y / 2
+	)
+	
+	# Update the preview with current character data
+	update_character_preview()
 
 func load_character_data():
 	var character_file_path = GlobalState.current_character_path
@@ -130,6 +144,7 @@ func save_character_data():
 		file.store_string(json_string)
 	else:
 		print("Could not open character file for writing")
+	update_character_preview()
 
 func update_ui():
 	# Update all body part labels to show current values
@@ -166,6 +181,9 @@ func update_ui():
 		var scale_display = get_node_or_null("SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/" + part + "Container/" + part + "ButtonsContainer/" + part + "ScaleDisplay")
 		if scale_display:
 			scale_display.text = "Scale: %.2f" % scale_value
+	
+	# Update the character preview
+	update_character_preview()
 
 func _on_part_back_pressed(part_name):
 	var current_value = character_data["appearance"][part_name]["type"]
@@ -225,3 +243,20 @@ func add_scale_display_to_part(part):
 			buttons_container.add_child(new_label)
 			return true
 	return false
+
+func update_character_preview():
+	if character_preview:
+		# Pass the character data to the preview
+		character_preview.character_data = character_data
+		# Force redraw
+		character_preview.queue_redraw()
+
+func _process(_delta):
+	if character_preview and $PreviewMargin/PreviewContainer/SpriteContainer.size.x > 0:
+		# Center the character preview in the container
+		character_preview.position = Vector2(
+			$PreviewMargin/PreviewContainer/SpriteContainer.size.x / 2,
+			$PreviewMargin/PreviewContainer/SpriteContainer.size.y / 2
+		)
+		# Disable _process after initial positioning
+		set_process(false)

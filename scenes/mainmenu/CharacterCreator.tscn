@@ -1,0 +1,125 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5jv0whhdbq47"]
+
+[ext_resource type="Script" uid="uid://b3xiod540ys6x" path="res://scripts/mainmenu/CharacterCreator.gd" id="1_7000d"]
+[ext_resource type="Texture2D" uid="uid://gap08bo5upnl" path="res://assets/background/characterbg.png" id="2_2fgg6"]
+
+[node name="CharacterCreator" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7000d")
+
+[node name="Characterbg" type="Sprite2D" parent="."]
+scale = Vector2(1.25, 1.05469)
+texture = ExtResource("2_2fgg6")
+centered = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 289.0
+offset_top = 11.0
+offset_right = -296.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="LeftPanel" type="VBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(300, 600)
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="CharacterList" type="ItemList" parent="HBoxContainer/LeftPanel"]
+layout_mode = 2
+max_text_lines = 50
+auto_width = true
+auto_height = true
+text_overrun_behavior = 1
+wraparound_items = false
+max_columns = 2
+same_column_width = true
+
+[node name="RightPanel" type="VBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(724, 600)
+layout_mode = 2
+
+[node name="Portrait" type="TextureRect" parent="HBoxContainer/RightPanel"]
+layout_mode = 2
+stretch_mode = 2
+
+[node name="SpritePreview" type="GridContainer" parent="HBoxContainer/RightPanel"]
+layout_mode = 2
+columns = 4
+
+[node name="Front" type="TextureRect" parent="HBoxContainer/RightPanel/SpritePreview"]
+layout_mode = 2
+
+[node name="Back" type="TextureRect" parent="HBoxContainer/RightPanel/SpritePreview"]
+layout_mode = 2
+
+[node name="Left" type="TextureRect" parent="HBoxContainer/RightPanel/SpritePreview"]
+layout_mode = 2
+
+[node name="Right" type="TextureRect" parent="HBoxContainer/RightPanel/SpritePreview"]
+layout_mode = 2
+
+[node name="ButtonPanel" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -452.0
+offset_top = -96.0
+offset_right = 151.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.5, 1.5)
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="DeleteButton" type="Button" parent="ButtonPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+text = "Delete Character"
+icon_alignment = 1
+expand_icon = true
+
+[node name="EditButton" type="Button" parent="ButtonPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+text = "Edit Character"
+icon_alignment = 1
+expand_icon = true
+
+[node name="BackButton" type="Button" parent="ButtonPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Go Back"
+icon_alignment = 1
+expand_icon = true
+
+[node name="CreateButton" type="Button" parent="ButtonPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Create New Character"
+icon_alignment = 1
+expand_icon = true
+
+[node name="StartButton" type="Button" parent="ButtonPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+text = "Start Game"
+icon_alignment = 1
+expand_icon = true

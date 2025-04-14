@@ -1,0 +1,20 @@
+{
+  "intro": {
+    "speaker": "Guide",
+    "text": "Welcome to the sandbox, traveler. What would you like to do?",
+    "choices": [
+      {"text": "Explore", "next": "explore"},
+      {"text": "Rest", "next": "rest"}
+    ]
+  },
+  "explore": {
+    "speaker": "Guide",
+    "text": "The forest stretches out before you...",
+    "choices": []
+  },
+  "rest": {
+    "speaker": "Guide",
+    "text": "You sit down by the fire and relax.",
+    "choices": []
+  }
+}

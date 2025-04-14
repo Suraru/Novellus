@@ -1,0 +1,12 @@
+{
+  "potion": {
+    "name": "Healing Potion",
+    "description": "Restores health.",
+    "usable": true
+  },
+  "key": {
+    "name": "Old Key",
+    "description": "Opens a mysterious door.",
+    "usable": false
+  }
+}

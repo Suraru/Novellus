@@ -1,0 +1,452 @@
+[gd_scene load_steps=3 format=3 uid="uid://d16kvmx1j8wsb"]
+
+[ext_resource type="Texture2D" uid="uid://gap08bo5upnl" path="res://assets/background/characterbg.png" id="1_jq5l3"]
+[ext_resource type="Script" uid="uid://dxl0tldh2xn4g" path="res://scripts/mainmenu/settings.gd" id="1_py38b"]
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_py38b")
+
+[node name="Characterbg" type="Sprite2D" parent="."]
+scale = Vector2(1.25, 1.05469)
+texture = ExtResource("1_jq5l3")
+centered = false
+
+[node name="SettingsContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 288.0
+offset_right = -285.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 120
+
+[node name="TabContainer" type="TabContainer" parent="SettingsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+tab_alignment = 2
+current_tab = 0
+
+[node name="UI" type="ScrollContainer" parent="SettingsContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsContainer/TabContainer/UI"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/UI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "UI Settings"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="SettingsContainer/TabContainer/UI/VBoxContainer"]
+layout_mode = 2
+
+[node name="ResolutionSetting" type="HBoxContainer" parent="SettingsContainer/TabContainer/UI/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/UI/VBoxContainer/ResolutionSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Resolution"
+
+[node name="OptionButton" type="OptionButton" parent="SettingsContainer/TabContainer/UI/VBoxContainer/ResolutionSetting"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 4
+popup/item_0/text = "1280 x 720"
+popup/item_0/id = 0
+popup/item_1/text = "1920 x 1080"
+popup/item_1/id = 1
+popup/item_2/text = "2560 x 1440"
+popup/item_2/id = 2
+popup/item_3/text = "3840 x 2160"
+popup/item_3/id = 3
+
+[node name="FullscreenSetting" type="HBoxContainer" parent="SettingsContainer/TabContainer/UI/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/UI/VBoxContainer/FullscreenSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fullscreen"
+
+[node name="CheckBox" type="CheckBox" parent="SettingsContainer/TabContainer/UI/VBoxContainer/FullscreenSetting"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VSyncSetting" type="HBoxContainer" parent="SettingsContainer/TabContainer/UI/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/UI/VBoxContainer/VSyncSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "V-Sync"
+
+[node name="CheckBox" type="CheckBox" parent="SettingsContainer/TabContainer/UI/VBoxContainer/VSyncSetting"]
+layout_mode = 2
+
+[node name="UIScaleSetting" type="HBoxContainer" parent="SettingsContainer/TabContainer/UI/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/UI/VBoxContainer/UIScaleSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "UI Scale"
+
+[node name="HSlider" type="HSlider" parent="SettingsContainer/TabContainer/UI/VBoxContainer/UIScaleSetting"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.5
+max_value = 2.0
+step = 0.1
+value = 1.0
+
+[node name="Value" type="Label" parent="SettingsContainer/TabContainer/UI/VBoxContainer/UIScaleSetting"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1.0"
+
+[node name="Audio" type="ScrollContainer" parent="SettingsContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsContainer/TabContainer/Audio"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Audio Settings"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="SettingsContainer/TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+
+[node name="MasterVolumeSetting" type="VBoxContainer" parent="SettingsContainer/TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/MasterVolumeSetting"]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/MasterVolumeSetting"]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/MasterVolumeSetting/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Value" type="Label" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/MasterVolumeSetting/HBoxContainer"]
+layout_mode = 2
+text = "100%"
+
+[node name="MusicVolumeSetting" type="VBoxContainer" parent="SettingsContainer/TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/MusicVolumeSetting"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/MusicVolumeSetting"]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/MusicVolumeSetting/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Value" type="Label" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/MusicVolumeSetting/HBoxContainer"]
+layout_mode = 2
+text = "100%"
+
+[node name="SFXVolumeSetting" type="VBoxContainer" parent="SettingsContainer/TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/SFXVolumeSetting"]
+layout_mode = 2
+text = "SFX Volume"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/SFXVolumeSetting"]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/SFXVolumeSetting/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Value" type="Label" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/SFXVolumeSetting/HBoxContainer"]
+layout_mode = 2
+text = "100%"
+
+[node name="VoiceVolumeSetting" type="VBoxContainer" parent="SettingsContainer/TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/VoiceVolumeSetting"]
+layout_mode = 2
+text = "Voice Volume"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/VoiceVolumeSetting"]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/VoiceVolumeSetting/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Value" type="Label" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/VoiceVolumeSetting/HBoxContainer"]
+layout_mode = 2
+text = "100%"
+
+[node name="MuteSetting" type="HBoxContainer" parent="SettingsContainer/TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/MuteSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Mute All"
+
+[node name="CheckBox" type="CheckBox" parent="SettingsContainer/TabContainer/Audio/VBoxContainer/MuteSetting"]
+layout_mode = 2
+
+[node name="Content" type="ScrollContainer" parent="SettingsContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsContainer/TabContainer/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/Content/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Content Settings"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="SettingsContainer/TabContainer/Content/VBoxContainer"]
+layout_mode = 2
+
+[node name="ContentWarning" type="Label" parent="SettingsContainer/TabContainer/Content/VBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.882353, 0.521569, 1)
+text = "Warning. This game contains situations that some users may find uncomfortable. 
+These are disabled by default, but if you're interested in a darker setting, you're free to turn them on.
+Note: Any sexual content is suggestive at most, not explicit. "
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="AlphaContentSetting" type="HBoxContainer" parent="SettingsContainer/TabContainer/Content/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/Content/VBoxContainer/AlphaContentSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Extreme Gore"
+horizontal_alignment = 2
+
+[node name="CheckBox" type="CheckBox" parent="SettingsContainer/TabContainer/Content/VBoxContainer/AlphaContentSetting"]
+layout_mode = 2
+button_pressed = true
+
+[node name="BetaContentSetting" type="HBoxContainer" parent="SettingsContainer/TabContainer/Content/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/Content/VBoxContainer/BetaContentSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Sexual Abuse"
+horizontal_alignment = 2
+
+[node name="CheckBox" type="CheckBox" parent="SettingsContainer/TabContainer/Content/VBoxContainer/BetaContentSetting"]
+layout_mode = 2
+button_pressed = true
+
+[node name="CharlieContentSetting" type="HBoxContainer" parent="SettingsContainer/TabContainer/Content/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/Content/VBoxContainer/CharlieContentSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Suicide and Self Harm"
+horizontal_alignment = 2
+
+[node name="CheckBox" type="CheckBox" parent="SettingsContainer/TabContainer/Content/VBoxContainer/CharlieContentSetting"]
+layout_mode = 2
+button_pressed = true
+
+[node name="DeltaContentSetting" type="HBoxContainer" parent="SettingsContainer/TabContainer/Content/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/Content/VBoxContainer/DeltaContentSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Violence Against Chldren"
+horizontal_alignment = 2
+
+[node name="CheckBox" type="CheckBox" parent="SettingsContainer/TabContainer/Content/VBoxContainer/DeltaContentSetting"]
+layout_mode = 2
+button_pressed = true
+
+[node name="DeltaContentSetting2" type="HBoxContainer" parent="SettingsContainer/TabContainer/Content/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/Content/VBoxContainer/DeltaContentSetting2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Torture"
+horizontal_alignment = 2
+
+[node name="CheckBox" type="CheckBox" parent="SettingsContainer/TabContainer/Content/VBoxContainer/DeltaContentSetting2"]
+layout_mode = 2
+button_pressed = true
+
+[node name="Multiplayer" type="ScrollContainer" parent="SettingsContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsContainer/TabContainer/Multiplayer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/Multiplayer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Multiplayer Settings"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="SettingsContainer/TabContainer/Multiplayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerNameSetting" type="HBoxContainer" parent="SettingsContainer/TabContainer/Multiplayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/Multiplayer/VBoxContainer/PlayerNameSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Player Name"
+
+[node name="LineEdit" type="LineEdit" parent="SettingsContainer/TabContainer/Multiplayer/VBoxContainer/PlayerNameSetting"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Enter your name"
+
+[node name="ServerAddressSetting" type="HBoxContainer" parent="SettingsContainer/TabContainer/Multiplayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/Multiplayer/VBoxContainer/ServerAddressSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Server Address"
+
+[node name="LineEdit" type="LineEdit" parent="SettingsContainer/TabContainer/Multiplayer/VBoxContainer/ServerAddressSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "127.0.0.1"
+placeholder_text = "Server IP"
+
+[node name="ServerPortSetting" type="HBoxContainer" parent="SettingsContainer/TabContainer/Multiplayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/Multiplayer/VBoxContainer/ServerPortSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Server Port"
+
+[node name="SpinBox" type="SpinBox" parent="SettingsContainer/TabContainer/Multiplayer/VBoxContainer/ServerPortSetting"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1000.0
+max_value = 65535.0
+value = 9876.0
+rounded = true
+
+[node name="AutoConnectSetting" type="HBoxContainer" parent="SettingsContainer/TabContainer/Multiplayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/TabContainer/Multiplayer/VBoxContainer/AutoConnectSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Auto Connect"
+
+[node name="CheckBox" type="CheckBox" parent="SettingsContainer/TabContainer/Multiplayer/VBoxContainer/AutoConnectSetting"]
+layout_mode = 2
+
+[node name="ButtonPanel" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -452.0
+offset_top = -94.9999
+offset_right = 151.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.5, 1.5)
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="BackButton" type="Button" parent="ButtonPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Go Back"
+icon_alignment = 1
+expand_icon = true
+
+[node name="StartButton" type="Button" parent="ButtonPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Confirm"
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="value_changed" from="SettingsContainer/TabContainer/UI/VBoxContainer/UIScaleSetting/HSlider" to="." method="_on_ui_scale_slider_value_changed"]
+[connection signal="value_changed" from="SettingsContainer/TabContainer/Audio/VBoxContainer/MasterVolumeSetting/HBoxContainer/HSlider" to="." method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="SettingsContainer/TabContainer/Audio/VBoxContainer/MusicVolumeSetting/HBoxContainer/HSlider" to="." method="_on_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="SettingsContainer/TabContainer/Audio/VBoxContainer/SFXVolumeSetting/HBoxContainer/HSlider" to="." method="_on_sfx_volume_slider_value_changed"]
+[connection signal="value_changed" from="SettingsContainer/TabContainer/Audio/VBoxContainer/VoiceVolumeSetting/HBoxContainer/HSlider" to="." method="_on_voice_volume_slider_value_changed"]
+[connection signal="pressed" from="ButtonPanel/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="ButtonPanel/StartButton" to="." method="_on_start_button_pressed"]

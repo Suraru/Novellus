@@ -1,0 +1,1022 @@
+[gd_scene load_steps=5 format=3 uid="uid://oncshwmddi48"]
+
+[ext_resource type="Script" uid="uid://ccbj5txehowco" path="res://scripts/mainmenu/charactercreator/change_appearance.gd" id="1_jfgx6"]
+[ext_resource type="Texture2D" uid="uid://gap08bo5upnl" path="res://assets/background/characterbg.png" id="2_lrfw8"]
+[ext_resource type="Script" uid="uid://dbld73irkuo2i" path="res://scripts/mainmenu/charactercreator/charactergen.gd" id="3_heowd"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_lrfw8"]
+
+[node name="ChangeAppearance" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jfgx6")
+
+[node name="Characterbg" type="Sprite2D" parent="."]
+scale = Vector2(1.25, 1.05469)
+texture = ExtResource("2_lrfw8")
+centered = false
+
+[node name="PreviewMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 288.0
+offset_right = -960.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 120
+
+[node name="PreviewContainer" type="VBoxContainer" parent="PreviewMargin"]
+layout_mode = 2
+
+[node name="SpriteContainer" type="HBoxContainer" parent="PreviewMargin/PreviewContainer"]
+layout_mode = 2
+
+[node name="SelectionMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 960.0
+offset_right = -289.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 120
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SelectionMargin"]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="SelectionMargin/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+tab_alignment = 1
+current_tab = 0
+
+[node name="BodyPartContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+metadata/_tab_index = 0
+
+[node name="HairContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer"]
+layout_mode = 2
+
+[node name="HairButtonsContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HairContainer"]
+layout_mode = 2
+
+[node name="HairLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HairContainer/HairButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Hair:"
+
+[node name="HairSpacer1" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HairContainer/HairButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HairBackButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HairContainer/HairButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<=="
+
+[node name="HairDisplay" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HairContainer/HairButtonsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wide"
+horizontal_alignment = 1
+
+[node name="HairForwardButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HairContainer/HairButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "==>"
+
+[node name="HairSpacer2" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HairContainer/HairButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HairContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 30
+
+[node name="HairHSlider" type="HSlider" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HairContainer/MarginContainer"]
+layout_mode = 2
+value = 50.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="HeadContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer"]
+layout_mode = 2
+
+[node name="HeadButtonsContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HeadContainer"]
+layout_mode = 2
+
+[node name="HeadLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HeadContainer/HeadButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Head:"
+
+[node name="HeadSpacer1" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HeadContainer/HeadButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HeadBackButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HeadContainer/HeadButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<=="
+
+[node name="HeadDisplay" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HeadContainer/HeadButtonsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wide"
+horizontal_alignment = 1
+
+[node name="HeadForwardButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HeadContainer/HeadButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "==>"
+
+[node name="HeadSpacer2" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HeadContainer/HeadButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HeadContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 30
+
+[node name="HeadHSlider" type="HSlider" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HeadContainer/MarginContainer"]
+layout_mode = 2
+value = 50.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="EyesContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer"]
+layout_mode = 2
+
+[node name="EyesButtonsContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EyesContainer"]
+layout_mode = 2
+
+[node name="EyesLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EyesContainer/EyesButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Eyes:"
+
+[node name="EyesSpacer1" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EyesContainer/EyesButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EyesBackButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EyesContainer/EyesButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<=="
+
+[node name="EyesDisplay" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EyesContainer/EyesButtonsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wide"
+horizontal_alignment = 1
+
+[node name="EyesForwardButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EyesContainer/EyesButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "==>"
+
+[node name="EyesSpacer2" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EyesContainer/EyesButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EyesContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 30
+
+[node name="EyesHSlider" type="HSlider" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EyesContainer/MarginContainer"]
+layout_mode = 2
+value = 50.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="EarsContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer"]
+layout_mode = 2
+
+[node name="EarsButtonsContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EarsContainer"]
+layout_mode = 2
+
+[node name="EarsLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EarsContainer/EarsButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Ears:"
+
+[node name="EarsSpacer1" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EarsContainer/EarsButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EarsBackButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EarsContainer/EarsButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<=="
+
+[node name="EarsDisplay" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EarsContainer/EarsButtonsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wide"
+horizontal_alignment = 1
+
+[node name="EarsForwardButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EarsContainer/EarsButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "==>"
+
+[node name="EarsSpacer2" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EarsContainer/EarsButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EarsContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 30
+
+[node name="EarsHSlider" type="HSlider" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/EarsContainer/MarginContainer"]
+layout_mode = 2
+value = 50.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="NoseContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer"]
+layout_mode = 2
+
+[node name="NoseButtonsContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NoseContainer"]
+layout_mode = 2
+
+[node name="NoseLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NoseContainer/NoseButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Nose:"
+
+[node name="NoseSpacer1" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NoseContainer/NoseButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NoseBackButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NoseContainer/NoseButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<=="
+
+[node name="NoseDisplay" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NoseContainer/NoseButtonsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wide"
+horizontal_alignment = 1
+
+[node name="NoseForwardButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NoseContainer/NoseButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "==>"
+
+[node name="NoseSpacer2" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NoseContainer/NoseButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NoseContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 30
+
+[node name="NoseHSlider" type="HSlider" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NoseContainer/MarginContainer"]
+layout_mode = 2
+value = 50.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="MouthContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer"]
+layout_mode = 2
+
+[node name="MouthButtonsContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/MouthContainer"]
+layout_mode = 2
+
+[node name="MouthLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/MouthContainer/MouthButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Mouth:"
+
+[node name="MouthSpacer1" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/MouthContainer/MouthButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MouthBackButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/MouthContainer/MouthButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<=="
+
+[node name="MouthDisplay" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/MouthContainer/MouthButtonsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wide"
+horizontal_alignment = 1
+
+[node name="MouthForwardButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/MouthContainer/MouthButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "==>"
+
+[node name="MouthSpacer2" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/MouthContainer/MouthButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/MouthContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 30
+
+[node name="MouthHSlider" type="HSlider" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/MouthContainer/MarginContainer"]
+layout_mode = 2
+value = 50.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="ChinContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer"]
+layout_mode = 2
+
+[node name="ChinButtonsContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ChinContainer"]
+layout_mode = 2
+
+[node name="ChinLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ChinContainer/ChinButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Chin:"
+
+[node name="ChinSpacer1" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ChinContainer/ChinButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ChinBackButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ChinContainer/ChinButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<=="
+
+[node name="ChinDisplay" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ChinContainer/ChinButtonsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wide"
+horizontal_alignment = 1
+
+[node name="ChinForwardButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ChinContainer/ChinButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "==>"
+
+[node name="ChinSpacer2" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ChinContainer/ChinButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ChinContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 30
+
+[node name="ChinHSlider" type="HSlider" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ChinContainer/MarginContainer"]
+layout_mode = 2
+value = 50.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="NeckContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer"]
+layout_mode = 2
+
+[node name="NeckButtonsContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NeckContainer"]
+layout_mode = 2
+
+[node name="NeckLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NeckContainer/NeckButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Neck:"
+
+[node name="NeckSpacer1" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NeckContainer/NeckButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NeckBackButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NeckContainer/NeckButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<=="
+
+[node name="NeckDisplay" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NeckContainer/NeckButtonsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wide"
+horizontal_alignment = 1
+
+[node name="NeckForwardButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NeckContainer/NeckButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "==>"
+
+[node name="NeckSpacer2" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NeckContainer/NeckButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NeckContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 30
+
+[node name="NeckHSlider" type="HSlider" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/NeckContainer/MarginContainer"]
+layout_mode = 2
+value = 50.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="TorsoContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer"]
+layout_mode = 2
+
+[node name="TorsoButtonsContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TorsoContainer"]
+layout_mode = 2
+
+[node name="TorsoLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TorsoContainer/TorsoButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Torso:"
+
+[node name="TorsoSpacer1" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TorsoContainer/TorsoButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TorsoBackButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TorsoContainer/TorsoButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<=="
+
+[node name="TorsoDisplay" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TorsoContainer/TorsoButtonsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wide"
+horizontal_alignment = 1
+
+[node name="TorsoForwardButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TorsoContainer/TorsoButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "==>"
+
+[node name="TorsoSpacer2" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TorsoContainer/TorsoButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TorsoContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 30
+
+[node name="TorsoHSlider" type="HSlider" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TorsoContainer/MarginContainer"]
+layout_mode = 2
+value = 50.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="ArmsContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer"]
+layout_mode = 2
+
+[node name="ArmsButtonsContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ArmsContainer"]
+layout_mode = 2
+
+[node name="ArmsLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ArmsContainer/ArmsButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Arms:"
+
+[node name="ArmsSpacer1" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ArmsContainer/ArmsButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ArmsBackButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ArmsContainer/ArmsButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<=="
+
+[node name="ArmsDisplay" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ArmsContainer/ArmsButtonsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wide"
+horizontal_alignment = 1
+
+[node name="ArmsForwardButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ArmsContainer/ArmsButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "==>"
+
+[node name="ArmsSpacer2" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ArmsContainer/ArmsButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ArmsContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 30
+
+[node name="ArmsHSlider" type="HSlider" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/ArmsContainer/MarginContainer"]
+layout_mode = 2
+value = 50.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="HandsContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer"]
+layout_mode = 2
+
+[node name="HandsButtonsContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HandsContainer"]
+layout_mode = 2
+
+[node name="HandsLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HandsContainer/HandsButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Hands:"
+
+[node name="HandsSpacer1" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HandsContainer/HandsButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HandsBackButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HandsContainer/HandsButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<=="
+
+[node name="HandsDisplay" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HandsContainer/HandsButtonsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wide"
+horizontal_alignment = 1
+
+[node name="HandsForwardButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HandsContainer/HandsButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "==>"
+
+[node name="HandsSpacer2" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HandsContainer/HandsButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HandsContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 30
+
+[node name="HandsHSlider" type="HSlider" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/HandsContainer/MarginContainer"]
+layout_mode = 2
+value = 50.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="BellyContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer"]
+layout_mode = 2
+
+[node name="BellyButtonsContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BellyContainer"]
+layout_mode = 2
+
+[node name="BellyLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BellyContainer/BellyButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Belly:"
+
+[node name="BellySpacer1" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BellyContainer/BellyButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BellyBackButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BellyContainer/BellyButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<=="
+
+[node name="BellyDisplay" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BellyContainer/BellyButtonsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wide"
+horizontal_alignment = 1
+
+[node name="BellyForwardButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BellyContainer/BellyButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "==>"
+
+[node name="BellySpacer2" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BellyContainer/BellyButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BellyContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 30
+
+[node name="BellyHSlider" type="HSlider" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BellyContainer/MarginContainer"]
+layout_mode = 2
+value = 50.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="BackContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer"]
+layout_mode = 2
+
+[node name="BackButtonsContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BackContainer"]
+layout_mode = 2
+
+[node name="BackLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BackContainer/BackButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Back:"
+
+[node name="BackSpacer1" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BackContainer/BackButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BackBackButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BackContainer/BackButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<=="
+
+[node name="BackDisplay" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BackContainer/BackButtonsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wide"
+horizontal_alignment = 1
+
+[node name="BackForwardButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BackContainer/BackButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "==>"
+
+[node name="BackSpacer2" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BackContainer/BackButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BackContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 30
+
+[node name="BackHSlider" type="HSlider" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/BackContainer/MarginContainer"]
+layout_mode = 2
+value = 50.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="TailContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer"]
+layout_mode = 2
+
+[node name="TailButtonsContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TailContainer"]
+layout_mode = 2
+
+[node name="TailLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TailContainer/TailButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Tail:"
+
+[node name="TailSpacer1" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TailContainer/TailButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TailBackButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TailContainer/TailButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<=="
+
+[node name="TailDisplay" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TailContainer/TailButtonsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wide"
+horizontal_alignment = 1
+
+[node name="TailForwardButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TailContainer/TailButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "==>"
+
+[node name="TailSpacer2" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TailContainer/TailButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TailContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 30
+
+[node name="TailHSlider" type="HSlider" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/TailContainer/MarginContainer"]
+layout_mode = 2
+value = 50.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="LegsContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer"]
+layout_mode = 2
+
+[node name="LegsButtonsContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/LegsContainer"]
+layout_mode = 2
+
+[node name="LegsLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/LegsContainer/LegsButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Legs:"
+
+[node name="LegsSpacer1" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/LegsContainer/LegsButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LegsBackButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/LegsContainer/LegsButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<=="
+
+[node name="LegsDisplay" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/LegsContainer/LegsButtonsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wide"
+horizontal_alignment = 1
+
+[node name="LegsForwardButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/LegsContainer/LegsButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "==>"
+
+[node name="LegsSpacer2" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/LegsContainer/LegsButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/LegsContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 30
+
+[node name="LegsHSlider" type="HSlider" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/LegsContainer/MarginContainer"]
+layout_mode = 2
+value = 50.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="FeetContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer"]
+layout_mode = 2
+
+[node name="FeetButtonsContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/FeetContainer"]
+layout_mode = 2
+
+[node name="FeetLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/FeetContainer/FeetButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Feet:"
+
+[node name="FeetSpacer1" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/FeetContainer/FeetButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FeetBackButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/FeetContainer/FeetButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<=="
+
+[node name="FeetDisplay" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/FeetContainer/FeetButtonsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wide"
+horizontal_alignment = 1
+
+[node name="FeetForwardButton" type="Button" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/FeetContainer/FeetButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "==>"
+
+[node name="FeetSpacer2" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/FeetContainer/FeetButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/FeetContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 30
+
+[node name="FeetHSlider" type="HSlider" parent="SelectionMargin/ScrollContainer/TabContainer/BodyPartContainer/FeetContainer/MarginContainer"]
+layout_mode = 2
+value = 50.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="ColorsContainer" type="VBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 10
+metadata/_tab_index = 1
+
+[node name="HairColorLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Hair Color"
+
+[node name="HairColorContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer"]
+layout_mode = 2
+
+[node name="HairColor1Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/HairColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor2Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/HairColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor3Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/HairColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor4Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/HairColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor5Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/HairColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor6Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/HairColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor7Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/HairColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor8Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/HairColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="SkinColorLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Skin Color"
+
+[node name="SkinColorContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer"]
+layout_mode = 2
+
+[node name="HairColor1Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/SkinColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor2Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/SkinColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor3Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/SkinColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor4Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/SkinColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor5Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/SkinColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor6Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/SkinColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor7Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/SkinColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor8Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/SkinColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="EyeColorLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Eye Color"
+
+[node name="EyeColorContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer"]
+layout_mode = 2
+
+[node name="HairColor1Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/EyeColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor2Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/EyeColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor3Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/EyeColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor4Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/EyeColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor5Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/EyeColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor6Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/EyeColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor7Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/EyeColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor8Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/EyeColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="DetailColorLabel" type="Label" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Detail  Color"
+
+[node name="DetailColorContainer" type="HBoxContainer" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer"]
+layout_mode = 2
+
+[node name="HairColor1Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/DetailColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor2Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/DetailColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor3Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/DetailColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor4Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/DetailColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor5Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/DetailColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor6Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/DetailColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor7Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/DetailColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="HairColor8Button" type="TextureButton" parent="SelectionMargin/ScrollContainer/TabContainer/ColorsContainer/DetailColorContainer"]
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_lrfw8")
+
+[node name="ButtonPanel" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -452.0
+offset_top = -96.0
+offset_right = 151.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.5, 1.5)
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="BackButton" type="Button" parent="ButtonPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Go Back"
+icon_alignment = 1
+expand_icon = true
+
+[node name="StartButton" type="Button" parent="ButtonPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Confirm"
+icon_alignment = 1
+expand_icon = true
+
+[node name="CharacterGen" type="Node2D" parent="."]
+script = ExtResource("3_heowd")

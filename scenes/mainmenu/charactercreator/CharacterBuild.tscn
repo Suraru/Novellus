@@ -1,0 +1,470 @@
+[gd_scene load_steps=3 format=3 uid="uid://w14mc0gnlros"]
+
+[ext_resource type="Script" uid="uid://tj5wgsdqml6y" path="res://scripts/mainmenu/charactercreator/character_build.gd" id="1_5wy62"]
+[ext_resource type="Texture2D" uid="uid://gap08bo5upnl" path="res://assets/background/characterbg.png" id="2_7coxq"]
+
+[node name="CharacterBuild" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5wy62")
+
+[node name="Characterbg" type="Sprite2D" parent="."]
+scale = Vector2(1.25, 1.05469)
+texture = ExtResource("2_7coxq")
+centered = false
+
+[node name="LeftContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 285.0
+offset_right = -1139.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 100
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LeftContainer"]
+layout_mode = 2
+
+[node name="Stats" type="VBoxContainer" parent="LeftContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="NameFields" type="GridContainer" parent="LeftContainer/ScrollContainer/Stats"]
+layout_mode = 2
+columns = 2
+
+[node name="FullnameLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/NameFields"]
+layout_mode = 2
+text = "Full Name:"
+
+[node name="FullnameEdit" type="LineEdit" parent="LeftContainer/ScrollContainer/Stats/NameFields"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Full Name"
+max_length = 250
+expand_to_text_length = true
+
+[node name="NameLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/NameFields"]
+layout_mode = 2
+text = "Name:"
+
+[node name="NameEdit" type="LineEdit" parent="LeftContainer/ScrollContainer/Stats/NameFields"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Enter first name"
+max_length = 250
+expand_to_text_length = true
+
+[node name="SurnameLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/NameFields"]
+layout_mode = 2
+text = "Surname:"
+
+[node name="SurnameEdit" type="LineEdit" parent="LeftContainer/ScrollContainer/Stats/NameFields"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Enter surname"
+max_length = 250
+expand_to_text_length = true
+
+[node name="NicknameLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/NameFields"]
+layout_mode = 2
+text = "Nickname:"
+
+[node name="NicknameEdit" type="LineEdit" parent="LeftContainer/ScrollContainer/Stats/NameFields"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Enter nickname"
+max_length = 250
+expand_to_text_length = true
+
+[node name="DetailTable" type="GridContainer" parent="LeftContainer/ScrollContainer/Stats"]
+layout_mode = 2
+columns = 4
+
+[node name="AgeLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/DetailTable"]
+layout_mode = 2
+text = "Age:"
+
+[node name="AgeEdit" type="SpinBox" parent="LeftContainer/ScrollContainer/Stats/DetailTable"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+max_value = 999.0
+value = 18.0
+
+[node name="lifestage_display" type="LineEdit" parent="LeftContainer/ScrollContainer/Stats/DetailTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Lifestage"
+editable = false
+
+[node name="race_display" type="LineEdit" parent="LeftContainer/ScrollContainer/Stats/DetailTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Race"
+editable = false
+
+[node name="GenderLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/DetailTable"]
+layout_mode = 2
+text = "Gender:"
+
+[node name="gender_dropdown" type="OptionButton" parent="LeftContainer/ScrollContainer/Stats/DetailTable"]
+layout_mode = 2
+
+[node name="subject_pronoun_display" type="Label" parent="LeftContainer/ScrollContainer/Stats/DetailTable"]
+layout_mode = 2
+text = "He"
+horizontal_alignment = 2
+
+[node name="object_pronoun_display" type="Label" parent="LeftContainer/ScrollContainer/Stats/DetailTable"]
+layout_mode = 2
+text = "Him"
+
+[node name="custom_gender_popup" type="PopupPanel" parent="LeftContainer/ScrollContainer/Stats/DetailTable"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LeftContainer/ScrollContainer/Stats/DetailTable/custom_gender_popup"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 96.0
+offset_bottom = 140.0
+
+[node name="custom_gender_input" type="LineEdit" parent="LeftContainer/ScrollContainer/Stats/DetailTable/custom_gender_popup/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Gender"
+
+[node name="custom_subject_input" type="LineEdit" parent="LeftContainer/ScrollContainer/Stats/DetailTable/custom_gender_popup/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Subject"
+
+[node name="custom_object_input" type="LineEdit" parent="LeftContainer/ScrollContainer/Stats/DetailTable/custom_gender_popup/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Object"
+
+[node name="confirm_custom_gender_button" type="Button" parent="LeftContainer/ScrollContainer/Stats/DetailTable/custom_gender_popup/VBoxContainer"]
+layout_mode = 2
+text = "Confirm"
+
+[node name="AtributeLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Attributes"
+
+[node name="AttributeTable" type="GridContainer" parent="LeftContainer/ScrollContainer/Stats"]
+layout_mode = 2
+size_flags_vertical = 2
+columns = 3
+
+[node name="FlexibilityLable" type="Label" parent="LeftContainer/ScrollContainer/Stats/AttributeTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dexterity"
+
+[node name="StrengthSlider" type="HSlider" parent="LeftContainer/ScrollContainer/Stats/AttributeTable"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+min_value = 1.0
+max_value = 5.0
+value = 3.0
+
+[node name="StrengthLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/AttributeTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Strength"
+horizontal_alignment = 2
+
+[node name="LuckLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/AttributeTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Luck"
+
+[node name="IntelligenceSlider" type="HSlider" parent="LeftContainer/ScrollContainer/Stats/AttributeTable"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+min_value = 1.0
+max_value = 5.0
+value = 3.0
+
+[node name="IntelligenceLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/AttributeTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Intelligence"
+horizontal_alignment = 2
+
+[node name="PerceptionLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/AttributeTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Perception"
+
+[node name="EnduranceSlider" type="HSlider" parent="LeftContainer/ScrollContainer/Stats/AttributeTable"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+min_value = 1.0
+max_value = 5.0
+value = 3.0
+
+[node name="EnduranceLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/AttributeTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Endurance"
+horizontal_alignment = 2
+
+[node name="EmpathyLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/AttributeTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Empathy"
+
+[node name="CharismaSlider" type="HSlider" parent="LeftContainer/ScrollContainer/Stats/AttributeTable"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+min_value = 1.0
+max_value = 5.0
+value = 3.0
+
+[node name="CharismaLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/AttributeTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Charisma"
+horizontal_alignment = 2
+
+[node name="PersonalityLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Personality"
+
+[node name="PersonalityTable" type="GridContainer" parent="LeftContainer/ScrollContainer/Stats"]
+layout_mode = 2
+size_flags_vertical = 0
+columns = 3
+
+[node name="LogicalLable" type="Label" parent="LeftContainer/ScrollContainer/Stats/PersonalityTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Logical"
+
+[node name="CreativitySlider" type="HSlider" parent="LeftContainer/ScrollContainer/Stats/PersonalityTable"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 5.0
+value = 3.0
+
+[node name="CreativityLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/PersonalityTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Creativity"
+horizontal_alignment = 2
+
+[node name="IntroversionLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/PersonalityTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Introversion"
+
+[node name="ExtroversionSlider" type="HSlider" parent="LeftContainer/ScrollContainer/Stats/PersonalityTable"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 5.0
+value = 3.0
+
+[node name="ExtroversionLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/PersonalityTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Extroversion"
+horizontal_alignment = 2
+
+[node name="TraditionalLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/PersonalityTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Traditional"
+
+[node name="AmbitionSlider" type="HSlider" parent="LeftContainer/ScrollContainer/Stats/PersonalityTable"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 5.0
+value = 3.0
+
+[node name="AmbitionLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/PersonalityTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ambition"
+horizontal_alignment = 2
+
+[node name="AgreeablenessLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/PersonalityTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Agreeableness"
+
+[node name="StubbornnessSlider" type="HSlider" parent="LeftContainer/ScrollContainer/Stats/PersonalityTable"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 5.0
+value = 3.0
+
+[node name="StubbornnessLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/PersonalityTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Stubbornness"
+horizontal_alignment = 2
+
+[node name="TraitsSection" type="VBoxContainer" parent="LeftContainer/ScrollContainer/Stats"]
+layout_mode = 2
+
+[node name="TraitsLabel" type="Label" parent="LeftContainer/ScrollContainer/Stats/TraitsSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Traits"
+
+[node name="SelectedTraitsFlow" type="FlowContainer" parent="LeftContainer/ScrollContainer/Stats/TraitsSection"]
+layout_mode = 2
+
+[node name="AddTraitButton" type="Button" parent="LeftContainer/ScrollContainer/Stats/TraitsSection"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Add New Trait"
+
+[node name="TraitPopup" type="PopupPanel" parent="LeftContainer/ScrollContainer/Stats/TraitsSection"]
+size = Vector2i(200, 400)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LeftContainer/ScrollContainer/Stats/TraitsSection/TraitPopup"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 196.0
+offset_bottom = 396.0
+
+[node name="TraitList" type="VBoxContainer" parent="LeftContainer/ScrollContainer/Stats/TraitsSection/TraitPopup/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MiddleContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 781.0
+offset_right = 1228.0
+offset_bottom = 1080.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 100
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MiddleContainer"]
+layout_mode = 2
+
+[node name="Stats" type="VBoxContainer" parent="MiddleContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="RelationshipSection" type="VBoxContainer" parent="MiddleContainer/ScrollContainer/Stats"]
+layout_mode = 2
+
+[node name="RelationshipsLabel" type="Label" parent="MiddleContainer/ScrollContainer/Stats/RelationshipSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Relationships"
+
+[node name="RelationshipList" type="VBoxContainer" parent="MiddleContainer/ScrollContainer/Stats/RelationshipSection"]
+layout_mode = 2
+
+[node name="RelationshipCreator" type="HBoxContainer" parent="MiddleContainer/ScrollContainer/Stats/RelationshipSection"]
+visible = false
+layout_mode = 2
+
+[node name="CharacterSelector" type="OptionButton" parent="MiddleContainer/ScrollContainer/Stats/RelationshipSection/RelationshipCreator"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RelationshipTypeSelector" type="OptionButton" parent="MiddleContainer/ScrollContainer/Stats/RelationshipSection/RelationshipCreator"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ConfirmButton" type="Button" parent="MiddleContainer/ScrollContainer/Stats/RelationshipSection/RelationshipCreator"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "✔"
+icon_alignment = 2
+expand_icon = true
+
+[node name="CancelButton" type="Button" parent="MiddleContainer/ScrollContainer/Stats/RelationshipSection/RelationshipCreator"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "✖"
+icon_alignment = 2
+
+[node name="NewRelationshipButton" type="Button" parent="MiddleContainer/ScrollContainer/Stats/RelationshipSection"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Create New Relationship"
+expand_icon = true
+
+[node name="MemoriesSection" type="VBoxContainer" parent="MiddleContainer/ScrollContainer/Stats"]
+layout_mode = 2
+
+[node name="MemoriesLabel" type="Label" parent="MiddleContainer/ScrollContainer/Stats/MemoriesSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Memories"
+
+[node name="NewMemoryButton" type="Button" parent="MiddleContainer/ScrollContainer/Stats/MemoriesSection"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Create New Memory"
+expand_icon = true
+
+[node name="RightContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+offset_left = 1228.0
+offset_right = 1724.0
+offset_bottom = 1080.0
+
+[node name="ButtonPanel" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -452.0
+offset_top = -96.0
+offset_right = 151.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.5, 1.5)
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="BackButton" type="Button" parent="ButtonPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Go Back"
+icon_alignment = 1
+expand_icon = true
+
+[node name="StartButton" type="Button" parent="ButtonPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Confirm"
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="value_changed" from="LeftContainer/ScrollContainer/Stats/DetailTable/AgeEdit" to="." method="_on_age_edit_value_changed"]

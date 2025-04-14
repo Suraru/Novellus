@@ -1,0 +1,48 @@
+{
+	"age": 50.0,
+	"ambition": 3.0,
+	"appearance": {
+		"arms": 0.0,
+		"back": 0.0,
+		"belly": 0.0,
+		"chin": 1.0,
+		"ears": 0.0,
+		"eyes": 2.0,
+		"feet": 0.0,
+		"hair": 1.0,
+		"hands": 0.0,
+		"head": 0.0,
+		"legs": 0.0,
+		"mouth": 0.0,
+		"neck": 0.0,
+		"nose": 1.0,
+		"tail": 0.0,
+		"torso": 1.0
+	},
+	"charisma": 3.0,
+	"creativity": 3.0,
+	"endurance": 1.0,
+	"extroversion": 5.0,
+	"fullname": "Elf Test",
+	"gender": "Male",
+	"intelligence": 5.0,
+	"location": "The Void",
+	"name": "Elf",
+	"nickname": "",
+	"pronouns": {
+		"object": "Him",
+		"subject": "He"
+	},
+	"race": "Elf",
+	"relationships": [
+		{
+			"character": "character_1744448853",
+			"type": "Father"
+		}
+	],
+	"status": "Alive",
+	"strength": 5.0,
+	"stubbornness": 3.0,
+	"surname": "Test",
+	"traits": []
+}

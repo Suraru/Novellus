@@ -1,0 +1,100 @@
+[
+  {
+    "name": "Brave",
+    "description": "Unafraid in the face of danger. Slightly boosts strength and reduces fear penalties.",
+    "effects": {
+      "strength": 1,
+      "fear_resistance": 10
+    },
+    "prerequisites": {}
+  },
+  {
+    "name": "Clever",
+    "description": "Quick thinking and a sharp mind. Increases intelligence, but dislikes brute force.",
+    "effects": {
+      "intelligence": 2,
+      "strength": -1
+    },
+    "prerequisites": {
+      "intelligence": 4
+    }
+  },
+  {
+    "name": "Lazy",
+    "description": "Avoids hard work, prefers rest. Reduces endurance but boosts creativity.",
+    "effects": {
+      "endurance": -2,
+      "creativity": 2
+    },
+    "prerequisites": {}
+  },
+  {
+    "name": "Paranoid",
+    "description": "Constantly suspicious. Increases perception but reduces charisma.",
+    "effects": {
+      "perception": 1,
+      "charisma": -2
+    },
+    "prerequisites": {}
+  },
+  {
+    "name": "Charismatic",
+    "description": "Naturally charming. Improves relationships and persuasion.",
+    "effects": {
+      "charisma": 3
+    },
+    "prerequisites": {
+      "empathy": 2
+    }
+  },
+  {
+    "name": "Stoic",
+    "description": "Rarely shows emotion. Boosts endurance but hurts empathy.",
+    "effects": {
+      "endurance": 2,
+      "empathy": -1
+    },
+    "prerequisites": {}
+  },
+  {
+    "name": "Empath",
+    "description": "Deeply in tune with the emotions of others. Boosts empathy, reduces logic.",
+    "effects": {
+      "empathy": 3,
+      "logic": -1
+    },
+    "prerequisites": {
+      "charisma": 2
+    }
+  },
+  {
+    "name": "Strong",
+    "description": "Powerful build. Increases strength, but slightly lowers flexibility.",
+    "effects": {
+      "strength": 2,
+      "flexibility": -1
+    },
+    "prerequisites": {
+      "strength": 3
+    }
+  },
+  {
+    "name": "Reckless",
+    "description": "Acts without thinking. Increases strength and speed, but reduces luck and perception.",
+    "effects": {
+      "strength": 1,
+      "perception": -1,
+      "luck": -1
+    },
+    "prerequisites": {}
+  },
+  {
+    "name": "Mysterious",
+    "description": "Shrouded in secrecy. Slight boost to charisma and intelligence.",
+    "effects": {
+      "charisma": 1,
+      "intelligence": 1
+    },
+    "prerequisites": {}
+  }
+]

@@ -1,0 +1,42 @@
+{
+	"age": 25.0,
+	"ambition": 3.0,
+	"appearance": {
+		"arms": 2.0,
+		"back": 0.0,
+		"belly": 0.0,
+		"chin": 1.0,
+		"ears": 1.0,
+		"eyes": 2.0,
+		"feet": 0.0,
+		"hair": 1.0,
+		"hands": 0.0,
+		"head": 2.0,
+		"legs": 0.0,
+		"mouth": 2.0,
+		"neck": 1.0,
+		"nose": 1.0,
+		"tail": 0.0,
+		"torso": 2.0
+	},
+	"charisma": 1.0,
+	"creativity": 4.0,
+	"endurance": 1.0,
+	"extroversion": 2.0,
+	"fullname": "New Character",
+	"gender": "Male",
+	"intelligence": 5.0,
+	"location": "The Void",
+	"name": "New",
+	"nickname": "",
+	"pronouns": {
+		"object": "Him",
+		"subject": "He"
+	},
+	"race": "Human",
+	"status": "Alive",
+	"strength": 5.0,
+	"stubbornness": 3.0,
+	"surname": "Character",
+	"traits": []
+}

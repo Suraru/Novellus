@@ -1,0 +1,217 @@
+[gd_scene load_steps=3 format=3 uid="uid://1we5jji8o2o7"]
+
+[ext_resource type="Script" uid="uid://6tprynu0p8it" path="res://scripts/mainmenu/GameStart.gd" id="1_sw73k"]
+[ext_resource type="Texture2D" uid="uid://gap08bo5upnl" path="res://assets/background/characterbg.png" id="2_axt7q"]
+
+[node name="GameStart" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sw73k")
+
+[node name="Characterbg" type="Sprite2D" parent="."]
+scale = Vector2(1.25, 1.05469)
+texture = ExtResource("2_axt7q")
+centered = false
+
+[node name="MainContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = -100.0
+offset_bottom = -150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SaveFilesPanel" type="VBoxContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MainContainer/SaveFilesPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Load Saved Character"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MainContainer/SaveFilesPanel"]
+layout_mode = 2
+
+[node name="SaveFileList" type="ItemList" parent="MainContainer/SaveFilesPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+allow_reselect = true
+max_columns = 0
+same_column_width = true
+
+[node name="NewCharacterButton" type="Button" parent="MainContainer/SaveFilesPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Create New Character"
+
+[node name="VSeparator" type="VSeparator" parent="MainContainer"]
+layout_mode = 2
+
+[node name="CharacterPreviewPanel" type="VBoxContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MainContainer/CharacterPreviewPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Character Preview"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MainContainer/CharacterPreviewPanel"]
+layout_mode = 2
+
+[node name="CharacterInfoPanel" type="PanelContainer" parent="MainContainer/CharacterPreviewPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/CharacterPreviewPanel/CharacterInfoPanel"]
+layout_mode = 2
+
+[node name="NoCharacterLabel" type="Label" parent="MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 24
+text = "No Character Selected"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterPortrait" type="TextureRect" parent="MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CharacterDetails" type="VBoxContainer" parent="MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NameLabel" type="Label" parent="MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer/CharacterDetails"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Character Name"
+horizontal_alignment = 1
+
+[node name="DetailGrid" type="GridContainer" parent="MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer/CharacterDetails"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="AgeLabel" type="Label" parent="MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer/CharacterDetails/DetailGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Age:"
+
+[node name="AgeValue" type="Label" parent="MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer/CharacterDetails/DetailGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "25"
+
+[node name="RaceLabel" type="Label" parent="MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer/CharacterDetails/DetailGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Race:"
+
+[node name="RaceValue" type="Label" parent="MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer/CharacterDetails/DetailGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Human"
+
+[node name="GenderLabel" type="Label" parent="MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer/CharacterDetails/DetailGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Gender:"
+
+[node name="GenderValue" type="Label" parent="MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer/CharacterDetails/DetailGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Male"
+
+[node name="LifestageLabel" type="Label" parent="MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer/CharacterDetails/DetailGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Lifestage:"
+
+[node name="LifestageValue" type="Label" parent="MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer/CharacterDetails/DetailGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Adult"
+
+[node name="StartButton" type="Button" parent="MainContainer/CharacterPreviewPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = "Start Game"
+
+[node name="VSeparator2" type="VSeparator" parent="MainContainer"]
+layout_mode = 2
+
+[node name="StoryModePanel" type="VBoxContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MainContainer/StoryModePanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Story Mode"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MainContainer/StoryModePanel"]
+layout_mode = 2
+
+[node name="StoryModeGrid" type="GridContainer" parent="MainContainer/StoryModePanel"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="StoryModeMessage" type="Label" parent="MainContainer/StoryModePanel/StoryModeGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Story Campaigns Coming Soon..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StoryModeButton" type="Button" parent="MainContainer/StoryModePanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = "Start Campaign"
+
+[node name="ButtonPanel" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -452.0
+offset_top = -94.9999
+offset_right = 151.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.5, 1.5)
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="BackButton" type="Button" parent="ButtonPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Go Back"
+icon_alignment = 1
+expand_icon = true

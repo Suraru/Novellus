@@ -12,13 +12,13 @@ func _ready():
 	exit_button.pressed.connect(on_exit_pressed)
 
 func on_start_pressed():
-	get_tree().change_scene_to_file("res://scenes/MainMenu/CharacterCreator.tscn")
+	get_tree().change_scene_to_file("res://scenes/mainmenu/GameStart.tscn")
 
 func on_history_pressed():
-	get_tree().change_scene_to_file("res://scenes/MainMenu/History.tscn")
+	get_tree().change_scene_to_file("res://scenes/mainmenu/History.tscn")
 
 func on_settings_pressed():
-	get_tree().change_scene_to_file("res://scenes/MainMenu/Settings.tscn")
+	get_tree().change_scene_to_file("res://scenes/mainmenu/Settings.tscn")
 
 func on_exit_pressed():
 	get_tree().quit()

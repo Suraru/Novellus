@@ -8,6 +8,7 @@ extends Control
 @onready var back = $HBoxContainer/RightPanel/SpritePreview/Back
 @onready var left = $HBoxContainer/RightPanel/SpritePreview/Left
 @onready var right = $HBoxContainer/RightPanel/SpritePreview/Right
+@onready var start_button = $ButtonPanel/StartButton
 
 var characters = []
 var selected_file_path := ""
@@ -18,6 +19,7 @@ func _ready():
 	delete_button.pressed.connect(_on_delete_pressed)
 	$ButtonPanel/CreateButton.pressed.connect(_on_create_pressed)
 	$ButtonPanel/BackButton.pressed.connect(_on_back_pressed)
+	start_button.pressed.connect(_on_start_pressed)
 	_load_characters()
 
 func _load_characters():
@@ -26,6 +28,7 @@ func _load_characters():
 	selected_file_path = ""
 	delete_button.disabled = true
 	edit_button.disabled = true
+	start_button.disabled = true
 
 	var dir = DirAccess.open("res://characters")
 	if dir:
@@ -64,9 +67,12 @@ func _on_character_selected(index):
 		selected_file_path = characters[index]["file"]
 		edit_button.disabled = false
 		delete_button.disabled = false
+		start_button.disabled = false
+		GlobalState.current_character_path = selected_file_path
 	else:
 		edit_button.disabled = true
 		delete_button.disabled = true
+		start_button.disabled = true
 	# Load portrait/sprites here later
 
 func _on_edit_pressed():
@@ -89,7 +95,6 @@ func _on_create_pressed():
 		"fullname": "New Character",
 		"gender": "Male",
 		"location":"The Void",
-		
 		"status":"Alive",
 	}
 	var filename = "res://characters/character_%d.json" % Time.get_unix_time_from_system()
@@ -102,4 +107,9 @@ func _on_create_pressed():
 	get_tree().change_scene_to_file("res://scenes/mainmenu/charactercreator/RaceSelection.tscn")
 
 func _on_back_pressed():
-	get_tree().change_scene_to_file("res://scenes/MainMenu/MainMenu.tscn")
+	get_tree().change_scene_to_file("res://scenes/mainmenu/GameStart.tscn")
+
+func _on_start_pressed():
+	if selected_file_path != "":
+		print("Starting game with character: " + selected_file_path)
+		get_tree().change_scene_to_file("res://scenes/SandboxWorld.tscn")

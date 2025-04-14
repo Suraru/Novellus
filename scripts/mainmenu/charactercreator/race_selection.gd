@@ -87,4 +87,4 @@ func on_back_pressed():
 			dir.remove(file_path)
 			print("Character file deleted: " + file_path)
 			GlobalState.current_character_path = ""
-	get_tree().change_scene_to_file("res://scenes/mainmenu/CharacterCreator.tscn")
+	get_tree().change_scene_to_file("res://scenes/mainmenu/charactercreator/CharacterSelection.tscn")

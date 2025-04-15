@@ -22,9 +22,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 100.0
+offset_left = 304.0
 offset_top = 100.0
-offset_right = -100.0
+offset_right = -302.0
 offset_bottom = -150.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -36,11 +36,24 @@ size_flags_horizontal = 3
 [node name="Label" type="Label" parent="MainContainer/SaveFilesPanel"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Load Saved Character"
+text = "Save Files"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="MainContainer/SaveFilesPanel"]
 layout_mode = 2
+
+[node name="SaveTypeTabs" type="TabContainer" parent="MainContainer/SaveFilesPanel"]
+layout_mode = 2
+current_tab = 0
+
+[node name="Campaigns" type="Control" parent="MainContainer/SaveFilesPanel/SaveTypeTabs"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Saved Games" type="Control" parent="MainContainer/SaveFilesPanel/SaveTypeTabs"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="SaveFileList" type="ItemList" parent="MainContainer/SaveFilesPanel"]
 layout_mode = 2
@@ -49,11 +62,12 @@ allow_reselect = true
 max_columns = 0
 same_column_width = true
 
-[node name="NewCharacterButton" type="Button" parent="MainContainer/SaveFilesPanel"]
+[node name="StartButton" type="Button" parent="MainContainer/SaveFilesPanel"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
-text = "Create New Character"
+disabled = true
+text = "Start Game"
 
 [node name="VSeparator" type="VSeparator" parent="MainContainer"]
 layout_mode = 2
@@ -149,48 +163,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Adult"
 
-[node name="StartButton" type="Button" parent="MainContainer/CharacterPreviewPanel"]
+[node name="SwitchCharacterButton" type="Button" parent="MainContainer/CharacterPreviewPanel"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
-disabled = true
-text = "Start Game"
+text = "Switch Character"
 
 [node name="VSeparator2" type="VSeparator" parent="MainContainer"]
 layout_mode = 2
-
-[node name="StoryModePanel" type="VBoxContainer" parent="MainContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="MainContainer/StoryModePanel"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Story Mode"
-horizontal_alignment = 1
-
-[node name="HSeparator" type="HSeparator" parent="MainContainer/StoryModePanel"]
-layout_mode = 2
-
-[node name="StoryModeGrid" type="GridContainer" parent="MainContainer/StoryModePanel"]
-layout_mode = 2
-size_flags_vertical = 3
-columns = 2
-
-[node name="StoryModeMessage" type="Label" parent="MainContainer/StoryModePanel/StoryModeGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 6
-text = "Story Campaigns Coming Soon..."
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StoryModeButton" type="Button" parent="MainContainer/StoryModePanel"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 24
-disabled = true
-text = "Start Campaign"
 
 [node name="ButtonPanel" type="HBoxContainer" parent="."]
 layout_mode = 1

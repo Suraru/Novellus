@@ -32,18 +32,15 @@ func _ready():
 
 func _on_viewport_size_changed():
 	var viewport_size = get_viewport().get_visible_rect().size
-	var texture_size = background.texture.get_size()
 	
-	# Calculate scale to cover the entire viewport
-	var scale_x = viewport_size.x / texture_size.x
-	var scale_y = viewport_size.y / texture_size.y
-	var scale = max(scale_x, scale_y)
+	# Handle background scaling
+	var bg_texture_size = background.texture.get_size()
+	var bg_scale_x = viewport_size.x / bg_texture_size.x
+	var bg_scale_y = viewport_size.y / bg_texture_size.y
+	var scaling_factor = max(bg_scale_x, bg_scale_y)
 	
-	background.scale = Vector2(scale, scale)
-	
-	# Center the background
-	background.position = viewport_size / 2
-	background.centered = true
+	background.scale = Vector2(scaling_factor, scaling_factor)
+	background.centered = false
 
 func _on_human_selected():
 	selected_race = "Human"

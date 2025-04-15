@@ -273,6 +273,4 @@ func _on_back_pressed():
 	get_tree().change_scene_to_file("res://scenes/mainmenu/GameStart.tscn")
 
 func _on_start_pressed():
-	if selected_file_path != "":
-		print("Starting game with character: " + selected_file_path)
-		get_tree().change_scene_to_file("res://scenes/SandboxWorld.tscn")
+	get_tree().change_scene_to_file("res://scenes/mainmenu/GameStart.tscn")

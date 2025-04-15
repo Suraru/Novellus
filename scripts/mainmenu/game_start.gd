@@ -15,7 +15,6 @@ extends Control
 
 var characters = []
 var selected_file_path := ""
-const GlobalFormulas = preload("res://scripts/global_formulas.gd")
 
 func _ready():
 	# Connect signals

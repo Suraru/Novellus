@@ -574,7 +574,7 @@ func on_start_pressed():
 	file.close()
 	
 	# Proceed to next step or go back to main character screen
-	get_tree().change_scene_to_file("res://scenes/mainmenu/CharacterCreator.tscn")
+	get_tree().change_scene_to_file("res://scenes/mainmenu/charactercreator/CharacterSelection.tscn")
 
 func on_back_pressed():
 	get_tree().change_scene_to_file("res://scenes/mainmenu/charactercreator/ChangeAppearance.tscn")

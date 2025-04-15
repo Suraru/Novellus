@@ -84,7 +84,7 @@ func _ready():
 	update_ui()
 	
 	# Create and add the character preview
-	character_preview = preload("res://scripts/mainmenu/charactercreator/charactergen.gd").new()
+	character_preview = preload("res://scripts/mainmenu/charactercreator/character_generation.gd").new()
 	$PreviewMargin/PreviewContainer/SpriteContainer.add_child(character_preview)
 	
 	# Center the character preview in the container

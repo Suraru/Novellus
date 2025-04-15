@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://1we5jji8o2o7"]
 
-[ext_resource type="Script" uid="uid://6tprynu0p8it" path="res://scripts/mainmenu/GameStart.gd" id="1_sw73k"]
+[ext_resource type="Script" uid="uid://6tprynu0p8it" path="res://scripts/mainmenu/game_start.gd" id="1_sw73k"]
 [ext_resource type="Texture2D" uid="uid://gap08bo5upnl" path="res://assets/background/characterbg.png" id="2_axt7q"]
 
 [node name="GameStart" type="Control"]

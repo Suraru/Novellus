@@ -1,5 +1,7 @@
 extends Control
 
+@onready var background = $Characterbg
+
 @onready var human_button = $GridContainer/Humans/HumanButton
 @onready var elf_button = $GridContainer/Elves/ElfButton
 @onready var dwarf_button = $GridContainer/Dwarves/DwarfButton
@@ -14,6 +16,8 @@ extends Control
 var selected_race = ""
 
 func _ready():
+	get_viewport().size_changed.connect(_on_viewport_size_changed)
+	_on_viewport_size_changed()
 	human_button.pressed.connect(_on_human_selected)
 	elf_button.pressed.connect(_on_elf_selected)
 	dwarf_button.pressed.connect(_on_dwarf_selected)
@@ -25,6 +29,21 @@ func _ready():
 	aetheri_button.pressed.connect(_on_aetheri_selected)
 	chitari_button.pressed.connect(_on_chitari_selected)
 	$ButtonPanel/BackButton.pressed.connect(on_back_pressed)
+
+func _on_viewport_size_changed():
+	var viewport_size = get_viewport().get_visible_rect().size
+	var texture_size = background.texture.get_size()
+	
+	# Calculate scale to cover the entire viewport
+	var scale_x = viewport_size.x / texture_size.x
+	var scale_y = viewport_size.y / texture_size.y
+	var scale = max(scale_x, scale_y)
+	
+	background.scale = Vector2(scale, scale)
+	
+	# Center the background
+	background.position = viewport_size / 2
+	background.centered = true
 
 func _on_human_selected():
 	selected_race = "Human"

@@ -1,5 +1,7 @@
 extends Control
 
+@onready var background = $Characterbg
+
 # Settings dictionary to store all configuration
 var settings = {
 	"ui": {
@@ -60,6 +62,8 @@ const SETTINGS_PATH = "user://settings.cfg"
 @onready var auto_connect_checkbox = %CheckBox
 
 func _ready():
+	get_viewport().size_changed.connect(_on_viewport_size_changed)
+	_on_viewport_size_changed()
 	# Load settings
 	load_settings()
 	
@@ -68,6 +72,21 @@ func _ready():
 	
 	# Connect signals for UI elements
 	_connect_signals()
+	
+func _on_viewport_size_changed():
+	var viewport_size = get_viewport().get_visible_rect().size
+	var texture_size = background.texture.get_size()
+	
+	# Calculate scale to cover the entire viewport
+	var scale_x = viewport_size.x / texture_size.x
+	var scale_y = viewport_size.y / texture_size.y
+	var scale = max(scale_x, scale_y)
+	
+	background.scale = Vector2(scale, scale)
+	
+	# Center the background
+	background.position = viewport_size / 2
+	background.centered = true
 
 # Connect all UI element signals
 func _connect_signals():

@@ -1,12 +1,31 @@
 extends Control
 
+@onready var background = $Characterbg
+
 @onready var race_description = $RaceDescription
 @onready var race_image = $RaceImage
 
 func _ready():
+	get_viewport().size_changed.connect(_on_viewport_size_changed)
+	_on_viewport_size_changed()
 	$ButtonPanel/StartButton.pressed.connect(on_start_pressed)
 	$ButtonPanel/BackButton.pressed.connect(on_back_pressed)
 	_load_selected_race_data()
+
+func _on_viewport_size_changed():
+	var viewport_size = get_viewport().get_visible_rect().size
+	var texture_size = background.texture.get_size()
+	
+	# Calculate scale to cover the entire viewport
+	var scale_x = viewport_size.x / texture_size.x
+	var scale_y = viewport_size.y / texture_size.y
+	var scale = max(scale_x, scale_y)
+	
+	background.scale = Vector2(scale, scale)
+	
+	# Center the background
+	background.position = viewport_size / 2
+	background.centered = true
 
 var race_images = {
 	"Human": "res://assets/race_images/human.png",

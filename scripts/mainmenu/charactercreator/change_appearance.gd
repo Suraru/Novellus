@@ -1,5 +1,7 @@
 extends Control
 
+@onready var background = $Characterbg
+
 var character_data = {}
 var character_preview = null
 var body_parts = ["Hair", "Head", "Eyes", "Ears", "Nose", "Mouth", "Chin", "Neck", "Torso", "Arms", "Hands", "Belly", "Back", "Tail", "Legs", "Feet"]
@@ -47,6 +49,8 @@ var scale_ranges = {
 @onready var start_button = $ButtonPanel/StartButton
 
 func _ready():
+	get_viewport().size_changed.connect(_on_viewport_size_changed)
+	_on_viewport_size_changed()
 	# Connect UI buttons
 	start_button.pressed.connect(on_start_pressed)
 	navigation_back_button.pressed.connect(_on_back_pressed)
@@ -95,6 +99,21 @@ func _ready():
 	
 	# Update the preview with current character data
 	update_character_preview()
+
+func _on_viewport_size_changed():
+	var viewport_size = get_viewport().get_visible_rect().size
+	var texture_size = background.texture.get_size()
+	
+	# Calculate scale to cover the entire viewport
+	var scale_x = viewport_size.x / texture_size.x
+	var scale_y = viewport_size.y / texture_size.y
+	var scale = max(scale_x, scale_y)
+	
+	background.scale = Vector2(scale, scale)
+	
+	# Center the background
+	background.position = viewport_size / 2
+	background.centered = true
 
 func load_character_data():
 	var character_file_path = GlobalState.current_character_path

@@ -1,5 +1,7 @@
 extends Control
 
+@onready var background = $Characterbg
+
 @warning_ignore("shadowed_global_identifier")
 const GlobalFormulas = preload("res://scripts/global_formulas.gd")
 
@@ -59,6 +61,8 @@ var character_genders: Dictionary = {}    # Map of filename to gender
 var is_fullname_manually_edited: bool = false # Track if fullname was manually edited
 
 func _ready():
+	get_viewport().size_changed.connect(_on_viewport_size_changed)
+	_on_viewport_size_changed()
 	_load_character_data()
 	_load_available_traits()
 	_update_trait_list()
@@ -88,6 +92,21 @@ func _ready():
 	_load_existing_characters()
 	_load_relationships()
 	_detect_siblings()
+
+func _on_viewport_size_changed():
+	var viewport_size = get_viewport().get_visible_rect().size
+	var texture_size = background.texture.get_size()
+	
+	# Calculate scale to cover the entire viewport
+	var scale_x = viewport_size.x / texture_size.x
+	var scale_y = viewport_size.y / texture_size.y
+	var scale = max(scale_x, scale_y)
+	
+	background.scale = Vector2(scale, scale)
+	
+	# Center the background
+	background.position = viewport_size / 2
+	background.centered = true
 
 func _on_name_or_surname_changed(_new_text: String = ""):
 	# Only update fullname if it hasn't been manually edited

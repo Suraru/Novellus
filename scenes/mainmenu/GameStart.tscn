@@ -35,6 +35,7 @@ size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="MainContainer/SaveFilesPanel"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.796243, 0.796243, 0.796243, 1)
 theme_override_font_sizes/font_size = 32
 text = "Save Files"
 horizontal_alignment = 1
@@ -45,15 +46,21 @@ layout_mode = 2
 [node name="SaveTypeTabs" type="TabContainer" parent="MainContainer/SaveFilesPanel"]
 layout_mode = 2
 current_tab = 0
+clip_tabs = false
 
-[node name="Campaigns" type="Control" parent="MainContainer/SaveFilesPanel/SaveTypeTabs"]
+[node name="Saved Games" type="Control" parent="MainContainer/SaveFilesPanel/SaveTypeTabs"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="Saved Games" type="Control" parent="MainContainer/SaveFilesPanel/SaveTypeTabs"]
+[node name="Campaigns" type="Control" parent="MainContainer/SaveFilesPanel/SaveTypeTabs"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
+
+[node name="Multiplayer" type="Control" parent="MainContainer/SaveFilesPanel/SaveTypeTabs"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
 
 [node name="SaveFileList" type="ItemList" parent="MainContainer/SaveFilesPanel"]
 layout_mode = 2
@@ -78,6 +85,7 @@ size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="MainContainer/CharacterPreviewPanel"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.796243, 0.796243, 0.796243, 1)
 theme_override_font_sizes/font_size = 32
 text = "Character Preview"
 horizontal_alignment = 1

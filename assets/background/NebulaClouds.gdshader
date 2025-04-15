@@ -15,16 +15,16 @@ float hash(vec2 p) {
 float noise(vec2 st) {
     vec2 i = floor(st);
     vec2 f = fract(st);
-    
+
     // Smooth interpolation
     vec2 u = f * f * (3.0 - 2.0 * f);
-    
+
     // Four corners in 2D of a tile
     float a = hash(i);
     float b = hash(i + vec2(1.0, 0.0));
     float c = hash(i + vec2(0.0, 1.0));
     float d = hash(i + vec2(1.0, 1.0));
-    
+
     // Mix the four corners progressively
     return mix(a, b, u.x) +
             (c - a)* u.y * (1.0 - u.x) +
@@ -35,23 +35,23 @@ void fragment() {
     // Create multiple layers of noise
     vec2 st = UV * cloud_scale;
     st += time_seed * 0.05;
-    
+
     // Layered noise with different scales
     float n1 = noise(st);
     float n2 = noise(st * 2.0) * 0.5;
     float n3 = noise(st * 4.0) * 0.25;
-    
+
     // Combine noise layers
     float combined_noise = n1 + n2 + n3;
-    
+
     // Normalize and adjust noise
     combined_noise = smoothstep(0.4, 0.7, combined_noise);
-    
+
     // Color blending
     vec3 cloud_color = mix(base_color, accent_color, combined_noise);
-    
+
     // Alpha and density control
     float alpha = combined_noise * cloud_density;
-    
+
     COLOR = vec4(cloud_color, alpha);
 }

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://mainmenu"]
+[gd_scene load_steps=5 format=3 uid="uid://mainmenu"]
 
 [ext_resource type="Script" uid="uid://3gqa8lif53j1" path="res://scripts/mainmenu/MainMenu.gd" id="1_32njf"]
 [ext_resource type="Texture2D" uid="uid://gap08bo5upnl" path="res://assets/background/characterbg.png" id="2_xmi0c"]
 [ext_resource type="Texture2D" uid="uid://dquisrm3ixxsu" path="res://assets/background/title.png" id="3_32njf"]
+[ext_resource type="Texture2D" uid="uid://c0dp02grye0tt" path="res://assets/background/nebula.png" id="4_o8ig8"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -17,6 +18,17 @@ script = ExtResource("1_32njf")
 scale = Vector2(1.25, 1.05469)
 texture = ExtResource("2_xmi0c")
 centered = false
+
+[node name="Nebula" type="Node2D" parent="."]
+
+[node name="NebulaSpriteLayer" type="Sprite2D" parent="Nebula"]
+position = Vector2(957.5, 539.75)
+scale = Vector2(1341, 1080.5)
+texture = ExtResource("4_o8ig8")
+
+[node name="AnimationTimer" type="Timer" parent="Nebula"]
+wait_time = 2.0
+autostart = true
 
 [node name="Title" type="Sprite2D" parent="."]
 position = Vector2(726, 266)

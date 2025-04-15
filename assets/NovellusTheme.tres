@@ -1,0 +1,69 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://5mes334cago3"]
+
+[ext_resource type="FontFile" uid="uid://dmc53xp5sukvl" path="res://assets/EBGaramond-VariableFont_wght.ttf" id="EBGaramond-VariableFont_wght"]
+
+[sub_resource type="StyleBoxFlat" id="paper_button_hover"]
+bg_color = Color(0.92157, 0.8902, 0.8, 1)
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.4, 0.25, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 3
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="paper_button_normal"]
+bg_color = Color(0.87451, 0.85098, 0.74902, 1)
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.65098, 0.52549, 0.32549, 1)
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.2)
+shadow_size = 2
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="paper_button_pressed"]
+bg_color = Color(0.82353, 0.79608, 0.69804, 1)
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.31373, 0.2, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 1
+
+[sub_resource type="StyleBoxFlat" id="paper_panel"]
+bg_color = Color(0.94902, 0.92157, 0.84314, 1)
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.65098, 0.52549, 0.32549, 0.5)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[resource]
+default_font = ExtResource("EBGaramond-VariableFont_wght")
+default_font_size = 18
+Button/colors/font_color = Color(0.2, 0.2, 0.2, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.1, 0.1, 0.1, 1)
+Button/styles/hover = SubResource("paper_button_hover")
+Button/styles/normal = SubResource("paper_button_normal")
+Button/styles/pressed = SubResource("paper_button_pressed")
+Label/colors/font_color = Color(0.2, 0.2, 0.2, 1)
+Label/font_sizes/font_size = 18
+LineEdit/colors/font_color = Color(0.2, 0.2, 0.2, 1)
+LineEdit/styles/normal = SubResource("paper_panel")
+PanelContainer/styles/panel = SubResource("paper_panel")

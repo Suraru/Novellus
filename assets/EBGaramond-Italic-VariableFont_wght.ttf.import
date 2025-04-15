@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://udvqr7wagtov"
-path="res://.godot/imported/EBGaramond-Italic-VariableFont_wght.ttf-28d7940ae5876e3e93068cbf09b6fa66.fontdata"
+uid="uid://7rehfm1rgj5u"
+path="res://.godot/imported/EBGaramond-Italic-VariableFont_wght.ttf-839e273218d33a35919c93df101b72d5.fontdata"
 
 [deps]
 
-source_file="res://assets/font/EBGaramond-Italic-VariableFont_wght.ttf"
-dest_files=["res://.godot/imported/EBGaramond-Italic-VariableFont_wght.ttf-28d7940ae5876e3e93068cbf09b6fa66.fontdata"]
+source_file="res://assets/EBGaramond-Italic-VariableFont_wght.ttf"
+dest_files=["res://.godot/imported/EBGaramond-Italic-VariableFont_wght.ttf-839e273218d33a35919c93df101b72d5.fontdata"]
 
 [params]
 

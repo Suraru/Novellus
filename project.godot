@@ -12,8 +12,10 @@ config_version=5
 
 config/name="Novellus"
 config/description="A text-based fantasy life simulator."
+config/version="v0.0.1a"
 run/main_scene="uid://mainmenu"
 config/features=PackedStringArray("4.4")
+config/icon="uid://dupj68kofffh6"
 
 [autoload]
 
@@ -26,3 +28,8 @@ window/size/viewport_height=1080
 window/size/borderless=true
 window/stretch/mode="viewport"
 window/stretch/aspect="ignore"
+
+[gui]
+
+theme/custom="uid://5mes334cago3"
+theme/custom_font="uid://dmc53xp5sukvl"

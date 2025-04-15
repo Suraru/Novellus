@@ -2,7 +2,7 @@ extends Control
 
 @onready var background = $Characterbg
 @onready var save_file_list = $MainContainer/SaveFilesPanel/SaveFileList
-@onready var choose_character_button = $MainContainer/SaveFilesPanel/ChooseCharacterButton  # Renamed
+@onready var switch_character_button = $MainContainer/CharacterPreviewPanel/SwitchCharacterButton  # Renamed
 @onready var no_character_label = $MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer/NoCharacterLabel
 @onready var character_portrait = $MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer/CharacterPortrait
 @onready var character_details = $MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer/CharacterDetails
@@ -11,7 +11,7 @@ extends Control
 @onready var race_value = $MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer/CharacterDetails/DetailGrid/RaceValue
 @onready var gender_value = $MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer/CharacterDetails/DetailGrid/GenderValue
 @onready var lifestage_value = $MainContainer/CharacterPreviewPanel/CharacterInfoPanel/VBoxContainer/CharacterDetails/DetailGrid/LifestageValue
-@onready var start_button = $MainContainer/CharacterPreviewPanel/StartButton
+@onready var start_button = $MainContainer/SaveFilesPanel/StartButton
 @onready var back_button = $ButtonPanel/BackButton
 @onready var save_type_tabs = $MainContainer/SaveFilesPanel/SaveTypeTabs  # New tabbed container
 
@@ -39,8 +39,8 @@ func _ready():
 	else:
 		push_error("SaveFileList not found in GameStart scene")
 	
-	if choose_character_button:
-		choose_character_button.pressed.connect(_on_choose_character_pressed)
+	if switch_character_button:
+		switch_character_button.pressed.connect(_on_choose_character_pressed)
 	else:
 		push_error("ChooseCharacterButton not found in GameStart scene")
 	
@@ -91,12 +91,12 @@ func _load_files():
 	if start_button:
 		start_button.disabled = true
 	
-	var current_tab = 1  # Default to save files tab
+	var current_tab = 0  # Default to save files tab
 	if save_type_tabs:
 		current_tab = save_type_tabs.current_tab
 	
 	# First load campaigns if on campaign tab (0)
-	if current_tab == 0:
+	if current_tab == 1:
 		_load_campaign_files()
 	# Load save files if on saves tab (1)
 	else:

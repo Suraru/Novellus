@@ -1,7 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5d7ixu8cu34h"]
+[gd_scene load_steps=5 format=3 uid="uid://b5d7ixu8cu34h"]
 
 [ext_resource type="Script" uid="uid://ypvveh8hf7au" path="res://scripts/mainmenu/charactercreator/character_selection.gd" id="1_7000d"]
 [ext_resource type="Texture2D" uid="uid://gap08bo5upnl" path="res://assets/background/characterbg.png" id="2_2fgg6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h4r5e"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.760784)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p2k5m"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 0.8)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.25098)
+shadow_size = 4
 
 [node name="CharacterSelection" type="Control"]
 layout_mode = 3
@@ -17,109 +33,303 @@ scale = Vector2(1.25, 1.05469)
 texture = ExtResource("2_2fgg6")
 centered = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="MainContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 289.0
-offset_top = 11.0
-offset_right = -296.0
-offset_bottom = -8.0
+offset_left = 285.0
+offset_right = -288.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
 
-[node name="LeftPanel" type="VBoxContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(300, 600)
+[node name="ContentPanel" type="Panel" parent="MainContainer"]
 layout_mode = 2
-size_flags_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h4r5e")
 
-[node name="CharacterList" type="ItemList" parent="HBoxContainer/LeftPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/ContentPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Title" type="Label" parent="MainContainer/ContentPanel/VBoxContainer"]
 layout_mode = 2
-max_text_lines = 50
-auto_width = true
+theme_override_font_sizes/font_size = 32
+text = "Character Selection"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/ContentPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="LeftPanel" type="Panel" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p2k5m")
+
+[node name="CharacterListContainer" type="VBoxContainer" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/LeftPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/LeftPanel/CharacterListContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ListLabel" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/LeftPanel/CharacterListContainer/MarginContainer"]
+layout_mode = 2
+text = "Available Characters"
+horizontal_alignment = 1
+
+[node name="CharacterList" type="ItemList" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/LeftPanel/CharacterListContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/v_separation = 8
+max_text_lines = 3
 auto_height = true
-text_overrun_behavior = 1
-wraparound_items = false
-max_columns = 2
+text_overrun_behavior = 0
 same_column_width = true
 
-[node name="RightPanel" type="VBoxContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(724, 600)
+[node name="PaginationContainer" type="HBoxContainer" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/LeftPanel/CharacterListContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="Portrait" type="TextureRect" parent="HBoxContainer/RightPanel"]
+[node name="PrevPageButton" type="Button" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/LeftPanel/CharacterListContainer/PaginationContainer"]
 layout_mode = 2
-stretch_mode = 2
+text = "< Prev"
 
-[node name="SpritePreview" type="GridContainer" parent="HBoxContainer/RightPanel"]
+[node name="PageIndicator" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/LeftPanel/CharacterListContainer/PaginationContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+text = "Page 1/1"
+horizontal_alignment = 1
+
+[node name="NextPageButton" type="Button" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/LeftPanel/CharacterListContainer/PaginationContainer"]
+layout_mode = 2
+text = "Next >"
+
+[node name="RightPanel" type="Panel" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_p2k5m")
+
+[node name="CharacterDetails" type="VBoxContainer" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="CharacterName" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Select a Character"
+horizontal_alignment = 1
+
+[node name="CharacterInfo" type="HBoxContainer" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Portrait" type="TextureRect" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/CharacterInfo"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+stretch_mode = 5
+
+[node name="InfoContainer" type="VBoxContainer" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/CharacterInfo"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StatsContainer" type="GridContainer" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/CharacterInfo/InfoContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="RaceLabel" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/CharacterInfo/InfoContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Race:"
+
+[node name="RaceValue" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/CharacterInfo/InfoContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-"
+
+[node name="AgeLabel" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/CharacterInfo/InfoContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Age:"
+
+[node name="AgeValue" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/CharacterInfo/InfoContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-"
+
+[node name="GenderLabel" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/CharacterInfo/InfoContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Gender:"
+
+[node name="GenderValue" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/CharacterInfo/InfoContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-"
+
+[node name="LocationLabel" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/CharacterInfo/InfoContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Location:"
+
+[node name="LocationValue" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/CharacterInfo/InfoContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-"
+
+[node name="StatusLabel" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/CharacterInfo/InfoContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Status:"
+
+[node name="StatusValue" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/CharacterInfo/InfoContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-"
+
+[node name="SpritePreviewLabel" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails"]
+layout_mode = 2
+text = "Sprite Preview"
+horizontal_alignment = 1
+
+[node name="SpritePreview" type="GridContainer" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
 columns = 4
 
-[node name="Front" type="TextureRect" parent="HBoxContainer/RightPanel/SpritePreview"]
+[node name="Front" type="TextureRect" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/SpritePreview"]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch_mode = 5
 
-[node name="Back" type="TextureRect" parent="HBoxContainer/RightPanel/SpritePreview"]
-layout_mode = 2
-
-[node name="Left" type="TextureRect" parent="HBoxContainer/RightPanel/SpritePreview"]
-layout_mode = 2
-
-[node name="Right" type="TextureRect" parent="HBoxContainer/RightPanel/SpritePreview"]
-layout_mode = 2
-
-[node name="ButtonPanel" type="HBoxContainer" parent="."]
+[node name="FrontLabel" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/SpritePreview/Front"]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 12
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -452.0
-offset_top = -96.0
-offset_right = 151.0
-offset_bottom = -46.0
+offset_top = -23.0
 grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(1.5, 1.5)
+text = "Front"
+horizontal_alignment = 1
+
+[node name="Back" type="TextureRect" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/SpritePreview"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch_mode = 5
+
+[node name="BackLabel" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/SpritePreview/Back"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Back"
+horizontal_alignment = 1
+
+[node name="Left" type="TextureRect" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/SpritePreview"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch_mode = 5
+
+[node name="LeftLabel" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/SpritePreview/Left"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Left"
+horizontal_alignment = 1
+
+[node name="Right" type="TextureRect" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/SpritePreview"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch_mode = 5
+
+[node name="RightLabel" type="Label" parent="MainContainer/ContentPanel/VBoxContainer/HBoxContainer/RightPanel/CharacterDetails/SpritePreview/Right"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Right"
+horizontal_alignment = 1
+
+[node name="ButtonPanel" type="HBoxContainer" parent="MainContainer/ContentPanel/VBoxContainer"]
+layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="DeleteButton" type="Button" parent="ButtonPanel"]
+[node name="DeleteButton" type="Button" parent="MainContainer/ContentPanel/VBoxContainer/ButtonPanel"]
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
-size_flags_horizontal = 3
 disabled = true
 text = "Delete Character"
-icon_alignment = 1
-expand_icon = true
 
-[node name="EditButton" type="Button" parent="ButtonPanel"]
+[node name="EditButton" type="Button" parent="MainContainer/ContentPanel/VBoxContainer/ButtonPanel"]
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
-size_flags_horizontal = 3
 disabled = true
 text = "Edit Character"
-icon_alignment = 1
-expand_icon = true
 
-[node name="BackButton" type="Button" parent="ButtonPanel"]
+[node name="BackButton" type="Button" parent="MainContainer/ContentPanel/VBoxContainer/ButtonPanel"]
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Go Back"
-icon_alignment = 1
-expand_icon = true
 
-[node name="CreateButton" type="Button" parent="ButtonPanel"]
+[node name="CreateButton" type="Button" parent="MainContainer/ContentPanel/VBoxContainer/ButtonPanel"]
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Create New Character"
-icon_alignment = 1
-expand_icon = true
 
-[node name="StartButton" type="Button" parent="ButtonPanel"]
+[node name="StartButton" type="Button" parent="MainContainer/ContentPanel/VBoxContainer/ButtonPanel"]
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
-size_flags_horizontal = 3
 disabled = true
 text = "Start Game"
-icon_alignment = 1
-expand_icon = true

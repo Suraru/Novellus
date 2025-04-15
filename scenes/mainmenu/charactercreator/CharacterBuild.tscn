@@ -137,7 +137,7 @@ text = "Him"
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 96.0
-offset_bottom = 144.0
+offset_bottom = 133.0
 
 [node name="custom_gender_input" type="LineEdit" parent="LeftContainer/ScrollContainer/Stats/DetailTable/custom_gender_popup/VBoxContainer"]
 layout_mode = 2

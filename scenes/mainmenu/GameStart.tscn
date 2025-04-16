@@ -69,6 +69,51 @@ allow_reselect = true
 max_columns = 0
 same_column_width = true
 
+[node name="SaveButtonsContainer" type="HBoxContainer" parent="MainContainer/SaveFilesPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="CreateSaveButton" type="Button" parent="MainContainer/SaveFilesPanel/SaveButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Create New"
+
+[node name="DeleteSaveButton" type="Button" parent="MainContainer/SaveFilesPanel/SaveButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+disabled = true
+text = "Delete Save"
+
+[node name="MultiplayerContainer" type="VBoxContainer" parent="MainContainer/SaveFilesPanel"]
+visible = false
+layout_mode = 2
+
+[node name="ServerIPInput" type="LineEdit" parent="MainContainer/SaveFilesPanel/MultiplayerContainer"]
+layout_mode = 2
+placeholder_text = "Enter server IP:Port (e.g. 192.168.1.1:12345)"
+clear_button_enabled = true
+
+[node name="ServerButtonsContainer" type="HBoxContainer" parent="MainContainer/SaveFilesPanel/MultiplayerContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="AddServerButton" type="Button" parent="MainContainer/SaveFilesPanel/MultiplayerContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+disabled = true
+text = "Add Server"
+
+[node name="DeleteServerButton" type="Button" parent="MainContainer/SaveFilesPanel/MultiplayerContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+disabled = true
+text = "Delete Server"
+
 [node name="StartButton" type="Button" parent="MainContainer/SaveFilesPanel"]
 layout_mode = 2
 size_flags_horizontal = 3

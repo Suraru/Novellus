@@ -36,6 +36,9 @@ var items_per_page := 8
 var current_page := 0 
 var total_pages := 1
 
+# Store the save path if we're coming from the save creation screen
+var coming_from_save_path := ""
+
 func _ready():
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	_on_viewport_size_changed()
@@ -50,9 +53,24 @@ func _ready():
 	prev_page_button.pressed.connect(_on_prev_page_pressed)
 	next_page_button.pressed.connect(_on_next_page_pressed)
 	
+	# Check if we're coming from a save creation
+	_check_if_from_save_creation()
+	
 	# Load characters and setup pagination
 	_load_characters()
 	_update_pagination_ui()
+
+func _check_if_from_save_creation():
+	# Check if we're coming from a save file creation/edit
+	if Engine.has_singleton("GlobalState"):
+		# Check if GlobalState has the current_save_path variable and it's not empty
+		if "current_save_path" in GlobalState:
+			coming_from_save_path = GlobalState.current_save_path
+			
+			# If we have a save path, update the Start button text
+			if coming_from_save_path != "":
+				print("DEBUG: Coming from save creation with save path: " + coming_from_save_path)
+				start_button.text = "Select Character"
 
 func _on_viewport_size_changed():
 	var viewport_size = get_viewport().get_visible_rect().size
@@ -205,12 +223,11 @@ func _update_character_info(char_data):
 	location_value.text = char_data.get("location", "-")
 	status_value.text = char_data.get("status", "-")
 	
-	# Here you could load sprite previews and portrait
-	# For example:
-	# if char_data.has("portrait_path"):
-	#     var portrait_texture = load(char_data.portrait_path)
-	#     if portrait_texture:
-	#         portrait.texture = portrait_texture
+	# Load portrait if available
+	if char_data.has("portrait_path") and FileAccess.file_exists(char_data.portrait_path):
+		var portrait_texture = load(char_data.portrait_path)
+		if portrait_texture:
+			portrait.texture = portrait_texture
 
 func _reset_character_info():
 	character_name.text = "Select a Character"
@@ -273,4 +290,89 @@ func _on_back_pressed():
 	get_tree().change_scene_to_file("res://scenes/mainmenu/GameStart.tscn")
 
 func _on_start_pressed():
+	if selected_file_path == "":
+		return
+	
+	# Set the global character path
+	GlobalState.current_character_path = selected_file_path
+	
+	# Check if we're coming from a save creation
+	if coming_from_save_path != "":
+		print("DEBUG: Updating save file: " + coming_from_save_path + " with character: " + selected_file_path)
+		
+		# Update the save file with the selected character
+		var success = _update_save_with_character(coming_from_save_path, selected_file_path)
+		
+		if success:
+			print("DEBUG: Successfully updated save file")
+		else:
+			print("DEBUG: Failed to update save file")
+		
+		# Clear the current_save_path in GlobalState since we're done with it
+		GlobalState.current_save_path = ""
+	
+	# Return to the GameStart scene
 	get_tree().change_scene_to_file("res://scenes/mainmenu/GameStart.tscn")
+
+func _update_save_with_character(save_path, character_path):
+	print("DEBUG: Attempting to update save file: " + save_path + " with character: " + character_path)
+	
+	# Make sure the save file exists
+	if not FileAccess.file_exists(save_path):
+		print("DEBUG: Save file does not exist at: " + save_path)
+		return false
+	
+	# Read the save file data
+	var file = FileAccess.open(save_path, FileAccess.READ)
+	if not file:
+		print("DEBUG: Failed to open save file for reading")
+		return false
+	
+	var json_text = file.get_as_text()
+	file.close()
+	
+	# Parse the save data
+	var save_data = JSON.parse_string(json_text)
+	if typeof(save_data) != TYPE_DICTIONARY:
+		print("DEBUG: Failed to parse save data as dictionary")
+		return false
+	
+	print("DEBUG: Successfully parsed save data")
+	
+	# Update the save data
+	save_data["active_character"] = character_path
+	print("DEBUG: Set active_character to: " + character_path)
+	
+	# Add to characters list if not already there
+	if not "characters" in save_data:
+		save_data["characters"] = []
+	
+	if not character_path in save_data["characters"]:
+		save_data["characters"].append(character_path)
+		print("DEBUG: Added character to characters list")
+	
+	# Update the save name with character name if it's a new save
+	if save_data["save_name"] == "New Save" and FileAccess.file_exists(character_path):
+		var char_file = FileAccess.open(character_path, FileAccess.READ)
+		if char_file:
+			var char_json_text = char_file.get_as_text()
+			char_file.close()
+			
+			var char_data = JSON.parse_string(char_json_text)
+			if typeof(char_data) == TYPE_DICTIONARY and char_data.has("fullname"):
+				save_data["save_name"] = char_data["fullname"] + "'s Game"
+				print("DEBUG: Updated save name to: " + save_data["save_name"])
+	
+	# Write the updated data back to the file
+	file = FileAccess.open(save_path, FileAccess.WRITE)
+	if not file:
+		print("DEBUG: Failed to open save file for writing")
+		return false
+	
+	var new_json_text = JSON.stringify(save_data, "  ")
+	print("DEBUG: Writing updated save data: " + new_json_text)
+	file.store_string(new_json_text)
+	file.close()
+	
+	print("DEBUG: Successfully wrote updated save file")
+	return true

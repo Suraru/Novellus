@@ -1,19 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://crtfsusgmdnem"]
+[gd_scene load_steps=3 format=3 uid="uid://crtfsusgmdnem"]
 
 [ext_resource type="Script" uid="uid://bpi86ac82yx0r" path="res://scripts/mainmenu/charactercreator/race_selection.gd" id="1_0j3q8"]
-[ext_resource type="Texture2D" uid="uid://ba06evcomaitf" path="res://assets/icons/races/humans.png" id="1_t2cyd"]
-[ext_resource type="Texture2D" uid="uid://telkf2x5s1yi" path="res://assets/icons/races/elves.png" id="2_0j3q8"]
 [ext_resource type="Texture2D" uid="uid://gap08bo5upnl" path="res://assets/background/characterbg.png" id="2_pdlxq"]
-[ext_resource type="Texture2D" uid="uid://8a4ifons5ocy" path="res://assets/icons/races/dwarves.png" id="3_pdlxq"]
-[ext_resource type="Texture2D" uid="uid://d24bn327oyxt6" path="res://assets/icons/races/cyborgs.png" id="4_y8mq1"]
-[ext_resource type="Texture2D" uid="uid://c6dtlaftwuaui" path="res://assets/icons/races/orcs.png" id="5_68yn8"]
-[ext_resource type="Texture2D" uid="uid://m1avket5qysr" path="res://assets/icons/races/therins.png" id="6_wwlw2"]
-[ext_resource type="Texture2D" uid="uid://cc64rgdddvpmu" path="res://assets/icons/races/saurins.png" id="7_5erl3"]
-[ext_resource type="Texture2D" uid="uid://sqy2r64o7epu" path="res://assets/icons/races/netai.png" id="8_o1hes"]
-[ext_resource type="Texture2D" uid="uid://sld488uihf2m" path="res://assets/icons/races/aetheri.png" id="9_jnnu4"]
-[ext_resource type="Texture2D" uid="uid://cuwxwjsnx8yuv" path="res://assets/icons/races/chitari.png" id="10_hgkkp"]
 
-[node name="RaceSelection" type="Control"]
+[node name="ImprovedRaceSelection" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,138 +17,215 @@ scale = Vector2(1.25, 1.05469)
 texture = ExtResource("2_pdlxq")
 centered = false
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="MainContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 217.0
-offset_top = 171.0
-offset_right = -187.0
-offset_bottom = -197.0
+offset_left = 301.0
+offset_top = 50.0
+offset_right = -303.0
+offset_bottom = -120.0
 grow_horizontal = 2
 grow_vertical = 2
-columns = 5
 
-[node name="Humans" type="TextureRect" parent="GridContainer"]
+[node name="LeftPanel" type="VBoxContainer" parent="MainContainer"]
 layout_mode = 2
-texture = ExtResource("1_t2cyd")
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.35
 
-[node name="HumanButton" type="Button" parent="GridContainer/Humans"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Elves" type="TextureRect" parent="GridContainer"]
+[node name="Title" type="Label" parent="MainContainer/LeftPanel"]
 layout_mode = 2
-texture = ExtResource("2_0j3q8")
+theme_override_colors/font_color = Color(0.82606, 0.82606, 0.82606, 1)
+theme_override_font_sizes/font_size = 24
+text = "Select Your Race"
+horizontal_alignment = 1
 
-[node name="ElfButton" type="Button" parent="GridContainer/Elves"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Dwarves" type="TextureRect" parent="GridContainer"]
+[node name="RaceListScroll" type="ScrollContainer" parent="MainContainer/LeftPanel"]
 layout_mode = 2
-texture = ExtResource("3_pdlxq")
+size_flags_vertical = 3
 
-[node name="DwarfButton" type="Button" parent="GridContainer/Dwarves"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Cyborgs" type="TextureRect" parent="GridContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/LeftPanel/RaceListScroll"]
 layout_mode = 2
-texture = ExtResource("4_y8mq1")
+size_flags_horizontal = 3
 
-[node name="GiantButton" type="Button" parent="GridContainer/Cyborgs"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Orcs" type="TextureRect" parent="GridContainer"]
+[node name="RaceList" type="VBoxContainer" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer"]
 layout_mode = 2
-texture = ExtResource("5_68yn8")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
 
-[node name="OrcButton" type="Button" parent="GridContainer/Orcs"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Therins" type="TextureRect" parent="GridContainer"]
+[node name="Spacer1" type="Control" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
-texture = ExtResource("6_wwlw2")
 
-[node name="TherinButton" type="Button" parent="GridContainer/Therins"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Saurins" type="TextureRect" parent="GridContainer"]
+[node name="HumanoidLabel" type="Label" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
 layout_mode = 2
-texture = ExtResource("7_5erl3")
+theme_override_colors/font_color = Color(0.878431, 0.745098, 0.345098, 1)
+theme_override_font_sizes/font_size = 18
+text = "Humanoid Races"
 
-[node name="SaurinButton" type="Button" parent="GridContainer/Saurins"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Nerai" type="TextureRect" parent="GridContainer"]
+[node name="HSeparator1" type="HSeparator" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
 layout_mode = 2
-texture = ExtResource("8_o1hes")
 
-[node name="NeraiButton" type="Button" parent="GridContainer/Nerai"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Aetheri" type="TextureRect" parent="GridContainer"]
+[node name="Human" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
 layout_mode = 2
-texture = ExtResource("9_jnnu4")
+text = "Human"
+alignment = 0
 
-[node name="AetheriButton" type="Button" parent="GridContainer/Aetheri"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Chitari" type="TextureRect" parent="GridContainer"]
+[node name="Dwarf" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
 layout_mode = 2
-texture = ExtResource("10_hgkkp")
+text = "Dwarf"
+alignment = 0
 
-[node name="ChitariButton" type="Button" parent="GridContainer/Chitari"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Cyclops" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+text = "Cyclops"
+alignment = 0
+
+[node name="Halfling" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+text = "Halfling"
+alignment = 0
+
+[node name="Giant" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+text = "Giant"
+alignment = 0
+
+[node name="Gnome" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+text = "Gnome"
+alignment = 0
+
+[node name="Spacer2" type="Control" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="CelestialLabel" type="Label" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878431, 0.745098, 0.345098, 1)
+theme_override_font_sizes/font_size = 18
+text = "Celestial Races"
+
+[node name="HSeparator2" type="HSeparator" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+
+[node name="Fey" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+text = "Fey"
+alignment = 0
+
+[node name="Nevalim" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+text = "Nevalim"
+alignment = 0
+
+[node name="Orc" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+text = "Orc"
+alignment = 0
+
+[node name="Goblin" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+text = "Goblin"
+alignment = 0
+
+[node name="Hobgoblin" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+text = "Hobgoblin"
+alignment = 0
+
+[node name="Ogre" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+text = "Ogre"
+alignment = 0
+
+[node name="Spacer3" type="Control" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="SyntheticLabel" type="Label" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878431, 0.745098, 0.345098, 1)
+theme_override_font_sizes/font_size = 18
+text = "Synthetic Races"
+
+[node name="HSeparator3" type="HSeparator" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+
+[node name="Therin" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+text = "Therin"
+alignment = 0
+
+[node name="Saurin" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+text = "Saurin"
+alignment = 0
+
+[node name="Nerai" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+text = "Nerai"
+alignment = 0
+
+[node name="Aetheri" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+text = "Aetheri"
+alignment = 0
+
+[node name="Chitari" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+text = "Chitari"
+alignment = 0
+
+[node name="Synari" type="Button" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+layout_mode = 2
+text = "Synari"
+alignment = 0
+
+[node name="Spacer4" type="Control" parent="MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="RightPanel" type="VBoxContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.65
+
+[node name="Header" type="HBoxContainer" parent="MainContainer/RightPanel"]
+layout_mode = 2
+
+[node name="RaceTitle" type="Label" parent="MainContainer/RightPanel/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.82606, 0.82606, 0.82606, 1)
+theme_override_font_sizes/font_size = 24
+text = "Race Details"
+horizontal_alignment = 1
+
+[node name="DetailPanel" type="ScrollContainer" parent="MainContainer/RightPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DetailContent" type="VBoxContainer" parent="MainContainer/RightPanel/DetailPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RaceImage" type="TextureRect" parent="MainContainer/RightPanel/DetailPanel/DetailContent"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+stretch_mode = 5
+
+[node name="RaceDescription" type="Label" parent="MainContainer/RightPanel/DetailPanel/DetailContent"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/line_spacing = 8
+text = "Please select a race from the left panel to view details."
+autowrap_mode = 2
 
 [node name="ButtonPanel" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -167,9 +234,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -89.0
+offset_left = -452.0
 offset_top = -96.0
-offset_right = 30.0
+offset_right = 151.0
 offset_bottom = -46.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -181,5 +248,12 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Go Back"
+icon_alignment = 1
+expand_icon = true
+
+[node name="ConfirmButton" type="Button" parent="ButtonPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Confirm"
 icon_alignment = 1
 expand_icon = true

@@ -1,5 +1,3 @@
-Copyright © 2025 Suraru. All rights reserved.
-
 This software and all associated files (the "Software") are proprietary and confidential.
 Unauthorized copying, modification, distribution, or use of any part of the Software is strictly prohibited without explicit prior written permission from the copyright holder.
 
@@ -21,6 +19,3 @@ By accessing or using the Software, you agree to the following terms:
 
 5. Termination
    - Access to the Software may be revoked at any time by the copyright holder for violation of any of the above terms.
-
-For inquiries or licensing requests, please contact: Smitty9542@gmail.com
-

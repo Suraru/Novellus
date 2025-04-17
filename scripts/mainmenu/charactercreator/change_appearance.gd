@@ -55,9 +55,6 @@ func _ready():
 	start_button.pressed.connect(on_start_pressed)
 	navigation_back_button.pressed.connect(_on_back_pressed)
 	
-	if GlobalState.is_editing_character:
-		navigation_back_button.disabled = true
-	
 	# Connect navigation buttons for each body part
 	for part in body_parts:
 		var part_lower = part.to_lower()
@@ -113,36 +110,10 @@ func _on_viewport_size_changed():
 	background.centered = false
 
 func load_character_data():
-	var character_file_path = GlobalState.current_character_path
-	var file = FileAccess.open(character_file_path, FileAccess.READ)
-	if file:
-		var json_string = file.get_as_text()
-		var json_result = JSON.parse_string(json_string)
-		if json_result:
-			character_data = json_result
-			
-			# Initialize missing body parts with default values
-			for part in body_parts:
-				var part_lower = part.to_lower()
-				if not character_data.has("appearance"):
-					character_data["appearance"] = {}
-				
-				if not character_data["appearance"].has(part_lower):
-					character_data["appearance"][part_lower] = {
-						"type": 0,
-						"scale": 1.0
-					}
-				elif typeof(character_data["appearance"][part_lower]) == TYPE_INT:
-					# Convert old format to new format
-					var old_value = character_data["appearance"][part_lower]
-					character_data["appearance"][part_lower] = {
-						"type": old_value,
-						"scale": 1.0
-					}
-		else:
-			print("Error parsing JSON file")
-	else:
-		print("Could not open character file")
+	character_data = GlobalState.get_active_character_data()
+	
+	if character_data.is_empty():
+		print("No active character found")
 		# Initialize with default values
 		character_data = {"appearance": {}}
 		for part in body_parts:
@@ -151,15 +122,29 @@ func load_character_data():
 				"type": 0,
 				"scale": 1.0
 			}
+	else:
+		# Initialize missing body parts with default values
+		for part in body_parts:
+			var part_lower = part.to_lower()
+			if not character_data.has("appearance"):
+				character_data["appearance"] = {}
+			
+			if not character_data["appearance"].has(part_lower):
+				character_data["appearance"][part_lower] = {
+					"type": 0,
+					"scale": 1.0
+				}
+			elif typeof(character_data["appearance"][part_lower]) == TYPE_INT:
+				# Convert old format to new format
+				var old_value = character_data["appearance"][part_lower]
+				character_data["appearance"][part_lower] = {
+					"type": old_value,
+					"scale": 1.0
+				}
 
 func save_character_data():
-	var character_file_path = GlobalState.current_character_path
-	var file = FileAccess.open(character_file_path, FileAccess.WRITE)
-	if file:
-		var json_string = JSON.stringify(character_data)
-		file.store_string(json_string)
-	else:
-		print("Could not open character file for writing")
+	# Save to the active save file
+	GlobalState.add_character_to_save(character_data)
 	update_character_preview()
 
 func update_ui():

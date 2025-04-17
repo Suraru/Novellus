@@ -29,7 +29,7 @@ extends Control
 @onready var next_page_button = $MainContainer/ContentPanel/VBoxContainer/HBoxContainer/LeftPanel/CharacterListContainer/PaginationContainer/NextPageButton
 
 var characters = []
-var selected_file_path := ""
+var selected_character_id := ""
 
 # Pagination variables
 var items_per_page := 8
@@ -100,39 +100,28 @@ func _on_viewport_size_changed():
 func _load_characters():
 	character_list.clear()
 	characters.clear()
-	selected_file_path = ""
+	selected_character_id = ""
 	_reset_ui_state()
 
-	var dir = DirAccess.open("res://characters")
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		var found = false
+	# Get all characters
+	var all_characters = GlobalState.get_all_characters()
+	
+	if all_characters.size() == 0:
+		character_list.add_item("You have no saved characters! Create one to begin.")
+		character_list.set_item_disabled(0, true)
+		_reset_character_info()
+	else:
+		# Sort characters alphabetically by name
+		all_characters.sort_custom(func(a, b): return a.get("fullname", "") < b.get("fullname", ""))
 		
-		while file_name != "":
-			if file_name.ends_with(".json"):
-				var file_path = "res://characters/" + file_name
-				var file = FileAccess.open(file_path, FileAccess.READ)
-				if file:
-					var json_text = file.get_as_text()
-					var json = JSON.parse_string(json_text)
-					if typeof(json) == TYPE_DICTIONARY:
-						found = true
-						characters.append({
-							"data": json,
-							"file": file_path
-						})
-			file_name = dir.get_next()
-		dir.list_dir_end()
-
-		if not found:
-			character_list.add_item("You have no saved characters! Create one to begin.")
-			character_list.set_item_disabled(0, true)
-			_reset_character_info()
-		else:
-			# Sort characters alphabetically by name
-			characters.sort_custom(func(a, b): return a.data.get("fullname", "") < b.data.get("fullname", ""))
-			_update_pagination()
+		# Store characters
+		for character in all_characters:
+			characters.append({
+				"data": character,
+				"id": character.id
+			})
+		
+		_update_pagination()
 
 func _update_pagination():
 	# Calculate if we need pagination at all
@@ -205,11 +194,15 @@ func _on_character_selected(index):
 	var actual_index = current_page * items_per_page + index
 	
 	if actual_index < characters.size():
-		selected_file_path = characters[actual_index].file
+		var character_id = characters[actual_index].id
 		edit_button.disabled = false
 		delete_button.disabled = false
 		start_button.disabled = false
-		GlobalState.current_character_path = selected_file_path
+		
+		# Set the active character in GlobalState
+		selected_character_id = characters[actual_index].id
+		GlobalState.set_active_character(character_id)
+		
 		_update_character_info(characters[actual_index].data)
 	else:
 		_reset_ui_state()
@@ -251,128 +244,78 @@ func _reset_ui_state():
 	_reset_character_info()
 
 func _on_edit_pressed():
-	if selected_file_path != "":
-		GlobalState.current_character_path = selected_file_path
-		GlobalState.is_editing_character = true
-		get_tree().change_scene_to_file("res://scenes/mainmenu/charactercreator/ChangeAppearance.tscn")
+	# The active character is already set, just navigate to the appearance screen
+	get_tree().change_scene_to_file("res://scenes/mainmenu/charactercreator/ChangeAppearance.tscn")
+
 
 func _on_delete_pressed():
-	if selected_file_path != "":
-		var dir := DirAccess.open("res://")
-		if dir and FileAccess.file_exists(selected_file_path):
-			dir.remove(selected_file_path)
-			
-			# Reload characters and reset UI
-			_load_characters()
-			_reset_ui_state()
+	# Get the active character ID
+	var character_id = GlobalState.active_character_id
+	
+	if character_id.is_empty():
+		return
+	
+	# Create a confirmation dialog
+	var confirmation_dialog = ConfirmationDialog.new()
+	confirmation_dialog.title = "Confirm Deletion"
+	confirmation_dialog.dialog_text = "Are you sure you want to delete this character?"
+	confirmation_dialog.confirmed.connect(func():
+		# Remove character from save
+		GlobalState.remove_character_from_save(character_id)
+		
+		# Reload characters and reset UI
+		_load_characters()
+		_reset_ui_state()
+	)
+	
+	add_child(confirmation_dialog)
+	confirmation_dialog.popup_centered()
 
+# For _on_create_pressed() function in character_selection.gd
 func _on_create_pressed():
-	var new_character = {
-		"name": "New",
-		"surname": "Character",
-		"fullname": "New Character",
-		"gender": "Male",
-		"location": "The Void",
-		"status": "Alive",
-	}
+	# Clear active character so a new one will be created
+	GlobalState.set_active_character("")
 	
-	var filename = "res://characters/character_%d.json" % Time.get_unix_time_from_system()
-	var file = FileAccess.open(filename, FileAccess.WRITE)
-	file.store_string(JSON.stringify(new_character, "	"))
-	GlobalState.current_character_path = filename
-	file.close()
-	
-	_load_characters()
-	GlobalState.is_editing_character = false
+	# No need to set is_editing_character anymore
+	# Just navigate to the race selection screen
 	get_tree().change_scene_to_file("res://scenes/mainmenu/charactercreator/RaceSelection.tscn")
 
 func _on_back_pressed():
 	get_tree().change_scene_to_file("res://scenes/mainmenu/GameStart.tscn")
 
 func _on_start_pressed():
-	if selected_file_path == "":
+	print("Start button pressed with character_id: ", selected_character_id)
+	
+	if selected_character_id.is_empty():
+		print("ERROR: No character selected")
 		return
 	
-	# Set the global character path
-	GlobalState.current_character_path = selected_file_path
+	# Set the selected character as active in the current save
+	GlobalState.set_active_character(selected_character_id)
 	
-	# Check if we're coming from a save creation
-	if coming_from_save_path != "":
-		print("DEBUG: Updating save file: " + coming_from_save_path + " with character: " + selected_file_path)
-		
-		# Update the save file with the selected character
-		var success = _update_save_with_character(coming_from_save_path, selected_file_path)
-		
-		if success:
-			print("DEBUG: Successfully updated save file")
-		else:
-			print("DEBUG: Failed to update save file")
-		
-		# Clear the current_save_path in GlobalState since we're done with it
-		GlobalState.current_save_path = ""
+	# Make sure we update the save file with this character
+	var save_data = GlobalState.get_active_save_data()
+	print("Save data loaded: ", !save_data.is_empty())
 	
-	# Return to the GameStart scene
+	if !save_data.is_empty():
+		# Update the active character ID in the save data
+		save_data["active_character_id"] = selected_character_id
+		print("Setting active_character_id in save to: ", selected_character_id)
+		
+		# Also make sure the character is in the character_ids list
+		if !save_data.has("character_ids"):
+			save_data["character_ids"] = []
+			print("Created new character_ids array")
+		
+		if !save_data.character_ids.has(selected_character_id):
+			save_data.character_ids.append(selected_character_id)
+			print("Added character to character_ids list")
+		
+		# Save the changes back to the file
+		var success = GlobalState.save_active_save_data(save_data)
+		print("Save successful: ", success)
+	else:
+		print("ERROR: No active save data found")
+	
+	# Return to game start screen
 	get_tree().change_scene_to_file("res://scenes/mainmenu/GameStart.tscn")
-
-func _update_save_with_character(save_path, character_path):
-	print("DEBUG: Attempting to update save file: " + save_path + " with character: " + character_path)
-	
-	# Make sure the save file exists
-	if not FileAccess.file_exists(save_path):
-		print("DEBUG: Save file does not exist at: " + save_path)
-		return false
-	
-	# Read the save file data
-	var file = FileAccess.open(save_path, FileAccess.READ)
-	if not file:
-		print("DEBUG: Failed to open save file for reading")
-		return false
-	
-	var json_text = file.get_as_text()
-	file.close()
-	
-	# Parse the save data
-	var save_data = JSON.parse_string(json_text)
-	if typeof(save_data) != TYPE_DICTIONARY:
-		print("DEBUG: Failed to parse save data as dictionary")
-		return false
-	
-	print("DEBUG: Successfully parsed save data")
-	
-	# Update the save data
-	save_data["active_character"] = character_path
-	print("DEBUG: Set active_character to: " + character_path)
-	
-	# Add to characters list if not already there
-	if not "characters" in save_data:
-		save_data["characters"] = []
-	
-	if not character_path in save_data["characters"]:
-		save_data["characters"].append(character_path)
-		print("DEBUG: Added character to characters list")
-	
-	# Update the save name with character name if it's a new save
-	if save_data["save_name"] == "New Save" and FileAccess.file_exists(character_path):
-		var char_file = FileAccess.open(character_path, FileAccess.READ)
-		if char_file:
-			var char_json_text = char_file.get_as_text()
-			char_file.close()
-			
-			var char_data = JSON.parse_string(char_json_text)
-			if typeof(char_data) == TYPE_DICTIONARY and char_data.has("fullname"):
-				save_data["save_name"] = char_data["fullname"] + "'s Game"
-				print("DEBUG: Updated save name to: " + save_data["save_name"])
-	
-	# Write the updated data back to the file
-	file = FileAccess.open(save_path, FileAccess.WRITE)
-	if not file:
-		print("DEBUG: Failed to open save file for writing")
-		return false
-	
-	var new_json_text = JSON.stringify(save_data, "  ")
-	print("DEBUG: Writing updated save data: " + new_json_text)
-	file.store_string(new_json_text)
-	file.close()
-	
-	print("DEBUG: Successfully wrote updated save file")
-	return true

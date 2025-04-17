@@ -50,7 +50,6 @@ const GlobalFormulas = preload("res://scripts/global_formulas.gd")
 @onready var back_button = $ButtonPanel/BackButton
 
 var character_data = {}
-var character_file_path = GlobalState.current_character_path
 var custom_genders: Dictionary = {}
 var available_traits := {}
 var selected_traits: Array = []
@@ -88,6 +87,11 @@ func _ready():
 	name_input.text_changed.connect(_on_name_or_surname_changed)
 	surname_input.text_changed.connect(_on_name_or_surname_changed)
 	fullname_input.text_changed.connect(_on_fullname_changed)
+	
+	var character_data = GlobalState.get_active_character_data()
+	if !character_data.is_empty():
+		# We're editing an existing character
+		back_button.disabled = true
 	
 	_load_existing_characters()
 	_load_relationships()
@@ -128,66 +132,63 @@ func _load_available_traits():
 	}
 
 func _load_character_data():
-	if FileAccess.file_exists(character_file_path):
-		var file = FileAccess.open(character_file_path, FileAccess.READ)
-		var json = JSON.parse_string(file.get_as_text())
-		file.close()
-		if typeof(json) == TYPE_DICTIONARY:
-			character_data = json
-			name_input.text = character_data.get("name", "")
-			surname_input.text = character_data.get("surname", "")
-			nickname_input.text = character_data.get("nickname", "")
+	character_data = GlobalState.get_active_character_data()
+	
+	if !character_data.is_empty():
+		name_input.text = character_data.get("name", "")
+		surname_input.text = character_data.get("surname", "")
+		nickname_input.text = character_data.get("nickname", "")
+		
+		# Check if fullname exists in the data
+		if character_data.has("fullname") and character_data["fullname"] != "":
+			fullname_input.text = character_data["fullname"]
+			# If fullname differs from auto-generated, mark as manually edited
+			var auto_generated = name_input.text + " " + surname_input.text
+			is_fullname_manually_edited = (fullname_input.text != auto_generated)
+		else:
+			# Auto-generate fullname if not present
+			fullname_input.text = name_input.text + " " + surname_input.text
+			is_fullname_manually_edited = false
+		
+		# Set race
+		race_display.text = character_data.get("race", "Human").capitalize()
+		
+		# Set age or default to adulthood age for the race
+		if character_data.has("age"):
+			age_input.value = float(character_data["age"])
+		else:
+			# Get adulthood age for this race
+			var adulthood_age = GlobalFormulas.get_adulthood_age(race_display.text)
+			age_input.value = adulthood_age
 			
-			# Check if fullname exists in the data
-			if character_data.has("fullname") and character_data["fullname"] != "":
-				fullname_input.text = character_data["fullname"]
-				# If fullname differs from auto-generated, mark as manually edited
-				var auto_generated = name_input.text + " " + surname_input.text
-				is_fullname_manually_edited = (fullname_input.text != auto_generated)
-			else:
-				# Auto-generate fullname if not present
-				fullname_input.text = name_input.text + " " + surname_input.text
-				is_fullname_manually_edited = false
+		var lifestage = GlobalFormulas.get_lifestage(race_display.text, age_input.value)
+		lifestage_display.text = lifestage
+		
+		# Load gender if it exists
+		if character_data.has("gender"):
+			var gender = character_data["gender"]
+			_set_gender_ui(gender)
 			
-			# Set race
-			race_display.text = character_data.get("race", "Human").capitalize()
-			
-			# Set age or default to adulthood age for the race
-			if character_data.has("age"):
-				age_input.value = float(character_data["age"])
-			else:
-				# Get adulthood age for this race
-				var adulthood_age = GlobalFormulas.get_adulthood_age(race_display.text)
-				age_input.value = adulthood_age
-				
-			var lifestage = GlobalFormulas.get_lifestage(race_display.text, age_input.value)
-			lifestage_display.text = lifestage
-			
-			# Load gender if it exists
-			if character_data.has("gender"):
-				var gender = character_data["gender"]
-				_set_gender_ui(gender)
-				
-				# Also load pronouns if they exist
-				if character_data.has("pronouns"):
-					subject_pronoun_display.text = character_data["pronouns"].get("subject", "They")
-					object_pronoun_display.text = character_data["pronouns"].get("object", "Them")
-			
-			strength_slider.value = character_data.get("strength", 3)
-			intelligence_slider.value = character_data.get("intelligence", 3)
-			endurance_slider.value = character_data.get("endurance", 3)
-			charisma_slider.value = character_data.get("charisma", 3)
+			# Also load pronouns if they exist
+			if character_data.has("pronouns"):
+				subject_pronoun_display.text = character_data["pronouns"].get("subject", "They")
+				object_pronoun_display.text = character_data["pronouns"].get("object", "Them")
+		
+		strength_slider.value = character_data.get("strength", 3)
+		intelligence_slider.value = character_data.get("intelligence", 3)
+		endurance_slider.value = character_data.get("endurance", 3)
+		charisma_slider.value = character_data.get("charisma", 3)
 
-			creativity_slider.value = character_data.get("creativity", 3)
-			extroversion_slider.value = character_data.get("extroversion", 3)
-			ambition_slider.value = character_data.get("ambition", 3)
-			stubbornness_slider.value = character_data.get("stubbornness", 3)
-			
-			# Load traits if they exist
-			if character_data.has("traits"):
-				selected_traits = character_data["traits"]
-				for trait_name in selected_traits:
-					_add_trait_box(trait_name)
+		creativity_slider.value = character_data.get("creativity", 3)
+		extroversion_slider.value = character_data.get("extroversion", 3)
+		ambition_slider.value = character_data.get("ambition", 3)
+		stubbornness_slider.value = character_data.get("stubbornness", 3)
+		
+		# Load traits if they exist
+		if character_data.has("traits"):
+			selected_traits = character_data["traits"]
+			for trait_name in selected_traits:
+				_add_trait_box(trait_name)
 
 func _set_gender_ui(gender: String):
 	# Find and select the gender in the dropdown
@@ -325,38 +326,23 @@ func _load_existing_characters():
 	character_selector.clear()
 	character_selector.add_item("Random")
 	
-	var dir = DirAccess.open("res://characters")
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if file_name.ends_with(".json"):
-				var file_path = "res://characters/" + file_name
-				var char_name = file_name.replace(".json", "")
-				all_characters.append(char_name)
+	# Get all characters from the save file
+	var save_data = GlobalState.get_active_save_data()
+	if !save_data.is_empty() and save_data.has("characters"):
+		for character in save_data.characters:
+			if character.has("id"):
+				var char_id = character.id
+				all_characters.append(char_id)
 				
-				# Load character data to get fullname and gender
-				if FileAccess.file_exists(file_path):
-					var file = FileAccess.open(file_path, FileAccess.READ)
-					var json = JSON.parse_string(file.get_as_text())
-					file.close()
-					
-					if typeof(json) == TYPE_DICTIONARY:
-						var fullname = json.get("fullname", "")
-						if fullname == "":
-							fullname = json.get("name", "") + " " + json.get("surname", "")
-						
-						character_fullnames[char_name] = fullname.strip_edges()
-						character_genders[char_name] = json.get("gender", "")
-						
-						# Add to selector with the fullname for display
-						character_selector.add_item(fullname.strip_edges())
-					else:
-						character_selector.add_item(char_name)
-				else:
-					character_selector.add_item(char_name)
-			
-			file_name = dir.get_next()
+				var fullname = character.get("fullname", "")
+				if fullname == "":
+					fullname = character.get("name", "") + " " + character.get("surname", "")
+				
+				character_fullnames[char_id] = fullname.strip_edges()
+				character_genders[char_id] = character.get("gender", "")
+				
+				# Add to selector with the fullname for display
+				character_selector.add_item(fullname.strip_edges())
 
 func _load_relationships():
 	if character_data.has("relationships"):
@@ -433,34 +419,24 @@ func _detect_siblings():
 	# Find all characters that share the same parent
 	var parent_to_children = {}
 	
-	# Scan all character files to find parent relationships
-	var dir = DirAccess.open("res://characters")
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if file_name.ends_with(".json"):
-				var file_path = "res://characters/" + file_name
-				var char_name = file_name.replace(".json", "")
-				
-				if FileAccess.file_exists(file_path):
-					var file = FileAccess.open(file_path, FileAccess.READ)
-					var json = JSON.parse_string(file.get_as_text())
-					file.close()
-					
-					if typeof(json) == TYPE_DICTIONARY and json.has("relationships"):
-						for rel in json["relationships"]:
-							if rel["type"] == "Parent" or rel["type"] == "Father" or rel["type"] == "Mother":
-								var parent = rel["character"]
-								if !parent_to_children.has(parent):
-									parent_to_children[parent] = []
-								parent_to_children[parent].append(char_name)
-			
-			file_name = dir.get_next()
+	# Get current save data to find all characters
+	var save_data = GlobalState.get_active_save_data()
+	if save_data.is_empty() or not save_data.has("characters"):
+		return
+	
+	# First, build a mapping of parents to their children
+	for character in save_data.characters:
+		if character.has("relationships"):
+			for rel in character["relationships"]:
+				if rel["type"] == "Parent" or rel["type"] == "Father" or rel["type"] == "Mother":
+					var parent_id = rel["character"]
+					if !parent_to_children.has(parent_id):
+						parent_to_children[parent_id] = []
+					parent_to_children[parent_id].append(character.id)
 	
 	# Find current character's parents
 	var my_parents = []
-	var my_char_name = character_file_path.get_file().replace(".json", "")
+	var my_char_id = GlobalState.active_character_id
 	
 	for rel in relationships:
 		if rel["type"] == "Parent" or rel["type"] == "Father" or rel["type"] == "Mother":
@@ -469,21 +445,27 @@ func _detect_siblings():
 	# Add sibling relationships for characters that share parents with this character
 	for parent in my_parents:
 		if parent_to_children.has(parent):
-			for child in parent_to_children[parent]:
-				if child != my_char_name:
+			for child_id in parent_to_children[parent]:
+				if child_id != my_char_id:
 					# Check if this sibling already exists in relationships
 					var sibling_exists = false
 					for rel in relationships:
-						if (rel["type"] == "Sibling" or rel["type"] == "Brother" or rel["type"] == "Sister") and rel["character"] == child:
+						if (rel["type"] == "Sibling" or rel["type"] == "Brother" or rel["type"] == "Sister") and rel["character"] == child_id:
 							sibling_exists = true
 							break
 					
 					if !sibling_exists:
-						var gender = character_genders.get(child, "")
-						var relationship_type = _get_gender_term(gender, "Sibling")
+						# Find the gender of this child from the save data
+						var sibling_gender = ""
+						for character in save_data.characters:
+							if character.id == child_id:
+								sibling_gender = character.get("gender", "")
+								break
+						
+						var relationship_type = _get_gender_term(sibling_gender, "Sibling")
 						
 						var new_relationship = {
-							"character": child,
+							"character": child_id,
 							"type": relationship_type
 						}
 						relationships.append(new_relationship)
@@ -554,6 +536,10 @@ func _on_confirm_relationship():
 	relationship_creator.visible = false
 	new_relationship_button.visible = true
 	_update_relationship_list()
+	
+	# If we just added a parent relationship, detect siblings
+	if selected_type.begins_with("Parent") or selected_type == "Father" or selected_type == "Mother":
+		_detect_siblings()
 
 func on_start_pressed():
 	character_data["name"] = name_input.text
@@ -585,9 +571,8 @@ func on_start_pressed():
 	# Save traits
 	character_data["traits"] = selected_traits
 	
-	var file = FileAccess.open(character_file_path, FileAccess.WRITE)
-	file.store_string(JSON.stringify(character_data, "\t"))
-	file.close()
+	# Save to the active save file
+	GlobalState.add_character_to_save(character_data)
 	
 	# Proceed to next step or go back to main character screen
 	get_tree().change_scene_to_file("res://scenes/mainmenu/charactercreator/CharacterSelection.tscn")

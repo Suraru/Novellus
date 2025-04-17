@@ -189,23 +189,26 @@ func on_confirm_pressed():
 	get_tree().change_scene_to_file("res://scenes/mainmenu/charactercreator/ChangeAppearance.tscn")
 
 func _save_selected_race():
-	var file_path = GlobalState.current_character_path
-	var file = FileAccess.open(file_path, FileAccess.READ)
-	var json_text = file.get_as_text()
-	file.close()
-	var character_data = JSON.parse_string(json_text)
-	if typeof(character_data) == TYPE_DICTIONARY:
-		character_data["race"] = selected_race
-		file = FileAccess.open(file_path, FileAccess.WRITE)
-		file.store_string(JSON.stringify(character_data, "\t"))  # optional indent
-		file.close()
+	# Check if we have existing character data
+	var character_data = GlobalState.get_active_character_data()
+	
+	# If no character data exists yet, create a basic one
+	if character_data.is_empty():
+		character_data = {
+			"name": "New",
+			"surname": "Character",
+			"fullname": "New Character",
+			"gender": "Male",
+			"location": "The Void",
+			"status": "Alive",
+			"id": GlobalState.generate_unique_id()
+		}
+	
+	# Set the race
+	character_data["race"] = selected_race
+	
+	# Save to the active save file
+	GlobalState.add_character_to_save(character_data)
 
 func on_back_pressed():
-	var file_path = GlobalState.current_character_path
-	if file_path != "" and FileAccess.file_exists(file_path):
-		var dir = DirAccess.open("res://characters")
-		if dir:
-			dir.remove(file_path)
-			print("Character file deleted: " + file_path)
-			GlobalState.current_character_path = ""
 	get_tree().change_scene_to_file("res://scenes/mainmenu/charactercreator/CharacterSelection.tscn")

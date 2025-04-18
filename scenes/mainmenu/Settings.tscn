@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://d16kvmx1j8wsb"]
+[gd_scene load_steps=2 format=3 uid="uid://d16kvmx1j8wsb"]
 
 [ext_resource type="Texture2D" uid="uid://gap08bo5upnl" path="res://assets/background/characterbg.png" id="1_jq5l3"]
-[ext_resource type="Script" path="res://scripts/mainmenu/settings.gd" id="1_py38b"]
 
 [node name="Settings" type="Control"]
 layout_mode = 3
@@ -10,7 +9,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_py38b")
 
 [node name="Characterbg" type="Sprite2D" parent="."]
 scale = Vector2(1.25, 1.05469)

@@ -1,214 +1,205 @@
 extends Control
 
-@onready var background = $Characterbg
+# Scene paths
+const CHARACTER_SELECTION_SCENE = "res://scenes/mainmenu/charactercreator/CharacterSelection.tscn"
+const CHANGE_APPEARANCE_SCENE = "res://scenes/mainmenu/charactercreator/ChangeAppearance.tscn"
 
-# Race buttons
-@onready var race_list = $MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList
-
-# Detail panel elements
-@onready var race_title = $MainContainer/RightPanel/Header/RaceTitle
+# Node references
+@onready var race_list_container = $MainContainer/LeftPanel/RaceListScroll/MarginContainer/RaceList
 @onready var race_image = $MainContainer/RightPanel/DetailPanel/DetailContent/RaceImage
 @onready var race_description = $MainContainer/RightPanel/DetailPanel/DetailContent/RaceDescription
+@onready var race_title = $MainContainer/RightPanel/Header/RaceTitle
+@onready var back_button = $ButtonPanel/BackButton
 @onready var confirm_button = $ButtonPanel/ConfirmButton
 
-var selected_race = ""
-
-# Define race categories and the races within them
-var race_categories = {
-	"Humanoid": ["Human", "Elf", "Dwarf", "Halfling", "Gnome", "Cyclops", "Giant"],
-	"Celestial": ["Fey", "Nevalim", "Orc", "Goblin", "Hobgoblin", "Ogre", "Golem"],
-	"Synthetic": ["Therin", "Saurin", "Nerai", "Aetheri", "Chitari", "Synari"]
+# Race data
+var race_data = {
+	# Humanoid Races
+	"Human": {
+		"description": "Humans are versatile and adaptable, found in nearly every corner of the world. They are known for their ambition, creativity, and ability to thrive in diverse environments.",
+		"image": "res://assets/race_images/human.png"
+	},
+	"Dwarf": {
+		"description": "Dwarves are stout, hardy folk known for their craftsmanship and resilience. They excel at mining, metalworking, and have natural resistance to toxins.",
+		"image": "res://assets/race_images/dwarf.png"
+	},
+	"Cyclops": {
+		"description": "Cyclopes are large humanoids with a single eye. They possess immense strength and surprising dexterity, often working as blacksmiths or stone masons.",
+		"image": "res://assets/race_images/cyclops.png"
+	},
+	"Halfling": {
+		"description": "Halflings are small, nimble folk with a natural talent for stealth and remarkable luck. They value comfort and good food above all else.",
+		"image": "res://assets/race_images/halfling.png"
+	},
+	"Giant": {
+		"description": "Giants tower over other races, possessing incredible strength and endurance. Despite their fearsome appearance, many giants are contemplative and wise.",
+		"image": "res://assets/race_images/giant.png"
+	},
+	"Gnome": {
+		"description": "Gnomes are diminutive inventive geniuses with a natural affinity for illusion magic and mechanical contraptions. They approach life with enthusiasm and curiosity.",
+		"image": "res://assets/race_images/gnome.png"
+	},
+	
+	# Celestial Races
+	"Fey": {
+		"description": "Fey are ethereal beings with a deep connection to nature and magic. Their capricious nature and otherworldly beauty make them both sought after and feared.",
+		"image": "res://assets/race_images/fey.png"
+	},
+	"Nevalim": {
+		"description": "Nevalim are celestial beings of light and order. They serve as emissaries of higher powers, embodying justice and protection.",
+		"image": "res://assets/race_images/nevalim.png"
+	},
+	"Orc": {
+		"description": "Orcs are fierce warriors with impressive physical prowess. Their tribal society values strength and honor, with a rich tradition of oral history.",
+		"image": "res://assets/race_images/orc.png"
+	},
+	"Goblin": {
+		"description": "Goblins are small, clever creatures with a knack for scavenging and tinkering. Their innovative solutions often make up for their lack of physical strength.",
+		"image": "res://assets/race_images/goblin.png"
+	},
+	"Hobgoblin": {
+		"description": "Hobgoblins are disciplined and militaristic, valuing order and strategy. Their societies are highly organized with clear hierarchies and martial traditions.",
+		"image": "res://assets/race_images/hobgoblin.png"
+	},
+	"Ogre": {
+		"description": "Ogres are massive and strong, with voracious appetites. Despite their fearsome reputation, many ogres are gentle giants when treated with respect.",
+		"image": "res://assets/race_images/ogre.png"
+	},
+	
+	# Synthetic Races
+	"Therin": {
+		"description": "Therin are an ancient race crafted from arcane energies. Their fluid, ethereal forms allow them to manipulate elements and channel magical forces.",
+		"image": "res://assets/race_images/therin.png"
+	},
+	"Saurin": {
+		"description": "Saurin are reptilian humanoids with natural armor and keen senses. Their connection to primal forces grants them unique insights and abilities.",
+		"image": "res://assets/race_images/saurin.png"
+	},
+	"Nerai": {
+		"description": "Nerai are aquatic beings with an innate connection to water. Their societies thrive in underwater realms, with complex social structures and artistic traditions.",
+		"image": "res://assets/race_images/nerai.png"
+	},
+	"Aetheri": {
+		"description": "Aetheri are beings of pure energy, capable of manipulating the fundamental forces of the universe. Their perspective transcends physical limitations.",
+		"image": "res://assets/race_images/aetheri.png"
+	},
+	"Chitari": {
+		"description": "Chitari are insectoid beings with a hive-like mentality. Their collective intelligence and specialized physical adaptations make them formidable allies or opponents.",
+		"image": "res://assets/race_images/chitari.png"
+	},
+	"Synari": {
+		"description": "Synari are synthetic beings created through advanced alchemy and artifice. Their logical minds and customizable forms give them unique advantages.",
+		"image": "res://assets/race_images/synari.png"
+	}
 }
 
-# Map button node name to race name
-var button_to_race = {
-	"Human": "Human",
-	"Elf": "Elf",
-	"Dwarf": "Dwarf",
-	"Halfling": "Halfling",
-	"Gnome": "Gnome",
-	"Cyclops": "Cyclops",
-	"Giant": "Giant",
-	"Fey": "Fey",
-	"Nevalim": "Nevalim",
-	"Orc": "Orc",
-	"Goblin": "Goblin",
-	"Hobgoblin": "Hobgoblin",
-	"Ogre": "Ogre",
-	"Golem": "Golem",
-	"Therin": "Therin",
-	"Saurin": "Saurin",
-	"Nerai": "Nerai",
-	"Aetheri": "Aetheri",
-	"Chitari": "Chitari",
-	"Synari": "Synari"
-}
+# Currently selected race
+var selected_race: String = ""
 
 func _ready():
-	get_viewport().size_changed.connect(_on_viewport_size_changed)
-	_on_viewport_size_changed()
+	# Connect button signals
+	back_button.pressed.connect(_on_back_button_pressed)
+	confirm_button.pressed.connect(_on_confirm_button_pressed)
 	
-	# Connect race buttons
-	_connect_race_buttons()
+	# Connect race button signals
+	for child in race_list_container.get_children():
+		if child is Button:
+			child.pressed.connect(_on_race_button_pressed.bind(child.text))
 	
-	# Connect navigation buttons
-	$ButtonPanel/BackButton.pressed.connect(on_back_pressed)
-	confirm_button.pressed.connect(on_confirm_pressed)
-	
-	# Initially disable confirm button until race is selected
+	# Initialize UI
 	confirm_button.disabled = true
-
-func _connect_race_buttons():
-	# Connect all race buttons to their respective handlers
-	for button in race_list.get_children():
-		if button is Button:
-			var race_name = button_to_race.get(button.name, "")
-			if race_name != "":
-				button.pressed.connect(func(): _on_race_selected(race_name))
-
-func _on_viewport_size_changed():
-	var viewport_size = get_viewport().get_visible_rect().size
+	race_title.text = "Race Details"
+	race_description.text = "Please select a race from the left panel to view details."
+	race_image.texture = null
 	
-	# Handle background scaling
-	var bg_texture_size = background.texture.get_size()
-	var bg_scale_x = viewport_size.x / bg_texture_size.x
-	var bg_scale_y = viewport_size.y / bg_texture_size.y
-	var scaling_factor = max(bg_scale_x, bg_scale_y)
+	# Check if we're editing an existing character
+	if !GlobalVars.selected_character_id.is_empty():
+		var character_data = load_character_data(GlobalVars.selected_character_id)
+		if character_data.has("Race") && !character_data["Race"].is_empty():
+			selected_race = character_data["Race"]
+			# Select this race in the UI
+			for child in race_list_container.get_children():
+				if child is Button && child.text == selected_race:
+					child.emit_signal("pressed")
+					break
+
+# Button Handlers
+func _on_back_button_pressed():
+	# Delete the character if we just created it
+	if !GlobalVars.edit_character_mode && !GlobalVars.selected_character_id.is_empty():
+		delete_character(GlobalVars.selected_character_id)
 	
-	background.scale = Vector2(scaling_factor, scaling_factor)
-	background.centered = false
+	# Go back to character selection
+	get_tree().change_scene_to_file(CHARACTER_SELECTION_SCENE)
 
-var race_images = {
-	"Human": "res://assets/icons/races/humans.png",
-	"Elf": "res://assets/icons/races/elves.png",
-	"Dwarf": "res://assets/icons/races/dwarves.png",
-	"Cyclops": "res://assets/icons/races/cyborgs.png",
-	"Giant": "res://assets/icons/races/cyborgs.png",
-	"Orc": "res://assets/icons/races/orcs.png",
-	"Goblin": "res://assets/icons/races/orcs.png",
-	"Hobgoblin": "res://assets/icons/races/orcs.png",
-	"Therin": "res://assets/icons/races/therins.png",
-	"Saurin": "res://assets/icons/races/saurins.png",
-	"Nerai": "res://assets/icons/races/netai.png",
-	"Aetheri": "res://assets/icons/races/aetheri.png",
-	"Chitari": "res://assets/icons/races/chitari.png"
-	# Add the rest of your race images here
-}
-
-var race_descriptions = {
-	"Human": "Humans are the result of breeding between Cyclops and Dwarves. They were left on earth and became the dominant species after a few generations of evolution bottlenecked them into a single intelligent species. As magic dwindled in the 17th century following the execution of the final celestial races, they experienced a technological leap and dominated their planet alone until the Convergence in late 2012. 
-
-	Once nearing extinction, humanity was able to regain supremacy thanks to their incredible ability to quickly adapt and breed. While their population hasn’t had the chance to reach the same heights they did 300 years ago, they have at least become a much more unified people. Although you can still find humans who try to hold onto their ancient history and cultures, of which there were once thousands. 
-
-	Their four primary subraces include: Africans, Europeans, Asians, and Americans. There is little to no difference between them besides physical appearance.
-	
-	As a human, your stats are baseline with no increases or decreases.
-	
-	Your lifespan is 60-80 years, you reach adolescence by 12 and adulthood by 25.",
-	
-	"Elf": "Elves are the result of breeding between Fey and Humans. They appear largely similar to humans, but with pointed ears. Being a half-breed, their culture tends to match that of their parent’s, with most defaulting to human-like cultures, with sometimes a bit of Fey culture mixed in.
-
-	Elves began to raise in popularity after Fey interference began on Earth, however by the 17th century they were all killed off due to their aptitude for magic. While there were still some humans with some fey DNA, they were too diluted to be considered Elves. Now with the return of the Fey in 2012, Elves have found themselves back on the rise, although amongst strong resentment from the humans trying to preserve their species. 
-
-	Their four primary subraces are the same as Fey, being: High Elves, Wood Elves, Dark Elves, Elemental Elves. However unlike Fey, your skin color will match that of your human parent. 
-
-	As an Elf, you have a slight reduction to your intelligence thanks to your Fey ancestry, but your longer life makes up for it. You are also slightly more magically attuned, making you a bit more sensitive on average compared to humans. 
-	
-	Unlike pureblood Fey, your life span is not infinite, but you do age slower than humans, at least physically. You can easily live over 100 if you’re careful, but you’re a late bloomer, reaching adolescence by 14, and generally not being fully developed until 30. ",
-
-	"Dwarf": "Dwarves were created by Celestials to act as servants to the Fey. They live primarily on high gravity worlds, but have been known to be moved to mine other planets. This has resulted in a grudge against Fey, and by extension Elves, Gnomes, and Golems, stronger than their grudge against Demonkind, such as Orcs, Goblins, and Ogres. 
-
-	Many Dwarves have broken free of their shackles and have created highly socialized communes, taking the means of production into their own hands, at the cost of their individuality. Despite that, many of these communes have become incredibly wealthy. However, not all Dwarves are part of these communes, and others have gone off on their own to create their own living with their hard work.
-
-	 Dwarves have four primary subraces. Ground Dwarves, Mountain Dwarves, Core Dwarves, and Space Dwarves. 
-
-	Ground Dwarves live on the surface and specialize in tasks such as woodcutting, fishing, farming, or hunting. Their skin tends to appear similar to that of humans, ranging from peachy to darker tones. 
-
-	Mountain Dwarves make their living inside mountains, thus tend to appear as pale or gray. They specialize in forging, mining, construction, and have excellent dark vision, but struggle in high lit areas.
-
-	Core Dwarves are reddish in color and have high heat resistance, thus can be found just outside of the mantle of most planets. Lime Mountains Dwarves, they also specialize in forging, mining, and construction, but struggle to see in the dark. 
-
-	Space Dwarves are blue in color, and can survive prolonged exposure to space. While they still need oxygen to function, they are incredibly strong and radiation resistant. Their main specialization is mining asteroids.
-
-	Dwarves can live past 300 if they weren’t always putting stress on their body, so the average lifespan is half that unless you take on a different lifestyle. However, you do grow up faster, reaching adolescence by 8 and adulthood by 16. ",
-
-	"Cyclops": "Cyclops are very large tusked humanoids with single eyes, made by Demonkind to spite the Celestials.",
-	"Giant": "Giants are enormous humanoids, made from the unholy combination with Humans and Cyclops.",
-	"Gnome": "Gnomes are small, ingenious creatures with a natural talent for technology and magic. They are the children of Dwarves and Fey, but can also appear if you mix Halflings and Elves.",
-	"Fey": "Fey are the products of pure Celestials creating life. They are the closest you can get to godhood while still being constrained by mortality.",
-	"Nevalim": "Nevalim are the products of pure Demons creating life. However they have freewill and often don’t associate with their creators. Despite that, they are outcasts due to their connection to the infernal. Their offspring are also cursed to create orc-like abominations.",
-	"Orc": "Orcs are fey who have been corrupted into demonish creatures. To mate with them would be as if mating with Nevalim themselves.",
-	"Goblin": "Goblins are small, cunning creatures known for their mischievous nature. They are the creation of Orcs or Nevalim with Dwarves, Halflings, or Gnomes.",
-	"Hobgoblin": "Hobgoblins are the result of humans or elves, with Orcs or Nevalim ancestry, combining traits of both races.",
-	"Ogre": "Ogres are large, powerful beings known for their incredible strength and endurance. They are the result of Orcs or Nevalim mating with Cyclops, Ogres, or Golems.",
-	"Golem": "Golems are the result of Cyclops or Giants mating with Fey or Elves.",
-	"Therin": "Therins are bioengineered humans that take on animalistic traits. They can range from feline, canine, vulpine, or even ursine.",
-	"Saurin": "Saurins are bioengineered humans that take on reptilin traits. They can range from snakes, lizards, crocs, and turtles.",
-	"Nerai": "Nerai are bioengineered humans that take on marine traits. They can range from fish, dolphins, frogs, and even whales.",
-	"Aetheri": "Aetheri are bioengineered humans that take on avian traits. They can range from birds, birds, bird, and more birds.",
-	"Chitari": "Chitari are bioengineered humans that were overtaken by insect traits. They can range from ants, spiders, maggots, and centipedes.",
-	"Synari": "Synari are the newest synthetic race, combining elements of advanced AI with biological components."
-}
-
-func _on_race_selected(race):
-	selected_race = race
-	race_title.text = race
-	
-	# Update race image
-	if race in race_images:
-		race_image.texture = load(race_images[race])
-	else:
-		# Use a placeholder image if specific race image not found
-		race_image.texture = null
+func _on_confirm_button_pressed():
+	if !selected_race.is_empty() && !GlobalVars.selected_character_id.is_empty():
+		# Update character data with selected race
+		var character_data = load_character_data(GlobalVars.selected_character_id)
+		character_data["Race"] = selected_race
+		save_character_data(GlobalVars.selected_character_id, character_data)
 		
-	# Update race description
-	if race in race_descriptions:
-		race_description.text = race_descriptions[race]
+		# Go to change appearance screen
+		get_tree().change_scene_to_file(CHANGE_APPEARANCE_SCENE)
+
+func _on_race_button_pressed(race_name: String):
+	selected_race = race_name
+	
+	# Update UI
+	race_title.text = race_name
+	
+	if race_data.has(race_name):
+		race_description.text = race_data[race_name]["description"]
+		
+		# Load race image
+		var image_path = race_data[race_name]["image"]
+		if ResourceLoader.exists(image_path):
+			race_image.texture = load(image_path)
+		else:
+			race_image.texture = null
 	else:
-		race_description.text = "Description for " + race + " coming soon."
+		race_description.text = "No information available for this race."
+		race_image.texture = null
 	
-	# Enable confirm button now that a race is selected
+	# Enable confirm button
 	confirm_button.disabled = false
-	
-	# Highlight the selected race button
-	_highlight_selected_race(race)
 
-func _highlight_selected_race(race):
-	# Reset all buttons to normal state
-	for button in race_list.get_children():
-		if button is Button:
-			button.add_theme_color_override("font_color", Color(1, 1, 1))
+# Data Operations
+func load_character_data(character_id: String) -> Dictionary:
+	var file_path = GlobalVars.CHARACTERS_DIR + character_id + ".json"
 	
-	# Find and highlight the selected button
-	for button in race_list.get_children():
-		if button is Button and button.name == race:
-			button.add_theme_color_override("font_color", Color(1, 0.7, 0.2))
+	if FileAccess.file_exists(file_path):
+		var file = FileAccess.open(file_path, FileAccess.READ)
+		var json_text = file.get_as_text()
+		file.close()
+		
+		var json = JSON.new()
+		var error = json.parse(json_text)
+		if error == OK:
+			return json.data
+	
+	return {}
 
-func on_confirm_pressed():
-	_save_selected_race()
-	get_tree().change_scene_to_file("res://scenes/mainmenu/charactercreator/ChangeAppearance.tscn")
+func save_character_data(character_id: String, data: Dictionary) -> bool:
+	var file_path = GlobalVars.CHARACTERS_DIR + character_id + ".json"
+	
+	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	if file == null:
+		return false
+	
+	var json_text = JSON.stringify(data, "  ")
+	file.store_string(json_text)
+	file.close()
+	
+	return true
 
-func _save_selected_race():
-	# Check if we have existing character data
-	var character_data = GlobalState.get_active_character_data()
+func delete_character(character_id: String) -> bool:
+	var file_path = GlobalVars.CHARACTERS_DIR + character_id + ".json"
 	
-	# If no character data exists yet, create a basic one
-	if character_data.is_empty():
-		character_data = {
-			"name": "New",
-			"surname": "Character",
-			"fullname": "New Character",
-			"gender": "Male",
-			"location": "The Void",
-			"status": "Alive",
-			"id": GlobalState.generate_unique_id()
-		}
+	if FileAccess.file_exists(file_path):
+		var dir = DirAccess.open(GlobalVars.CHARACTERS_DIR)
+		if dir.remove(character_id + ".json") == OK:
+			GlobalVars.selected_character_id = ""
+			return true
 	
-	# Set the race
-	character_data["race"] = selected_race
-	
-	# Save to the active save file
-	GlobalState.add_character_to_save(character_data)
-
-func on_back_pressed():
-	get_tree().change_scene_to_file("res://scenes/mainmenu/charactercreator/CharacterSelection.tscn")
+	return false

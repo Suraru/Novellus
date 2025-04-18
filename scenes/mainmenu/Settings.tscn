@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d16kvmx1j8wsb"]
 
 [ext_resource type="Texture2D" uid="uid://gap08bo5upnl" path="res://assets/background/characterbg.png" id="1_jq5l3"]
-[ext_resource type="Script" uid="uid://dxl0tldh2xn4g" path="res://scripts/mainmenu/settings.gd" id="1_py38b"]
+[ext_resource type="Script" path="res://scripts/mainmenu/settings.gd" id="1_py38b"]
 
 [node name="Settings" type="Control"]
 layout_mode = 3

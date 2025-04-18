@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://crtfsusgmdnem"]
 
-[ext_resource type="Script" uid="uid://bpi86ac82yx0r" path="res://scripts/mainmenu/charactercreator/race_selection.gd" id="1_0j3q8"]
+[ext_resource type="Script" uid="uid://ee3blr30krq2" path="res://scripts/mainmenu/charactercreator/race_selection.gd" id="1_0j3q8"]
 [ext_resource type="Texture2D" uid="uid://gap08bo5upnl" path="res://assets/background/characterbg.png" id="2_pdlxq"]
 
 [node name="ImprovedRaceSelection" type="Control"]

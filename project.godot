@@ -19,7 +19,7 @@ config/icon="uid://dupj68kofffh6"
 
 [autoload]
 
-GlobalState="*res://scripts/global_state.gd"
+GlobalVars="*res://scripts/global_vars.gd"
 
 [display]
 

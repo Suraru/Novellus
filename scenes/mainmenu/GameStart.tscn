@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://1we5jji8o2o7"]
 
-[ext_resource type="Script" uid="uid://6tprynu0p8it" path="res://scripts/mainmenu/game_start.gd" id="1_sw73k"]
+[ext_resource type="Script" uid="uid://dshcndkdjd1xc" path="res://scripts/mainmenu/game_start.gd" id="1_sw73k"]
 [ext_resource type="Texture2D" uid="uid://gap08bo5upnl" path="res://assets/background/characterbg.png" id="2_axt7q"]
 
 [node name="GameStart" type="Control"]
@@ -80,6 +80,11 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "Create New"
 
+[node name="EditSaveButton" type="Button" parent="MainContainer/SaveFilesPanel/SaveButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Edit Name"
+
 [node name="DeleteSaveButton" type="Button" parent="MainContainer/SaveFilesPanel/SaveButtonsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -100,14 +105,14 @@ clear_button_enabled = true
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="AddServerButton" type="Button" parent="MainContainer/SaveFilesPanel/MultiplayerContainer"]
+[node name="AddServerButton" type="Button" parent="MainContainer/SaveFilesPanel/MultiplayerContainer/ServerButtonsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 disabled = true
 text = "Add Server"
 
-[node name="DeleteServerButton" type="Button" parent="MainContainer/SaveFilesPanel/MultiplayerContainer"]
+[node name="DeleteServerButton" type="Button" parent="MainContainer/SaveFilesPanel/MultiplayerContainer/ServerButtonsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20

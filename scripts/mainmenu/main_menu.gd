@@ -1,47 +1,52 @@
 extends Control
 
-@onready var background = $Characterbg
-@onready var title = $Title
+# Scene paths for navigation
+const GAME_START_SCENE = "res://scenes/mainmenu/GameStart.tscn"
+const HISTORY_SCENE = "res://scenes/mainmenu/History.tscn"
+const SETTINGS_SCENE = "res://scenes/mainmenu/Settings.tscn"
+
+# Node references
 @onready var start_button = $VBoxContainer/StartButton
 @onready var history_button = $VBoxContainer/HistoryButton
 @onready var settings_button = $VBoxContainer/SettingsButton
 @onready var exit_button = $VBoxContainer/ExitButton
+@onready var nebula_animation_timer = $Nebula/AnimationTimer
 
+# Called when the node enters the scene tree for the first time
 func _ready():
-	get_viewport().size_changed.connect(_on_viewport_size_changed)
-	_on_viewport_size_changed()
-	start_button.pressed.connect(on_start_pressed)
-	history_button.pressed.connect(on_history_pressed)
-	settings_button.pressed.connect(on_settings_pressed)
-	exit_button.pressed.connect(on_exit_pressed)
-
-func _on_viewport_size_changed():
-	var viewport_size = get_viewport().get_visible_rect().size
+	# Connect button signals to their respective functions
+	start_button.pressed.connect(_on_start_button_pressed)
+	history_button.pressed.connect(_on_history_button_pressed)
+	settings_button.pressed.connect(_on_settings_button_pressed)
+	exit_button.pressed.connect(_on_exit_button_pressed)
 	
-	# Handle background scaling
-	var bg_texture_size = background.texture.get_size()
-	var bg_scale_x = viewport_size.x / bg_texture_size.x
-	var bg_scale_y = viewport_size.y / bg_texture_size.y
-	var scaling_factor = max(bg_scale_x, bg_scale_y)
-	
-	background.scale = Vector2(scaling_factor, scaling_factor)
-	background.centered = false
-	
-	# Adjust title position
-	title.position = Vector2(viewport_size.x * 0.4, viewport_size.y * 0.25)
-	
-	# Scale title based on screen width
-	var scale_factor = viewport_size.x / 1920.0
-	title.scale = Vector2(scale_factor, scale_factor)
+	# Connect animation timer for nebula effect
+	nebula_animation_timer.timeout.connect(_on_animation_timer_timeout)
 
-func on_start_pressed():
-	get_tree().change_scene_to_file("res://scenes/mainmenu/GameStart.tscn")
+# Button click handlers
+func _on_start_button_pressed():
+	get_tree().change_scene_to_file(GAME_START_SCENE)
 
-func on_history_pressed():
-	get_tree().change_scene_to_file("res://scenes/mainmenu/History.tscn")
+func _on_history_button_pressed():
+	# This button is disabled in the UI but preparing the functionality
+	get_tree().change_scene_to_file(HISTORY_SCENE)
 
-func on_settings_pressed():
-	get_tree().change_scene_to_file("res://scenes/mainmenu/Settings.tscn")
+func _on_settings_button_pressed():
+	get_tree().change_scene_to_file(SETTINGS_SCENE)
 
-func on_exit_pressed():
+func _on_exit_button_pressed():
+	# Quit the game
 	get_tree().quit()
+
+# Animation for the nebula background
+func _on_animation_timer_timeout():
+	# Get nebula sprite node
+	var nebula_sprite = $Nebula/NebulaSpriteLayer
+	
+	# Create a subtle animation effect
+	# This could be a gentle rotation, color shift, or scale pulse
+	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	
+	# Example: subtle scale pulsing effect
+	tween.tween_property(nebula_sprite, "scale", Vector2(1.02, 1.02), 1.0)
+	tween.tween_property(nebula_sprite, "scale", Vector2(1.0, 1.0), 1.0)

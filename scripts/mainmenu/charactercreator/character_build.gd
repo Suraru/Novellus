@@ -5,38 +5,38 @@ const CHANGE_APPEARANCE_SCENE = "res://scenes/mainmenu/charactercreator/ChangeAp
 const CHARACTER_SELECTION_SCENE = "res://scenes/mainmenu/charactercreator/CharacterSelection.tscn"
 
 # Node references - Name and basic details
-@onready var fullname_edit = $LeftContainer/ScrollContainer/Stats/NameFields/FullnameEdit
-@onready var name_edit = $LeftContainer/ScrollContainer/Stats/NameFields/NameEdit
-@onready var surname_edit = $LeftContainer/ScrollContainer/Stats/NameFields/SurnameEdit
-@onready var nickname_edit = $LeftContainer/ScrollContainer/Stats/NameFields/NicknameEdit
+@onready var fullname_edit = $StatsScrollContainer/MarginContainer/Stats/NameFields/FullnameEdit
+@onready var name_edit = $StatsScrollContainer/MarginContainer/Stats/NameFields/NameEdit
+@onready var surname_edit = $StatsScrollContainer/MarginContainer/Stats/NameFields/SurnameEdit
+@onready var nickname_edit = $StatsScrollContainer/MarginContainer/Stats/NameFields/NicknameEdit
 
-@onready var age_edit = $LeftContainer/ScrollContainer/Stats/DetailTable/AgeEdit
-@onready var lifestage_display = $LeftContainer/ScrollContainer/Stats/DetailTable/lifestage_display
-@onready var race_display = $LeftContainer/ScrollContainer/Stats/DetailTable/race_display
-@onready var gender_dropdown = $LeftContainer/ScrollContainer/Stats/DetailTable/gender_dropdown
+@onready var age_edit = $StatsScrollContainer/MarginContainer/Stats/DetailTable/AgeEdit
+@onready var lifestage_display = $StatsScrollContainer/MarginContainer/Stats/DetailTable/lifestage_display
+@onready var race_display = $StatsScrollContainer/MarginContainer/Stats/DetailTable/race_display
+@onready var gender_dropdown = $StatsScrollContainer/MarginContainer/Stats/DetailTable/gender_dropdown
 
 # Pronouns display
-@onready var subject_pronoun_display = $LeftContainer/ScrollContainer/Stats/DetailTable/subject_pronoun_display
-@onready var object_pronoun_display = $LeftContainer/ScrollContainer/Stats/DetailTable/object_pronoun_display
+@onready var subject_pronoun_display = $StatsScrollContainer/MarginContainer/Stats/DetailTable/subject_pronoun_display
+@onready var object_pronoun_display = $StatsScrollContainer/MarginContainer/Stats/DetailTable/object_pronoun_display
 
 # Custom gender popup
-@onready var custom_gender_popup = $LeftContainer/ScrollContainer/Stats/DetailTable/custom_gender_popup
-@onready var custom_gender_input = $LeftContainer/ScrollContainer/Stats/DetailTable/custom_gender_popup/VBoxContainer/custom_gender_input
-@onready var custom_subject_input = $LeftContainer/ScrollContainer/Stats/DetailTable/custom_gender_popup/VBoxContainer/custom_subject_input
-@onready var custom_object_input = $LeftContainer/ScrollContainer/Stats/DetailTable/custom_gender_popup/VBoxContainer/custom_object_input
-@onready var confirm_custom_gender_button = $LeftContainer/ScrollContainer/Stats/DetailTable/custom_gender_popup/VBoxContainer/confirm_custom_gender_button
+@onready var custom_gender_popup = $StatsScrollContainer/MarginContainer/Stats/DetailTable/custom_gender_popup
+@onready var custom_gender_input = $StatsScrollContainer/MarginContainer/Stats/DetailTable/custom_gender_popup/VBoxContainer/custom_gender_input
+@onready var custom_subject_input = $StatsScrollContainer/MarginContainer/Stats/DetailTable/custom_gender_popup/VBoxContainer/custom_subject_input
+@onready var custom_object_input = $StatsScrollContainer/MarginContainer/Stats/DetailTable/custom_gender_popup/VBoxContainer/custom_object_input
+@onready var confirm_custom_gender_button = $StatsScrollContainer/MarginContainer/Stats/DetailTable/custom_gender_popup/VBoxContainer/confirm_custom_gender_button
 
 # Attributes
-@onready var strength_slider = $LeftContainer/ScrollContainer/Stats/AttributeTable/StrengthSlider
-@onready var intelligence_slider = $LeftContainer/ScrollContainer/Stats/AttributeTable/IntelligenceSlider
-@onready var endurance_slider = $LeftContainer/ScrollContainer/Stats/AttributeTable/EnduranceSlider
-@onready var charisma_slider = $LeftContainer/ScrollContainer/Stats/AttributeTable/CharismaSlider
+@onready var strength_slider = $StatsScrollContainer/MarginContainer/Stats/AttributeTable/StrengthSlider
+@onready var intelligence_slider = $StatsScrollContainer/MarginContainer/Stats/AttributeTable/IntelligenceSlider
+@onready var endurance_slider = $StatsScrollContainer/MarginContainer/Stats/AttributeTable/EnduranceSlider
+@onready var charisma_slider = $StatsScrollContainer/MarginContainer/Stats/AttributeTable/CharismaSlider
 
 # Personality
-@onready var creativity_slider = $LeftContainer/ScrollContainer/Stats/PersonalityTable/CreativitySlider
-@onready var extroversion_slider = $LeftContainer/ScrollContainer/Stats/PersonalityTable/ExtroversionSlider
-@onready var ambition_slider = $LeftContainer/ScrollContainer/Stats/PersonalityTable/AmbitionSlider
-@onready var stubbornness_slider = $LeftContainer/ScrollContainer/Stats/PersonalityTable/StubbornnessSlider
+@onready var creativity_slider = $StatsScrollContainer/MarginContainer/Stats/PersonalityTable/CreativitySlider
+@onready var extroversion_slider = $StatsScrollContainer/MarginContainer/Stats/PersonalityTable/ExtroversionSlider
+@onready var ambition_slider = $StatsScrollContainer/MarginContainer/Stats/PersonalityTable/AmbitionSlider
+@onready var stubbornness_slider = $StatsScrollContainer/MarginContainer/Stats/PersonalityTable/StubbornnessSlider
 
 # Relationship section
 @onready var relationship_list = $MiddleContainer/ScrollContainer/Stats/RelationshipSection/RelationshipList

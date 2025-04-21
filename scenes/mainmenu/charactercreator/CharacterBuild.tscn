@@ -19,10 +19,10 @@ centered = false
 
 [node name="StatsScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2
-offset_left = 290.0
-offset_top = 28.0
-offset_right = 740.0
-offset_bottom = 968.0
+offset_left = 266.0
+offset_top = 275.0
+offset_right = 716.0
+offset_bottom = 965.0
 
 [node name="MarginContainer" type="MarginContainer" parent="StatsScrollContainer"]
 layout_mode = 2
@@ -320,42 +320,12 @@ size_flags_horizontal = 3
 text = "Stubbornness"
 horizontal_alignment = 2
 
-[node name="TraitsSection" type="VBoxContainer" parent="StatsScrollContainer/MarginContainer/Stats"]
-layout_mode = 2
-
-[node name="TraitsLabel" type="Label" parent="StatsScrollContainer/MarginContainer/Stats/TraitsSection"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Traits"
-
-[node name="SelectedTraitsFlow" type="FlowContainer" parent="StatsScrollContainer/MarginContainer/Stats/TraitsSection"]
-layout_mode = 2
-
-[node name="AddTraitButton" type="Button" parent="StatsScrollContainer/MarginContainer/Stats/TraitsSection"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Add New Trait"
-
-[node name="TraitPopup" type="PopupPanel" parent="StatsScrollContainer/MarginContainer/Stats/TraitsSection"]
-size = Vector2i(200, 400)
-
-[node name="ScrollContainer" type="ScrollContainer" parent="StatsScrollContainer/MarginContainer/Stats/TraitsSection/TraitPopup"]
-offset_left = 3.0
-offset_top = 3.0
-offset_right = 197.0
-offset_bottom = 397.0
-
-[node name="TraitList" type="VBoxContainer" parent="StatsScrollContainer/MarginContainer/Stats/TraitsSection/TraitPopup/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
 [node name="RelationshipsContainer" type="ScrollContainer" parent="."]
 layout_mode = 2
-offset_left = 754.0
-offset_top = 27.0
-offset_right = 1204.0
-offset_bottom = 967.0
+offset_left = 741.0
+offset_top = 25.0
+offset_right = 1191.0
+offset_bottom = 965.0
 
 [node name="MarginContainer" type="MarginContainer" parent="RelationshipsContainer"]
 layout_mode = 2
@@ -364,6 +334,36 @@ size_flags_horizontal = 3
 [node name="Stats" type="VBoxContainer" parent="RelationshipsContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 40
+
+[node name="TraitsSection" type="VBoxContainer" parent="RelationshipsContainer/MarginContainer/Stats"]
+layout_mode = 2
+
+[node name="TraitsLabel" type="Label" parent="RelationshipsContainer/MarginContainer/Stats/TraitsSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Traits"
+
+[node name="SelectedTraitsFlow" type="FlowContainer" parent="RelationshipsContainer/MarginContainer/Stats/TraitsSection"]
+layout_mode = 2
+
+[node name="AddTraitButton" type="Button" parent="RelationshipsContainer/MarginContainer/Stats/TraitsSection"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Add New Trait"
+
+[node name="TraitPopup" type="PopupPanel" parent="RelationshipsContainer/MarginContainer/Stats/TraitsSection"]
+size = Vector2i(200, 400)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="RelationshipsContainer/MarginContainer/Stats/TraitsSection/TraitPopup"]
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 197.0
+offset_bottom = 397.0
+
+[node name="TraitList" type="VBoxContainer" parent="RelationshipsContainer/MarginContainer/Stats/TraitsSection/TraitPopup/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="RelationshipSection" type="VBoxContainer" parent="RelationshipsContainer/MarginContainer/Stats"]
 layout_mode = 2
@@ -420,6 +420,13 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "Create New Memory"
 expand_icon = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 1219.0
+offset_top = 26.0
+offset_right = 1669.0
+offset_bottom = 966.0
 
 [node name="ButtonPanel" type="HBoxContainer" parent="."]
 layout_mode = 1

@@ -1,7 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://oncshwmddi48"]
+[gd_scene load_steps=15 format=3 uid="uid://oncshwmddi48"]
 
 [ext_resource type="Script" uid="uid://dj4x1bwl2ish1" path="res://scripts/mainmenu/charactercreator/change_appearance.gd" id="1_jfgx6"]
 [ext_resource type="Texture2D" uid="uid://gap08bo5upnl" path="res://assets/background/characterbg.png" id="2_lrfw8"]
+[ext_resource type="Texture2D" uid="uid://dvl7ialochj14" path="res://assets/character/belly/belly-fat.png" id="3_injrq"]
+[ext_resource type="Texture2D" uid="uid://iu8jhpd57f7s" path="res://assets/character/torso/torso.png" id="4_hqoxt"]
+[ext_resource type="Texture2D" uid="uid://bg5x2js7yni2q" path="res://assets/character/neck/neck.png" id="5_dxrpx"]
+[ext_resource type="Texture2D" uid="uid://dkyc8tfrbsk73" path="res://assets/character/ears/ears-big.png" id="6_knhhn"]
+[ext_resource type="Texture2D" uid="uid://bg6g4i06tqxye" path="res://assets/character/eyes/eyes-squint.png" id="7_tcm17"]
+[ext_resource type="Texture2D" uid="uid://c73kuvp3hiu6u" path="res://assets/character/noses/nose.png" id="8_x8cbg"]
+[ext_resource type="Texture2D" uid="uid://l7jlsehwhthk" path="res://assets/character/mouth/mouth-cat.png" id="9_10gnj"]
+[ext_resource type="Texture2D" uid="uid://cg3t8krdi5hqe" path="res://assets/character/chin/chin-square.png" id="10_q1t33"]
+[ext_resource type="Texture2D" uid="uid://bokx87t3383vt" path="res://assets/character/arms/arm-normal.png" id="11_1fcnj"]
+[ext_resource type="Texture2D" uid="uid://btb5ou1d7fbnp" path="res://assets/character/hands/hands.png" id="12_koh8k"]
+[ext_resource type="Texture2D" uid="uid://crrkjuo5mkoyl" path="res://assets/character/legs/legs.png" id="13_v6msq"]
+[ext_resource type="Texture2D" uid="uid://cqubq4qcbxqjy" path="res://assets/character/feet/feet.png" id="14_gucrx"]
 
 [node name="ChangeAppearance" type="Control"]
 layout_mode = 3
@@ -2701,7 +2713,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 305.0
 offset_top = 43.0
-offset_right = -956.0
+offset_right = -955.0
 offset_bottom = -121.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -2729,6 +2741,259 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 stretch_mode = 5
+
+[node name="Belly" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = 266.0
+offset_right = -276.0
+offset_bottom = -142.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("3_injrq")
+
+[node name="Torso" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.19345e-05
+offset_top = -400.0
+offset_right = 3.05176e-05
+offset_bottom = -200.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_hqoxt")
+
+[node name="Neck" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -103.0
+offset_right = 2.0
+offset_bottom = -403.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_dxrpx")
+
+[node name="Head" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.0
+offset_top = -153.0
+offset_right = 226.0
+offset_bottom = 147.0
+grow_horizontal = 2
+scale = Vector2(0.5, 0.5)
+
+[node name="Hair" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -80.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EarL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -159.0
+offset_top = 70.0
+offset_right = -300.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_knhhn")
+
+[node name="EarR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 300.0
+offset_top = 70.0
+offset_right = 159.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_knhhn")
+flip_h = true
+
+[node name="EyeL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 110.0
+offset_right = -160.0
+offset_bottom = -130.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_tcm17")
+
+[node name="EyeR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 160.0
+offset_top = 110.0
+offset_right = -20.0
+offset_bottom = -130.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_tcm17")
+flip_h = true
+
+[node name="Nose" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 120.0
+offset_top = 120.0
+offset_right = -120.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_x8cbg")
+
+[node name="Mouth" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 220.0
+offset_right = -100.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_10gnj")
+
+[node name="Chin" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 270.0
+offset_right = -100.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_q1t33")
+
+[node name="ArmL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso"]
+layout_mode = 1
+offset_left = -200.0
+offset_bottom = 600.0
+texture = ExtResource("11_1fcnj")
+
+[node name="HandL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/ArmL"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 48.4848
+offset_top = 596.97
+offset_right = -51.5152
+offset_bottom = 96.9697
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_koh8k")
+
+[node name="ArmR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_right = 200.0
+offset_bottom = 600.0
+grow_horizontal = 0
+texture = ExtResource("11_1fcnj")
+flip_h = true
+
+[node name="HandR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/ArmR"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 57.5757
+offset_top = 600.0
+offset_right = -42.4243
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_koh8k")
+flip_h = true
+
+[node name="LegL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_right = 150.0
+offset_bottom = 500.0
+grow_vertical = 0
+texture = ExtResource("13_v6msq")
+
+[node name="FeetL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/LegL"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_right = 50.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("14_gucrx")
+
+[node name="LegR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -152.0
+offset_right = -2.0
+offset_bottom = 500.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("13_v6msq")
+flip_h = true
+
+[node name="FeetR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/LegR"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_right = 50.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("14_gucrx")
+flip_h = true
 
 [node name="SpritePreviewLabel" type="Label" parent="CharacterPreview/MarginContainer/VBoxContainer"]
 layout_mode = 2

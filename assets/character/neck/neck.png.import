@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhc72xkmn6fpy"
-path="res://.godot/imported/large.png-deeeb833d80c4c0280edc8a9b39db74f.ctex"
+uid="uid://bg5x2js7yni2q"
+path="res://.godot/imported/neck.png-38e712a16aae9c1452e1eb03f421275c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/character/noses/large.png"
-dest_files=["res://.godot/imported/large.png-deeeb833d80c4c0280edc8a9b39db74f.ctex"]
+source_file="res://assets/character/neck/neck.png"
+dest_files=["res://.godot/imported/neck.png-38e712a16aae9c1452e1eb03f421275c.ctex"]
 
 [params]
 

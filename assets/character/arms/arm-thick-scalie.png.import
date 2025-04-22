@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxp3tqd5v7gvu"
-path="res://.godot/imported/normal.png-631076ded759333ac924d2869a4cae3c.ctex"
+uid="uid://tatro5k1a4s6"
+path="res://.godot/imported/arm-thick-scalie.png-ccb16d503545577cb3b060ff814b7451.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/character/noses/normal.png"
-dest_files=["res://.godot/imported/normal.png-631076ded759333ac924d2869a4cae3c.ctex"]
+source_file="res://assets/character/arms/arm-thick-scalie.png"
+dest_files=["res://.godot/imported/arm-thick-scalie.png-ccb16d503545577cb3b060ff814b7451.ctex"]
 
 [params]
 

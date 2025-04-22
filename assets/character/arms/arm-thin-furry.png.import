@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhmp4jrkm0633"
-path="res://.godot/imported/snub.png-8ebe6731e374c00bf49a2671ee219af3.ctex"
+uid="uid://cgn6ykpwaacvc"
+path="res://.godot/imported/arm-thin-furry.png-42bb03e39ecdb81d5b8bc0739221c64b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/character/noses/snub.png"
-dest_files=["res://.godot/imported/snub.png-8ebe6731e374c00bf49a2671ee219af3.ctex"]
+source_file="res://assets/character/arms/arm-thin-furry.png"
+dest_files=["res://.godot/imported/arm-thin-furry.png-42bb03e39ecdb81d5b8bc0739221c64b.ctex"]
 
 [params]
 

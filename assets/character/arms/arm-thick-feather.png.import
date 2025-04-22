@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6x46ssxftjom"
-path="res://.godot/imported/hawk.png-0dc3ec563819e49cf4730e0180db955c.ctex"
+uid="uid://lg7a802iwmp7"
+path="res://.godot/imported/arm-thick-feather.png-5ebe59d54238892748183e84559aff33.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/character/noses/hawk.png"
-dest_files=["res://.godot/imported/hawk.png-0dc3ec563819e49cf4730e0180db955c.ctex"]
+source_file="res://assets/character/arms/arm-thick-feather.png"
+dest_files=["res://.godot/imported/arm-thick-feather.png-5ebe59d54238892748183e84559aff33.ctex"]
 
 [params]
 

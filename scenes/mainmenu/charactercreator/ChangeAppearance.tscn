@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://oncshwmddi48"]
+[gd_scene load_steps=16 format=3 uid="uid://oncshwmddi48"]
 
 [ext_resource type="Script" uid="uid://dj4x1bwl2ish1" path="res://scripts/mainmenu/charactercreator/change_appearance.gd" id="1_jfgx6"]
 [ext_resource type="Texture2D" uid="uid://gap08bo5upnl" path="res://assets/background/characterbg.png" id="2_lrfw8"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dx1wxr6ie8dbv" path="res://assets/character/torso/torso-human-masculine-normal.png" id="6_dxrpx"]
 [ext_resource type="Texture2D" uid="uid://dkyc8tfrbsk73" path="res://assets/character/ears/ears-big.png" id="6_knhhn"]
 [ext_resource type="Texture2D" uid="uid://bg6g4i06tqxye" path="res://assets/character/eyes/eyes-squint.png" id="7_tcm17"]
+[ext_resource type="Texture2D" uid="uid://cnpn7qnxwra5v" path="res://assets/character/head/head-human-normal-round.png" id="8_hqoxt"]
 [ext_resource type="Texture2D" uid="uid://c73kuvp3hiu6u" path="res://assets/character/noses/nose.png" id="8_x8cbg"]
 [ext_resource type="Texture2D" uid="uid://l7jlsehwhthk" path="res://assets/character/mouth/mouth-cat.png" id="9_10gnj"]
 [ext_resource type="Texture2D" uid="uid://cg3t8krdi5hqe" path="res://assets/character/chin/chin-square.png" id="10_q1t33"]
@@ -172,6 +173,7 @@ offset_right = 225.0
 offset_bottom = 170.0
 grow_horizontal = 2
 scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_hqoxt")
 
 [node name="HairBack" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/PortraitPreview/FullBodyView/Belly/Torso/Neck/Head"]
 layout_mode = 1
@@ -367,6 +369,7 @@ offset_right = 225.0
 offset_bottom = 170.0
 grow_horizontal = 2
 scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_hqoxt")
 
 [node name="HairBack" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/PortraitPreview/VBoxContainer/ProfilePreview/Neck/Head"]
 layout_mode = 1
@@ -622,7 +625,6 @@ alignment = 0
 icon_alignment = 2
 
 [node name="HairOptions" type="VBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/HairSection"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 

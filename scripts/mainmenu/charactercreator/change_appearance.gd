@@ -1,528 +1,853 @@
 extends Control
 
-# Scene paths
-const RACE_SELECTION_SCENE = "res://scenes/mainmenu/charactercreator/RaceSelection.tscn"
-const CHARACTER_BUILD_SCENE = "res://scenes/mainmenu/charactercreator/CharacterBuild.tscn"
-
-# Node references
-@onready var back_button = $ButtonPanel/BackButton
-@onready var randomize_button = $ButtonPanel/RandomizeButton
-@onready var confirm_button = $ButtonPanel/ConfirmButton
-
-# Tab references
-@onready var tab_container = $ScrollContainer/SelectionMargin/TabContainer
+# Base path for character assets
+const BASE_PATH = "res://assets/character/"
 
 # Character data
-var character_data = {
-	"head": {},
-	"body": {},
-	"colors": {},
-	"details": {}
-}
+var current_character = {}
+var current_race = "human"
+var character_parts = {}
+var available_parts = {}
 
-# Section trackers
-var active_section = ""
-var section_nodes = {}
+# Default scales
+var DEFAULT_BELLY_SCALE = Vector2(0.33, 0.33)
+var DEFAULT_PART_SCALE = Vector2(1.0, 1.0)
 
-# Arrays to store paired body parts checkboxes
-var separate_edit_checkboxes = {}
+# Track opened panels
+var open_panels = {}
+
+# Original positions of head parts
+var original_positions = {}
 
 func _ready():
-	# Connect button signals
-	back_button.pressed.connect(_on_back_button_pressed)
-	randomize_button.pressed.connect(_on_randomize_button_pressed)
-	confirm_button.pressed.connect(_on_confirm_button_pressed)
-	
-	# Setup all sections for each tab
-	_setup_head_sections()
-	_setup_body_sections()
-	_setup_colors_sections()
-	_setup_details_sections()
+	# Initialize everything
+	setup_ui_connections()
+	check_edit_mode()
+	load_character_data()
+	store_original_part_positions()
+	initialize_body_parts()
+	update_character_preview()
 
-# Setup functions
-func _setup_head_sections():
-	var head_panel = tab_container.get_node("Head/HeadPartsPanel")
-	_setup_collapsible_sections(head_panel, "head")
+func setup_ui_connections():
+	# Connect main buttons
+	$ButtonPanel/BackButton.pressed.connect(_on_back_button_pressed)
+	$ButtonPanel/RandomizeButton.pressed.connect(_on_randomize_button_pressed)
+	$ButtonPanel/ConfirmButton.pressed.connect(_on_confirm_button_pressed)
 	
-	# Setup separate edit checkboxes for applicable head parts
-	_setup_separate_edit_checkboxes(head_panel, "Eyes")
-	_setup_separate_edit_checkboxes(head_panel, "Ears")
+	# Connect all section buttons in both tabs
+	connect_all_section_buttons()
+	
+	# Connect edit separately checkboxes for paired parts
+	connect_all_edit_separately_options()
+	
+	# Connect sliders for all body parts
+	connect_all_sliders()
+	
+	# Setup color tab
+	setup_colors_tab()
 
-func _setup_body_sections():
-	var body_panel = tab_container.get_node("Body/BodyPartsPanel")
-	_setup_collapsible_sections(body_panel, "body")
+func connect_all_section_buttons():
+	# Head tab sections
+	var head_sections = ["Hair", "Head", "Eyes", "Ears", "Nose", "Mouth", "Chin", "Neck"]
+	for section in head_sections:
+		setup_collapsible_section("Head", section)
 	
-	# Setup separate edit checkboxes for applicable body parts
-	_setup_separate_edit_checkboxes(body_panel, "Arms")
-	_setup_separate_edit_checkboxes(body_panel, "Hands")
-	_setup_separate_edit_checkboxes(body_panel, "Legs")
-	_setup_separate_edit_checkboxes(body_panel, "Feet")
+	# Body tab sections
+	var body_sections = ["Torso", "Belly", "Arms", "Hands", "Legs", "Feet", "Back", "Tail"]
+	for section in body_sections:
+		setup_collapsible_section("Body", section)
 
-func _setup_colors_sections():
-	var colors_panel = tab_container.get_node("Colors/ColorsPanel")
-	
-	# Setup eye color separate checkbox
-	var eye_separate_checkbox = colors_panel.get_node("EyeColorSection/EditSeparatelyBox")
-	if eye_separate_checkbox:
-		eye_separate_checkbox.toggled.connect(_on_eye_color_separate_toggled)
-		separate_edit_checkboxes["EyeColor"] = {
-			"checkbox": eye_separate_checkbox,
-			"combined": colors_panel.get_node("EyeColorSection/EyesColorCombinedGrid"),
-			"separate": colors_panel.get_node("EyeColorSection/EyesColorSeparateContainer")
-		}
-	
-	# Connect color buttons
-	_connect_color_buttons(colors_panel.get_node("HairColorSection/HairColorGrid"), "hair")
-	_connect_color_buttons(colors_panel.get_node("SkinColorSection/SkinColorGrid"), "skin")
-	_connect_color_buttons(colors_panel.get_node("EyeColorSection/EyesColorCombinedGrid"), "eye")
-	_connect_color_buttons(colors_panel.get_node("DetailColorSection/DetailColorGrid"), "detail")
-	
-	# Connect separate eye color buttons
-	if colors_panel.get_node("EyeColorSection/EyesColorSeparateContainer/LeftEyeContainer/LeftEyeGrid"):
-		_connect_color_buttons(
-			colors_panel.get_node("EyeColorSection/EyesColorSeparateContainer/LeftEyeContainer/LeftEyeGrid"), 
-			"eye_left"
-		)
-	
-	if colors_panel.get_node("EyeColorSection/EyesColorSeparateContainer/RightEyeContainer/RightEyeGrid"):
-		_connect_color_buttons(
-			colors_panel.get_node("EyeColorSection/EyesColorSeparateContainer/RightEyeContainer/RightEyeGrid"), 
-			"eye_right"
-		)
+func connect_all_edit_separately_options():
+	var paired_parts = ["Eyes", "Ears", "Arms", "Hands", "Legs", "Feet"]
+	for part in paired_parts:
+		connect_edit_separately(part)
 
-func _setup_details_sections():
-	var details_panel = tab_container.get_node("Details/DetailsPanel")
-	
-	# Connect tattoo buttons
-	var tattoos_grid = details_panel.get_node("TattoosSection/TattoosGrid")
-	if tattoos_grid:
-		for button in tattoos_grid.get_children():
-			button.pressed.connect(_on_tattoo_selected.bind(button.name))
-	
-	# Connect scar buttons
-	var scars_grid = details_panel.get_node("ScarsSection/ScarsGrid")
-	if scars_grid:
-		for button in scars_grid.get_children():
-			button.pressed.connect(_on_scar_selected.bind(button.name))
-	
-	# Connect pattern buttons
-	var patterns_grid = details_panel.get_node("PatternsSection/PatternsGrid")
-	if patterns_grid:
-		for button in patterns_grid.get_children():
-			button.pressed.connect(_on_pattern_selected.bind(button.name))
-	
-	# Connect sliders for details
-	_connect_sliders(details_panel.get_node("TattoosSection/TattooOptionsContainer"), "tattoo")
-	_connect_sliders(details_panel.get_node("ScarsSection/ScarOptionsContainer"), "scar")  
-	_connect_sliders(details_panel.get_node("PatternsSection/PatternOptionsContainer"), "pattern")
+func connect_all_sliders():
+	var all_parts = ["Head", "Eyes", "Ears", "Nose", "Mouth", "Chin", "Neck", 
+					"Torso", "Belly", "Arms", "Hands", "Legs", "Feet", "Back", "Tail"]
+	for part in all_parts:
+		connect_sliders_for_part(part)
 
-func _setup_collapsible_sections(panel, category):
-	# For each section with a button and options
-	for section in panel.get_children():
-		if section is VBoxContainer:
-			# Get button node (might have different names in different sections)
-			var button = null
-			for child in section.get_children():
-				if child is Button:
-					button = child
-					break
+func setup_collapsible_section(tab_name, section_name):
+	# Fix for the Neck section - there was a naming mismatch in the scene
+	var button_name = section_name + "Button"
+	if section_name == "Neck":
+		button_name = "ChinButton" # The scene had "ChinButton" for the Neck section
+	
+	var button_path = "ScrollContainer/SelectionMargin/TabContainer/" + tab_name + "/" + tab_name + "PartsPanel/" + section_name + "Section/" + button_name
+	var options_path = "ScrollContainer/SelectionMargin/TabContainer/" + tab_name + "/" + tab_name + "PartsPanel/" + section_name + "Section/" + section_name + "Options"
+	
+	if has_node(button_path) and has_node(options_path):
+		get_node(button_path).pressed.connect(func(): toggle_panel(tab_name, section_name))
+		open_panels[section_name] = false
+
+func toggle_panel(tab_name, section_name):
+	var options_path = "ScrollContainer/SelectionMargin/TabContainer/" + tab_name + "/" + tab_name + "PartsPanel/" + section_name + "Section/" + section_name + "Options"
+	
+	if has_node(options_path):
+		var options_node = get_node(options_path)
+		open_panels[section_name] = !open_panels[section_name]
+		options_node.visible = open_panels[section_name]
+		
+		if open_panels[section_name]:
+			populate_style_options(section_name.to_lower())
+
+func store_original_part_positions():
+	# Store the original positions of all head parts
+	original_positions = {
+		"eyes_l": $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EyeL.position,
+		"eyes_r": $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EyeR.position,
+		"ears_l": $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EarL.position,
+		"ears_r": $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EarR.position,
+		"nose": $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/Nose.position,
+		"mouth": $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/Mouth.position,
+		"chin": $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/Chin.position
+	}
+	
+	# Store as part of character_parts for persistence
+	character_parts["original_positions"] = original_positions.duplicate()
+
+func connect_edit_separately(part_name):
+	var tab_name = "Head" if part_name in ["Eyes", "Ears"] else "Body"
+	var checkbox_path = "ScrollContainer/SelectionMargin/TabContainer/" + tab_name + "/" + tab_name + "PartsPanel/" + part_name + "Section/" + part_name + "Options/EditSeparatelyBox"
+	var combined_path = "ScrollContainer/SelectionMargin/TabContainer/" + tab_name + "/" + tab_name + "PartsPanel/" + part_name + "Section/" + part_name + "Options/" + part_name + "CombinedContainer"
+	var separate_path = "ScrollContainer/SelectionMargin/TabContainer/" + tab_name + "/" + tab_name + "PartsPanel/" + part_name + "Section/" + part_name + "Options/" + part_name + "SeparateContainer"
+	
+	# Check for style containers
+	var style_container_path = "ScrollContainer/SelectionMargin/TabContainer/" + tab_name + "/" + tab_name + "PartsPanel/" + part_name + "Section/" + part_name + "Options/" + part_name + "StyleContainer"
+	var style_separated_path = "ScrollContainer/SelectionMargin/TabContainer/" + tab_name + "/" + tab_name + "PartsPanel/" + part_name + "Section/" + part_name + "Options/" + part_name + "StyleSeperatedContainer"
+	
+	if has_node(checkbox_path) and has_node(combined_path) and has_node(separate_path):
+		var checkbox = get_node(checkbox_path)
+		
+		# Connect toggle function for main containers
+		checkbox.toggled.connect(func(button_pressed): 
+			get_node(combined_path).visible = !button_pressed
+			get_node(separate_path).visible = button_pressed
 			
-			if button == null:
-				continue
-			
-			# Get options container
-			var options = null
-			for child in section.get_children():
-				if child is VBoxContainer and "Options" in child.name:
-					options = child
-					break
-					
-			if options == null:
-				continue
+			# Also toggle style containers if they exist
+			if has_node(style_container_path) and has_node(style_separated_path):
+				get_node(style_container_path).visible = !button_pressed
+				get_node(style_separated_path).visible = button_pressed
 				
-			# Add to section trackers
-			section_nodes[section.name] = {
-				"button": button,
-				"options": options,
-				"category": category
-			}
-			
-			# Connect button to toggle function
-			button.pressed.connect(_toggle_section_options.bind(section.name))
-			
-			# Connect sliders for this section
-			for sliders_container in options.get_children():
-				if sliders_container is VBoxContainer and "Sliders" in sliders_container.name:
-					_connect_sliders(sliders_container, section.name.replace("Section", "").to_lower())
-			
-			# Connect style buttons if they exist
-			for container in options.get_children():
-				if container is HBoxContainer and "StyleContainer" in container.name:
-					var preview_grid = container.get_node_or_null("StylePreview")
-					if preview_grid:
-						for button_node in preview_grid.get_children():
-							if button_node is TextureButton:
-								button_node.pressed.connect(_on_style_selected.bind(section.name, button_node.name))
+			update_character_preview()
+		)
 
-func _setup_separate_edit_checkboxes(panel, part_name):
-	var section = panel.get_node_or_null(part_name + "Section")
-	if not section:
-		return
+func connect_sliders_for_part(part_name):
+	var tab_name = "Head" if part_name in ["Head", "Eyes", "Ears", "Nose", "Mouth", "Chin", "Neck", "Hair"] else "Body"
+	var base_path = "ScrollContainer/SelectionMargin/TabContainer/" + tab_name + "/" + tab_name + "PartsPanel/" + part_name + "Section/" + part_name + "Options"
+	
+	# Connect width slider
+	var width_path = base_path + "/" + part_name + "Sliders/" + part_name + "WidthContainer/" + part_name + "WidthSlider"
+	if has_node(width_path):
+		get_node(width_path).value_changed.connect(func(value): update_part_dimension(part_name.to_lower(), "width", value))
+	
+	# Connect height slider
+	var height_path = base_path + "/" + part_name + "Sliders/" + part_name + "HeightContainer/" + part_name + "HeightSlider"
+	if has_node(height_path):
+		get_node(height_path).value_changed.connect(func(value): update_part_dimension(part_name.to_lower(), "height", value))
+	
+	# Connect position slider
+	var pos_path = base_path + "/" + part_name + "Sliders/" + part_name + "PositionContainer/" + part_name + "PositionSlider"
+	if has_node(pos_path):
+		get_node(pos_path).value_changed.connect(func(value): update_part_dimension(part_name.to_lower(), "position", value))
+	
+	# Connect special sliders for specific parts
+	match part_name:
+		"Eyes":
+			# Eyes spacing slider
+			var spacing_path = base_path + "/EyesSpacingContainer/EyesSpacingSlider"
+			if has_node(spacing_path):
+				get_node(spacing_path).value_changed.connect(func(value): update_part_dimension("eyes", "spacing", value))
+		"Arms", "Hands", "Legs", "Feet":
+			# Size slider for limbs
+			var size_path = base_path + "/" + part_name + "CombinedContainer/" + part_name + "SizeContainer/" + part_name + "SizeSlider"
+			if has_node(size_path):
+				get_node(size_path).value_changed.connect(func(value): update_part_dimension(part_name.to_lower(), "size", value))
+
+func update_part_dimension(part_name, dimension, value):
+	# For belly scale, use a range of 0.1 to 0.5
+	var belly_min_scale = 0.1
+	var belly_max_scale = 0.5
+	var belly_scale = belly_min_scale + (value / 100.0) * (belly_max_scale - belly_min_scale)
+	
+	# For other parts, use a range around 1.0
+	var min_multiplier = 0.5
+	var max_multiplier = 1.5
+	var scale_multiplier = min_multiplier + (value / 100.0) * (max_multiplier - min_multiplier)
+	
+	# Get the nodes to modify
+	var part_node = null
+	var paired_node = null
+	
+	match part_name:
+		"head":
+			part_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head
+		"eyes":
+			part_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EyeL
+			paired_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EyeR
+			
+			# Special case for eye spacing
+			if dimension == "spacing":
+				if original_positions.has("eyes_l") and original_positions.has("eyes_r"):
+					var spacing_factor = value / 100.0
+					var max_offset = 20
+					
+					part_node.position.x = original_positions["eyes_l"].x - (spacing_factor * max_offset)
+					paired_node.position.x = original_positions["eyes_r"].x + (spacing_factor * max_offset)
+				return
+		"ears":
+			part_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EarL
+			paired_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EarR
+		"nose":
+			part_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/Nose
+		"mouth":
+			part_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/Mouth
+		"chin":
+			part_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/Chin
+		"neck":
+			part_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck
+		"torso":
+			part_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso
+		"belly":
+			part_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly
+			
+			# Special handling for belly
+			if dimension in ["width", "size"]:
+				part_node.scale.x = belly_scale
+			if dimension in ["height", "size"]:
+				part_node.scale.y = belly_scale
+				
+			# Store in character data
+			character_parts[part_name][dimension] = value / 100.0
+			return
+		"arms":
+			part_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/ArmL
+			paired_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/ArmR
+		"hands":
+			part_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/ArmL/HandL
+			paired_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/ArmR/HandR
+		"legs":
+			part_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/LegL
+			paired_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/LegR
+		"feet":
+			part_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/LegL/FeetL
+			paired_node = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/LegR/FeetR
+	
+	if part_node:
+		match dimension:
+			"width":
+				part_node.scale.x = DEFAULT_PART_SCALE.x * scale_multiplier
+				if paired_node:
+					paired_node.scale.x = DEFAULT_PART_SCALE.x * scale_multiplier
+			"height":
+				part_node.scale.y = DEFAULT_PART_SCALE.y * scale_multiplier
+				if paired_node:
+					paired_node.scale.y = DEFAULT_PART_SCALE.y * scale_multiplier
+			"size":
+				part_node.scale = DEFAULT_PART_SCALE * scale_multiplier
+				if paired_node:
+					paired_node.scale = DEFAULT_PART_SCALE * scale_multiplier
+			"position":
+				# Position adjustments for facial features
+				if part_name in ["eyes", "ears", "nose", "mouth", "chin"]:
+					var part_key = part_name
+					var paired_key = part_name
+					
+					# Handle special cases for paired parts
+					if part_name == "eyes":
+						part_key = "eyes_l"
+						paired_key = "eyes_r"
+					elif part_name == "ears":
+						part_key = "ears_l"
+						paired_key = "ears_r"
+					
+					if original_positions.has(part_key):
+						var original_pos = original_positions[part_key]
+						
+						# Map 0-100 to position offsets (-15 to 15 pixels)
+						var position_factor = (value / 100.0) * 2.0 - 1.0  # -1 to 1
+						var max_offset = 15
+						
+						part_node.position.y = original_pos.y + (position_factor * max_offset)
+						
+						if paired_node and original_positions.has(paired_key):
+							var paired_original = original_positions[paired_key]
+							paired_node.position.y = paired_original.y + (position_factor * max_offset)
 		
-	var options = section.get_node_or_null(part_name + "Options")
-	if not options:
-		return
+		# Store the adjusted value in character_parts
+		if !character_parts.has(part_name):
+			character_parts[part_name] = {}
+			
+		character_parts[part_name][dimension] = value / 100.0
+
+func setup_colors_tab():
+	# Connect color pickers for hair, skin, eyes, and details
+	var color_sections = ["Hair", "Skin", "Eye", "Detail"]
+	for section in color_sections:
+		connect_color_pickers(section)
 	
-	var checkbox = options.get_node_or_null("EditSeparatelyBox")
-	if not checkbox:
-		return
+	# Setup eye color separation toggle
+	if has_node("ScrollContainer/SelectionMargin/TabContainer/Colors/ColorsPanel/EyeColorSection/EditSeparatelyBox"):
+		var checkbox = $"ScrollContainer/SelectionMargin/TabContainer/Colors/ColorsPanel/EyeColorSection/EditSeparatelyBox"
+		var combined_grid = $"ScrollContainer/SelectionMargin/TabContainer/Colors/ColorsPanel/EyeColorSection/EyesColorCombinedGrid"
+		var separate_container = $"ScrollContainer/SelectionMargin/TabContainer/Colors/ColorsPanel/EyeColorSection/EyesColorSeparateContainer"
 		
-	var combined = options.get_node_or_null(part_name + "CombinedContainer")
-	var separate = options.get_node_or_null(part_name + "SeparateContainer")
+		checkbox.toggled.connect(func(button_pressed):
+			combined_grid.visible = !button_pressed
+			separate_container.visible = button_pressed
+		)
+
+func connect_color_pickers(color_type):
+	var grid_path = "ScrollContainer/SelectionMargin/TabContainer/Colors/ColorsPanel/" + color_type + "ColorSection/" + color_type + "ColorGrid"
 	
-	# Also handle style containers if they exist
-	var style_combined = options.get_node_or_null(part_name + "StyleContainer")
-	var style_separate = options.get_node_or_null(part_name + "StyleSeperateContainer")
+	if has_node(grid_path):
+		var grid = get_node(grid_path)
+		for child in grid.get_children():
+			if child is ColorPickerButton:
+				child.color_changed.connect(func(color): apply_color(color_type.to_lower(), color))
+
+func apply_color(color_type, color):
+	# Check if we need to create a shader
+	var shader = load("res://shaders/color_overlay.gdshader")
 	
-	if checkbox and combined and separate:
-		separate_edit_checkboxes[part_name] = {
-			"checkbox": checkbox,
-			"combined": combined,
-			"separate": separate,
-			"style_combined": style_combined,
-			"style_separate": style_separate
+	if shader == null:
+		# Create a default shader if it doesn't exist
+		shader = Shader.new()
+		shader.code = """
+		shader_type canvas_item;
+		
+		uniform vec4 overlay_color : source_color;
+		uniform float blend_factor = 0.5;
+		
+		void fragment() {
+			vec4 texture_color = texture(TEXTURE, UV);
+			
+			// Keep alpha from original texture
+			float alpha = texture_color.a;
+			
+			// Mix the texture color with overlay color based on luminance
+			float luminance = 0.299 * texture_color.r + 0.587 * texture_color.g + 0.114 * texture_color.b;
+			vec3 blended_color = mix(texture_color.rgb, overlay_color.rgb, blend_factor * (1.0 - luminance));
+			
+			COLOR = vec4(blended_color, alpha);
 		}
+		"""
+	
+	# Create the shader material
+	var shader_material = ShaderMaterial.new()
+	shader_material.shader = shader
+	shader_material.set_shader_parameter("overlay_color", color)
+	
+	# Apply to appropriate parts based on color type
+	match color_type:
+		"hair":
+			# Apply to hair
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/HairFront.material = shader_material
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/HairBack.material = shader_material
+			
+			# Store in character data
+			character_parts["hair"]["color"] = color
+		"skin":
+			# Apply to all body parts that should have skin color
+			var skin_parts = [
+				$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly,
+				$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso,
+				$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck,
+				$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/LegL,
+				$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/LegR,
+				$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/ArmL,
+				$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/ArmR
+			]
+			
+			for part in skin_parts:
+				part.material = shader_material
+			
+			# Store in character data
+			character_parts["skin_color"] = color
+		"eye":
+			# Apply to eyes
+			var eye_left = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EyeL
+			var eye_right = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EyeR
+			
+			# Check if separate eye colors are enabled
+			var separate_checkbox = $"ScrollContainer/SelectionMargin/TabContainer/Colors/ColorsPanel/EyeColorSection/EditSeparatelyBox"
+			
+			if separate_checkbox and separate_checkbox.button_pressed:
+				# This would be implemented for separate eye colors
+				# For now, use the same color for both
+				eye_left.material = shader_material
+				eye_right.material = shader_material
+			else:
+				eye_left.material = shader_material
+				eye_right.material = shader_material
+			
+			# Store in character data
+			character_parts["eyes"]["color"] = color
+		"detail":
+			# Apply to detail parts (using ears as example)
+			var detail_material = ShaderMaterial.new()
+			detail_material.shader = shader
+			detail_material.set_shader_parameter("overlay_color", color)
+			detail_material.set_shader_parameter("blend_factor", 0.3)  # Less intense for details
+			
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EarL.material = detail_material
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EarR.material = detail_material
+			
+			# Store in character data
+			character_parts["detail_color"] = color
+
+func check_edit_mode():
+	# Check if we're in character edit mode
+	if GlobalVars.edit_character_mode:
+		$ButtonPanel/BackButton.disabled = true
+
+func load_character_data():
+	# Load the selected character or create a new one
+	if GlobalVars.selected_character_id.is_empty():
+		current_character = create_default_character()
+	else:
+		# Try to load from file
+		var character_path = GlobalVars.CHARACTERS_DIR + GlobalVars.selected_character_id + ".json"
+		if FileAccess.file_exists(character_path):
+			var file = FileAccess.open(character_path, FileAccess.READ)
+			var json_text = file.get_as_text()
+			file.close()
+			
+			var json = JSON.new()
+			var error = json.parse(json_text)
+			if error == OK:
+				current_character = json.data
+			else:
+				current_character = create_default_character()
+		else:
+			current_character = create_default_character()
+	
+	# Get race and appearance data
+	if current_character.has("race"):
+		current_race = current_character["race"].to_lower()
+	
+	if current_character.has("appearance"):
+		character_parts = current_character["appearance"]
+	else:
+		character_parts = create_default_appearance()
+
+func create_default_character():
+	return {
+		"id": str(Time.get_unix_time_from_system()),
+		"name": "New Character",
+		"race": "Human",
+		"gender": "Masculine",
+		"age": 25,
+		"appearance": create_default_appearance()
+	}
+
+func create_default_appearance():
+	return {
+		"head": {"style": "normal", "width": 1.0, "height": 1.0},
+		"hair": {"style": "short", "color": Color(0.5, 0.3, 0.1)},
+		"eyes": {"style": "normal", "color": Color(0.2, 0.2, 0.6), "width": 1.0, "height": 1.0, "spacing": 0.5},
+		"nose": {"style": "normal", "width": 1.0, "height": 1.0},
+		"mouth": {"style": "normal", "width": 1.0, "height": 1.0},
+		"ears": {"style": "normal", "width": 1.0, "height": 1.0},
+		"chin": {"style": "normal", "width": 1.0, "height": 1.0},
+		"neck": {"style": "normal", "width": 1.0, "height": 1.0},
+		"torso": {"style": "normal", "width": 1.0, "height": 1.0},
+		"belly": {"style": "normal", "width": 0.33, "height": 0.33},  # Note: using proper belly scale here
+		"arms": {"style": "normal", "size": 1.0},
+		"hands": {"style": "normal", "size": 1.0},
+		"legs": {"style": "normal", "size": 1.0},
+		"feet": {"style": "normal", "size": 1.0},
+		"tail": {"style": "none", "width": 1.0, "height": 1.0},
+		"skin_color": Color(0.9, 0.7, 0.6),
+		"detail_color": Color(0.3, 0.3, 0.3)
+	}
+
+func initialize_body_parts():
+	# Reset belly to default scale
+	$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly.scale = DEFAULT_BELLY_SCALE
+	
+	# Scan for available parts
+	scan_available_parts()
+	
+	# Apply styles and colors
+	apply_body_part_styles()
+	apply_colors()
+
+func scan_available_parts():
+	available_parts = {}
+	var race_filter = current_race.to_lower()
+	var part_types = ["head", "hair", "eyes", "nose", "mouth", "ears", "chin", "neck", 
+					"torso", "belly", "arms", "hands", "legs", "feet", "back", "tail"]
+	
+	for part_type in part_types:
+		available_parts[part_type] = []
 		
-		checkbox.toggled.connect(_on_separate_edit_toggled.bind(part_name))
-
-func _connect_color_buttons(grid, color_type):
-	if grid:
-		for button in grid.get_children():
-			if button is ColorPickerButton:
-				button.color_changed.connect(_on_color_changed.bind(color_type, button.name))
-
-func _connect_sliders(container, slider_prefix):
-	if not container:
-		return
+		# Try to open the directory
+		var part_dir = DirAccess.open(BASE_PATH + part_type)
+		if part_dir:
+			part_dir.list_dir_begin()
+			var file_name = part_dir.get_next()
+			
+			# Scan all files
+			while file_name != "":
+				if file_name.ends_with(".png") and file_name.begins_with(part_type) and file_name.contains(race_filter):
+					# Parse filename to get style info
+					var parts = file_name.get_basename().split("-")
+					if parts.size() >= 3:
+						var style_name = parts[2]
+						
+						# Add to available parts
+						var file_path = BASE_PATH + part_type + "/" + file_name
+						var style_info = {
+							"path": file_path,
+							"style": style_name
+						}
+						
+						# Add subtype if available
+						if parts.size() >= 4:
+							style_info["subtype"] = parts[3]
+						
+						available_parts[part_type].append(style_info)
+				
+				file_name = part_dir.get_next()
+			
+			part_dir.list_dir_end()
 		
-	for child in container.get_children():
-		if child is VBoxContainer:
-			var slider = child.get_node_or_null(child.name.replace("Container", "Slider"))
-			if slider and slider is HSlider:
-				var param_name = child.name.replace("Container", "").to_lower()
-				slider.value_changed.connect(_on_slider_value_changed.bind(slider_prefix, param_name))
+		# Add fallback if needed
+		if available_parts[part_type].size() == 0:
+			var fallback_path = BASE_PATH + part_type + "/" + part_type + "-human-normal.png"
+			available_parts[part_type].append({
+				"path": fallback_path,
+				"style": "normal"
+			})
 
-# Button event handlers
-func _on_back_button_pressed():
-	# Go back to race selection
-	get_tree().change_scene_to_file(RACE_SELECTION_SCENE)
+func apply_body_part_styles():
+	# Apply textures for all body parts
+	var parts = ["head", "hair", "eyes", "nose", "mouth", "ears", "chin", "neck", 
+				"torso", "belly", "arms", "hands", "legs", "feet"]
+	
+	for part in parts:
+		apply_texture_for_part(part)
+	
+	# Special cases for optional parts
+	if character_parts.has("tail") and character_parts["tail"]["style"] != "none":
+		apply_texture_for_part("tail")
+	
+	if character_parts.has("back"):
+		apply_texture_for_part("back")
+
+func apply_texture_for_part(part_name):
+	# Find the texture path
+	var style = character_parts[part_name]["style"]
+	var path = find_texture_path_for_style(part_name, style)
+	
+	if path:
+		var texture = load(path)
+		if texture:
+			# Store current scales and positions
+			var scales = {}
+			var positions = {}
+			
+			# Get nodes and store their current state
+			match part_name:
+				"belly":
+					scales["belly"] = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly.scale
+				"eyes":
+					var eye_l = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EyeL
+					var eye_r = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EyeR
+					scales["eye_l"] = eye_l.scale
+					scales["eye_r"] = eye_r.scale
+					positions["eye_l"] = eye_l.position
+					positions["eye_r"] = eye_r.position
+				"ears":
+					var ear_l = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EarL
+					var ear_r = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EarR
+					scales["ear_l"] = ear_l.scale
+					scales["ear_r"] = ear_r.scale
+					positions["ear_l"] = ear_l.position
+					positions["ear_r"] = ear_r.position
+			
+			# Apply the texture to the appropriate nodes
+			apply_texture_to_node(part_name, texture)
+			
+			# Restore scales and positions
+			match part_name:
+				"belly":
+					if scales.has("belly"):
+						$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly.scale = scales["belly"]
+				"eyes":
+					if scales.has("eye_l"):
+						$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EyeL.scale = scales["eye_l"]
+					if scales.has("eye_r"):
+						$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EyeR.scale = scales["eye_r"]
+					if positions.has("eye_l"):
+						$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EyeL.position = positions["eye_l"]
+					if positions.has("eye_r"):
+						$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EyeR.position = positions["eye_r"]
+				"ears":
+					if scales.has("ear_l"):
+						$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EarL.scale = scales["ear_l"]
+					if scales.has("ear_r"):
+						$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EarR.scale = scales["ear_r"]
+					if positions.has("ear_l"):
+						$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EarL.position = positions["ear_l"]
+					if positions.has("ear_r"):
+						$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EarR.position = positions["ear_r"]
+
+func find_texture_path_for_style(part_name, style_name):
+	# Find texture with matching style
+	if available_parts.has(part_name):
+		for part_info in available_parts[part_name]:
+			if part_info["style"] == style_name:
+				return part_info["path"]
+	
+	# Fallback to first available
+	if available_parts.has(part_name) and available_parts[part_name].size() > 0:
+		return available_parts[part_name][0]["path"]
+	
+	return null
+
+func apply_texture_to_node(part_name, texture):
+	match part_name:
+		"hair":
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/HairFront.texture = texture
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/HairBack.texture = texture
+		"eyes":
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EyeL.texture = texture
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EyeR.texture = texture
+		"nose":
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/Nose.texture = texture
+		"mouth":
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/Mouth.texture = texture
+		"ears":
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EarL.texture = texture
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/EarR.texture = texture
+		"chin":
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head/Chin.texture = texture
+		"neck":
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck.texture = texture
+		"torso":
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso.texture = texture
+		"belly":
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly.texture = texture
+		"arms":
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/ArmL.texture = texture
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/ArmR.texture = texture
+		"hands":
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/ArmL/HandL.texture = texture
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/ArmR/HandR.texture = texture
+		"legs":
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/LegL.texture = texture
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/LegR.texture = texture
+		"feet":
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/LegL/FeetL.texture = texture
+			$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/LegR/FeetR.texture = texture
+		"back", "tail":
+			# Add implementation for back and tail if needed
+			pass
+
+func apply_colors():
+	# Apply saved colors from character data
+	if character_parts.has("hair") and character_parts["hair"].has("color"):
+		apply_color("hair", character_parts["hair"]["color"])
+	
+	if character_parts.has("skin_color"):
+		apply_color("skin", character_parts["skin_color"])
+	
+	if character_parts.has("eyes") and character_parts["eyes"].has("color"):
+		apply_color("eye", character_parts["eyes"]["color"])
+	
+	if character_parts.has("detail_color"):
+		apply_color("detail", character_parts["detail_color"])
+
+func populate_style_options(part_name):
+	# Find the appropriate grid container
+	var grid_path = ""
+	var tab_name = "Head" if part_name in ["head", "hair", "eyes", "ears", "nose", "mouth", "chin", "neck"] else "Body"
+	
+	# Determine the correct grid path based on part
+	if part_name in ["head", "nose", "mouth", "chin", "neck", "torso", "belly", "back", "tail"]:
+		grid_path = "ScrollContainer/SelectionMargin/TabContainer/" + tab_name + "/" + tab_name + "PartsPanel/" + part_name.capitalize() + "Section/" + part_name.capitalize() + "Options/" + part_name.capitalize() + "ShapeContainer/" + part_name.capitalize() + "ShapePreview"
+	elif part_name == "hair":
+		grid_path = "ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/HairSection/HairOptions/HairStyleContainer/HairStylePreview"
+	elif part_name in ["eyes", "ears", "arms", "hands", "legs", "feet"]:
+		grid_path = "ScrollContainer/SelectionMargin/TabContainer/" + tab_name + "/" + tab_name + "PartsPanel/" + part_name.capitalize() + "Section/" + part_name.capitalize() + "Options/" + part_name.capitalize() + "StyleContainer/" + part_name.capitalize() + "StylePreview"
+	
+	# Check if grid exists
+	if has_node(grid_path):
+		var grid = get_node(grid_path)
+		
+		# Clear existing buttons
+		for child in grid.get_children():
+			child.queue_free()
+		
+		# Create new texture buttons for available styles
+		if available_parts.has(part_name) and available_parts[part_name].size() > 0:
+			for part_info in available_parts[part_name]:
+				var texture_button = TextureButton.new()
+				texture_button.texture_normal = load(part_info["path"])
+				texture_button.custom_minimum_size = Vector2(80, 80)
+				texture_button.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
+				texture_button.ignore_texture_size = true
+				
+				# Connect button press
+				texture_button.pressed.connect(func(): select_part_style(part_name, part_info["style"]))
+				
+				# Add to grid
+				grid.add_child(texture_button)
+
+func select_part_style(part_name, style_name):
+	# Update character part style
+	if character_parts.has(part_name):
+		character_parts[part_name]["style"] = style_name
+	else:
+		character_parts[part_name] = {"style": style_name}
+	
+	# Apply new texture
+	apply_texture_for_part(part_name)
+	
+	# Update preview
+	update_character_preview()
+
+func update_character_preview():
+	# Set belly scale first
+	if character_parts["belly"].has("width") and character_parts["belly"].has("height"):
+		var belly_min_scale = 0.1
+		var belly_max_scale = 0.5
+		var belly_width = belly_min_scale + character_parts["belly"]["width"] * (belly_max_scale - belly_min_scale)
+		var belly_height = belly_min_scale + character_parts["belly"]["height"] * (belly_max_scale - belly_min_scale)
+		
+		$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly.scale = Vector2(belly_width, belly_height)
+	else:
+		$CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly.scale = DEFAULT_BELLY_SCALE
+	
+	# Adjust all other parts
+	for part_name in character_parts:
+		if part_name != "original_positions" and part_name != "skin_color" and part_name != "detail_color":
+			# Apply dimensions for standard parts
+			if part_name in ["head", "eyes", "ears", "nose", "mouth", "chin", "neck", "torso"]:
+				if character_parts[part_name].has("width"):
+					update_part_dimension(part_name, "width", character_parts[part_name]["width"] * 100)
+				if character_parts[part_name].has("height"):
+					update_part_dimension(part_name, "height", character_parts[part_name]["height"] * 100)
+			
+			# Apply size for limbs
+			if part_name in ["arms", "hands", "legs", "feet"]:
+				if character_parts[part_name].has("size"):
+					update_part_dimension(part_name, "size", character_parts[part_name]["size"] * 100)
+			
+			# Apply special cases
+			if part_name == "eyes" and character_parts[part_name].has("spacing"):
+				update_part_dimension(part_name, "spacing", character_parts[part_name]["spacing"] * 100)
+	
+	# Update sprite preview
+	update_sprite_preview()
+
+func update_sprite_preview():
+	# Create a simple sprite preview
+	var portrait = $CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait
+	var front_preview = $CharacterPreview/MarginContainer/VBoxContainer/SpritePreview/Front
+	
+	# In a real implementation, you would generate proper sprites here
+	# For now, we'll just duplicate the portrait
+	var viewport = SubViewport.new()
+	viewport.size = Vector2(200, 200)
+	viewport.transparent_bg = true
+	
+	var portrait_copy = portrait.duplicate()
+	viewport.add_child(portrait_copy)
+	
+	await get_tree().process_frame
+	
+	front_preview.texture = viewport.get_texture()
 
 func _on_randomize_button_pressed():
-	# Implement randomization logic
-	# For all sliders, set to random values
-	_randomize_character()
+	# Randomize all parts
+	for part_name in available_parts:
+		if available_parts[part_name].size() > 0:
+			var random_index = randi() % available_parts[part_name].size()
+			select_part_style(part_name, available_parts[part_name][random_index]["style"])
 	
-	# Update visual representation
-	_update_character_preview()
+	# Randomize colors
+	randomize_colors()
+	
+	# Randomize dimensions within reasonable ranges
+	randomize_dimensions()
+	
+	# Update preview
+	update_character_preview()
+
+func randomize_colors():
+	# Get color grids
+	var hair_colors = $"ScrollContainer/SelectionMargin/TabContainer/Colors/ColorsPanel/HairColorSection/HairColorGrid".get_children()
+	var skin_colors = $"ScrollContainer/SelectionMargin/TabContainer/Colors/ColorsPanel/SkinColorSection/SkinColorGrid".get_children()
+	var eye_colors = $"ScrollContainer/SelectionMargin/TabContainer/Colors/ColorsPanel/EyeColorSection/EyesColorCombinedGrid".get_children()
+	var detail_colors = $"ScrollContainer/SelectionMargin/TabContainer/Colors/ColorsPanel/DetailColorSection/DetailColorGrid".get_children()
+	
+	# Randomize hair color
+	if hair_colors.size() > 0:
+		var random_color = hair_colors[randi() % hair_colors.size()].color
+		character_parts["hair"]["color"] = random_color
+		apply_color("hair", random_color)
+	
+	# Randomize skin color
+	if skin_colors.size() > 0:
+		var random_color = skin_colors[randi() % skin_colors.size()].color
+		character_parts["skin_color"] = random_color
+		apply_color("skin", random_color)
+	
+	# Randomize eye color
+	if eye_colors.size() > 0:
+		var random_color = eye_colors[randi() % eye_colors.size()].color
+		character_parts["eyes"]["color"] = random_color
+		apply_color("eye", random_color)
+	
+	# Randomize detail color
+	if detail_colors.size() > 0:
+		var random_color = detail_colors[randi() % detail_colors.size()].color
+		character_parts["detail_color"] = random_color
+		apply_color("detail", random_color)
+
+func randomize_dimensions():
+	# Randomize dimensions with reasonable values
+	for part_name in character_parts:
+		if part_name != "original_positions" and part_name != "skin_color" and part_name != "detail_color":
+			if part_name == "belly":
+				# Special case for belly
+				character_parts[part_name]["width"] = 0.2 + randf() * 0.3  # 0.2 to 0.5
+				character_parts[part_name]["height"] = 0.2 + randf() * 0.3  # 0.2 to 0.5
+			elif part_name in ["head", "eyes", "ears", "nose", "mouth", "chin", "neck", "torso"]:
+				character_parts[part_name]["width"] = 0.8 + randf() * 0.4  # 0.8 to 1.2
+				character_parts[part_name]["height"] = 0.8 + randf() * 0.4  # 0.8 to 1.2
+			elif part_name in ["arms", "hands", "legs", "feet"]:
+				character_parts[part_name]["size"] = 0.8 + randf() * 0.4  # 0.8 to 1.2
+			
+			# Special case for eye spacing
+			if part_name == "eyes":
+				character_parts[part_name]["spacing"] = 0.3 + randf() * 0.4  # 0.3 to 0.7
 
 func _on_confirm_button_pressed():
 	# Save character data
-	_save_character_data()
+	current_character["appearance"] = character_parts
 	
-	# Go to character build
-	get_tree().change_scene_to_file(CHARACTER_BUILD_SCENE)
+	# Create directory if needed
+	var dir = DirAccess.open("user://")
+	if !dir.dir_exists(GlobalVars.CHARACTERS_DIR.trim_suffix("/")):
+		dir.make_dir(GlobalVars.CHARACTERS_DIR.trim_suffix("/"))
+	
+	# Save to file
+	var character_path = GlobalVars.CHARACTERS_DIR + current_character["id"] + ".json"
+	var file = FileAccess.open(character_path, FileAccess.WRITE)
+	file.store_string(JSON.stringify(current_character, "  "))
+	file.close()
+	
+	# Set selected character ID in GlobalVars
+	GlobalVars.selected_character_id = current_character["id"]
+	
+	# Go to character build scene
+	get_tree().change_scene_to_file("res://scenes/mainmenu/CharacterBuild.tscn")
 
-# Section toggling
-func _toggle_section_options(section_name):
-	# If we're trying to open the same section that's already open, close it
-	if active_section == section_name and section_nodes[section_name]["options"].visible:
-		section_nodes[section_name]["options"].visible = false
-		active_section = ""
-		return
-	
-	# Close currently open section if there is one
-	if active_section != "" and active_section in section_nodes:
-		section_nodes[active_section]["options"].visible = false
-	
-	# Open the requested section
-	active_section = section_name
-	section_nodes[section_name]["options"].visible = true
-
-# Separate edit toggling
-func _on_separate_edit_toggled(toggled, part_name):
-	var part_data = separate_edit_checkboxes[part_name]
-	
-	# Toggle visibility of combined vs separate containers
-	part_data["combined"].visible = !toggled
-	part_data["separate"].visible = toggled
-	
-	# Also toggle style containers if they exist
-	if part_data["style_combined"] and part_data["style_separate"]:
-		part_data["style_combined"].visible = !toggled
-		part_data["style_separate"].visible = toggled
-	
-	# Store the setting in character data
-	var category = "head" if tab_container.current_tab == 0 else "body"
-	character_data[category][part_name.to_lower() + "_separate"] = toggled
-	
-	# Update character preview
-	_update_character_preview()
-
-# Eye color separate toggling
-func _on_eye_color_separate_toggled(toggled):
-	var eye_data = separate_edit_checkboxes["EyeColor"]
-	
-	# Toggle visibility of combined vs separate containers
-	eye_data["combined"].visible = !toggled
-	eye_data["separate"].visible = toggled
-	
-	# Store the setting in character data
-	character_data["colors"]["eye_separate"] = toggled
-	
-	# Update character preview
-	_update_character_preview()
-
-# Slider value changed
-func _on_slider_value_changed(value, slider_prefix, param_name):
-	# Determine which category this belongs to based on the active tab
-	var category = "head"
-	if tab_container.current_tab == 1:
-		category = "body"
-	elif tab_container.current_tab == 3:
-		category = "details"
-	
-	# For parameters like "left_width" or "right_height", we need to handle them specially
-	if "left_" in param_name or "right_" in param_name:
-		var side = "left" if "left_" in param_name else "right"
-		var actual_param = param_name.replace(side + "_", "")
-		
-		# Make sure the part exists in the character data
-		if not slider_prefix in character_data[category]:
-			character_data[category][slider_prefix] = {}
-		
-		if not side in character_data[category][slider_prefix]:
-			character_data[category][slider_prefix][side] = {}
-			
-		character_data[category][slider_prefix][side][actual_param] = value
-	else:
-		# Make sure the part exists in the character data
-		if not slider_prefix in character_data[category]:
-			character_data[category][slider_prefix] = {}
-			
-		character_data[category][slider_prefix][param_name] = value
-	
-	# Update character preview
-	_update_character_preview()
-
-# Color changed
-func _on_color_changed(color, color_type, button_name):
-	# For eye color, we need to check if we're in separate mode
-	if color_type == "eye_left" or color_type == "eye_right":
-		var side = "left" if color_type == "eye_left" else "right"
-		
-		if not "eye" in character_data["colors"]:
-			character_data["colors"]["eye"] = {}
-			
-		if not side in character_data["colors"]["eye"]:
-			character_data["colors"]["eye"][side] = {}
-			
-		character_data["colors"]["eye"][side] = color
-	else:
-		character_data["colors"][color_type] = color
-	
-	# Update character preview
-	_update_character_preview()
-
-# Style selected
-func _on_style_selected(section_name, style_name):
-	var part_name = section_name.replace("Section", "").to_lower()
-	var category = section_nodes[section_name]["category"]
-	
-	# Extract style number from the name
-	var style_number = style_name.replace(part_name.capitalize() + "Style", "")
-	
-	# Store in character data
-	if not part_name in character_data[category]:
-		character_data[category][part_name] = {}
-		
-	character_data[category][part_name]["style"] = int(style_number)
-	
-	# Update character preview
-	_update_character_preview()
-
-# Detail selection handlers
-func _on_tattoo_selected(tattoo_name):
-	_handle_detail_selection("tattoo", tattoo_name)
-
-func _on_scar_selected(scar_name):
-	_handle_detail_selection("scar", scar_name)
-
-func _on_pattern_selected(pattern_name):
-	_handle_detail_selection("pattern", pattern_name)
-
-func _handle_detail_selection(detail_type, item_name):
-	# Extract item number from the name or check if it's "None"
-	var item_number = -1
-	if "None" in item_name:
-		item_number = 0
-	else:
-		item_number = int(item_name.replace(detail_type.capitalize(), ""))
-	
-	# Store in character data
-	if not detail_type in character_data["details"]:
-		character_data["details"][detail_type] = {}
-		
-	character_data["details"][detail_type]["type"] = item_number
-	
-	# Highlight the selected button and reset others
-	var grid = tab_container.get_node("Details/DetailsPanel/" + detail_type.capitalize() + "sSection/" + detail_type.capitalize() + "sGrid")
-	if grid:
-		for button in grid.get_children():
-			button.modulate = Color(1, 1, 1, 1)  # Reset all to default
-		
-		var selected = grid.get_node(item_name)
-		if selected:
-			selected.modulate = Color(0.8, 0.9, 1, 1)  # Highlight selected
-	
-	# Update character preview
-	_update_character_preview()
-
-# Utility functions
-func _randomize_character():
-	# Randomize all sliders
-	_randomize_sliders_in_tab("Head")
-	_randomize_sliders_in_tab("Body")
-	
-	# Randomize colors
-	_randomize_colors()
-	
-	# Randomize details
-	_randomize_details()
-	
-	# Randomize separate part settings with a 30% chance
-	for part_name in separate_edit_checkboxes.keys():
-		if part_name != "EyeColor":  # Handle eye color separately
-			var checkbox = separate_edit_checkboxes[part_name]["checkbox"]
-			var should_separate = randf() < 0.3  # 30% chance
-			checkbox.button_pressed = should_separate
-			_on_separate_edit_toggled(should_separate, part_name)
-	
-	# Randomize eye color separation with a 20% chance
-	var eye_checkbox = separate_edit_checkboxes["EyeColor"]["checkbox"]
-	var should_separate_eyes = randf() < 0.2  # 20% chance
-	eye_checkbox.button_pressed = should_separate_eyes
-	_on_eye_color_separate_toggled(should_separate_eyes)
-
-func _randomize_sliders_in_tab(tab_name):
-	var panel_path = ""
-	if tab_name == "Head":
-		panel_path = tab_name + "/HeadPartsPanel"
-	elif tab_name == "Body": 
-		panel_path = tab_name + "/BodyPartsPanel"
-	else:
-		panel_path = tab_name + "/BodyPartsPanel"  # Default fallback
-	
-	var panel = tab_container.get_node(panel_path)
-	
-	if panel:
-		for section in panel.get_children():
-			if section is VBoxContainer:
-				var options = section.get_node_or_null(section.name.replace("Section", "Options"))
-				if options:
-					# Find and randomize all sliders
-					_randomize_sliders_in_container(options)
-
-func _randomize_sliders_in_container(container):
-	for child in container.get_children():
-		if child is VBoxContainer:
-			_randomize_sliders_in_container(child)
-		elif child is HBoxContainer:
-			_randomize_sliders_in_container(child)
-		elif child is HSlider:
-			child.value = randf_range(child.min_value, child.max_value)
-
-func _randomize_colors():
-	var colors_panel = tab_container.get_node("Colors/ColorsPanel")
-	
-	# Randomize hair color
-	var hair_grid = colors_panel.get_node("HairColorSection/HairColorGrid")
-	if hair_grid and hair_grid.get_child_count() > 0:
-		var random_hair = hair_grid.get_child(randi() % hair_grid.get_child_count())
-		random_hair.button_pressed = true
-		_on_color_changed(random_hair.color, "hair", random_hair.name)
-	
-	# Randomize skin color
-	var skin_grid = colors_panel.get_node("SkinColorSection/SkinColorGrid")
-	if skin_grid and skin_grid.get_child_count() > 0:
-		var random_skin = skin_grid.get_child(randi() % skin_grid.get_child_count())
-		random_skin.button_pressed = true
-		_on_color_changed(random_skin.color, "skin", random_skin.name)
-	
-	# Randomize eye color
-	var eye_grid = colors_panel.get_node("EyeColorSection/EyesColorCombinedGrid")
-	if eye_grid and eye_grid.get_child_count() > 0:
-		var random_eye = eye_grid.get_child(randi() % eye_grid.get_child_count())
-		random_eye.button_pressed = true
-		_on_color_changed(random_eye.color, "eye", random_eye.name)
-	
-	# Randomize detail color
-	var detail_grid = colors_panel.get_node("DetailColorSection/DetailColorGrid")
-	if detail_grid and detail_grid.get_child_count() > 0:
-		var random_detail = detail_grid.get_child(randi() % detail_grid.get_child_count())
-		random_detail.button_pressed = true
-		_on_color_changed(random_detail.color, "detail", random_detail.name)
-
-func _randomize_details():
-	var details_panel = tab_container.get_node("Details/DetailsPanel")
-	
-	# 50% chance of having a tattoo
-	if randf() < 0.5:
-		var tattoos_grid = details_panel.get_node("TattoosSection/TattoosGrid")
-		if tattoos_grid:
-			# Skip the first "None" button
-			var random_index = 1 + randi() % (tattoos_grid.get_child_count() - 1)
-			if random_index < tattoos_grid.get_child_count():
-				var random_tattoo = tattoos_grid.get_child(random_index)
-				_on_tattoo_selected(random_tattoo.name)
-	else:
-		# Select "None"
-		_on_tattoo_selected("TattooNone")
-	
-	# 30% chance of having a scar
-	if randf() < 0.3:
-		var scars_grid = details_panel.get_node("ScarsSection/ScarsGrid")
-		if scars_grid:
-			# Skip the first "None" button
-			var random_index = 1 + randi() % (scars_grid.get_child_count() - 1)
-			if random_index < scars_grid.get_child_count():
-				var random_scar = scars_grid.get_child(random_index)
-				_on_scar_selected(random_scar.name)
-	else:
-		# Select "None"
-		_on_scar_selected("ScarNone")
-	
-	# 20% chance of having a pattern
-	if randf() < 0.2:
-		var patterns_grid = details_panel.get_node("PatternsSection/PatternsGrid")
-		if patterns_grid:
-			# Skip the first "None" button
-			var random_index = 1 + randi() % (patterns_grid.get_child_count() - 1)
-			if random_index < patterns_grid.get_child_count():
-				var random_pattern = patterns_grid.get_child(random_index)
-				_on_pattern_selected(random_pattern.name)
-	else:
-		# Select "None"
-		_on_pattern_selected("PatternNone")
-
-func _update_character_preview():
-	# This will be implemented later when the character preview system is ready
-	# For now, just print the character data for debugging
-	print("Character data updated: ", character_data)
-
-func _save_character_data():
-	# This will save the character data to be used in other scenes
-	# For now, just print that we're saving
-	print("Saving character data: ", character_data)
-	
-	# In a real implementation, you might save to a global state or to a file
-	# Singleton.character_data = character_data
+func _on_back_button_pressed():
+	# Go back to race selection
+	get_tree().change_scene_to_file("res://scenes/mainmenu/charactercreator/RaceSelection.tscn")

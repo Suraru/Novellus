@@ -29,43 +29,396 @@ scale = Vector2(1.25, 1.05469)
 texture = ExtResource("2_lrfw8")
 centered = false
 
-[node name="ButtonPanel" type="HBoxContainer" parent="."]
+[node name="CharacterPreview" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 305.0
+offset_top = 43.0
+offset_right = -955.0
+offset_bottom = -121.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="MarginContainer" type="MarginContainer" parent="CharacterPreview"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterPreview/MarginContainer"]
+layout_mode = 2
+
+[node name="CharacterName" type="Label" parent="CharacterPreview/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Character Appearance"
+horizontal_alignment = 1
+
+[node name="CharacterInfo" type="HBoxContainer" parent="CharacterPreview/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Portrait" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+stretch_mode = 5
+
+[node name="Belly" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 200.0
+offset_right = -240.0
+offset_bottom = -208.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("3_injrq")
+
+[node name="LegL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -175.0
+offset_top = -20.0
+offset_right = 125.0
+offset_bottom = 880.0
+grow_vertical = 0
+texture = ExtResource("4_hqoxt")
+
+[node name="FeetL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/LegL"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -452.0
-offset_top = -96.0
-offset_right = 151.0
-offset_bottom = -46.0
+offset_left = -50.0
+offset_top = -20.0
+offset_right = 50.0
+offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(1.5, 1.5)
-theme_override_constants/separation = 20
-alignment = 1
+texture = ExtResource("14_gucrx")
 
-[node name="BackButton" type="Button" parent="ButtonPanel"]
+[node name="LegR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -20.0
+offset_right = 175.0
+offset_bottom = 880.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("4_hqoxt")
+flip_h = true
+
+[node name="FeetR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/LegR"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -20.0
+offset_right = 50.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("14_gucrx")
+flip_h = true
+
+[node name="Torso" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -380.0
+offset_bottom = -180.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_dxrpx")
+
+[node name="Neck" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -80.0
+offset_bottom = -380.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_dxrpx")
+
+[node name="Head" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_top = -130.0
+offset_right = 225.0
+offset_bottom = 170.0
+grow_horizontal = 2
+scale = Vector2(0.5, 0.5)
+
+[node name="HairBack" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -100.0
+offset_right = 75.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EarL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -139.0
+offset_top = 100.0
+offset_right = -280.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_knhhn")
+
+[node name="EarR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 280.0
+offset_top = 100.0
+offset_right = 139.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_knhhn")
+flip_h = true
+
+[node name="EyeL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 120.0
+offset_right = -160.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_tcm17")
+
+[node name="EyeR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 160.0
+offset_top = 120.0
+offset_right = -20.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_tcm17")
+flip_h = true
+
+[node name="Nose" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 120.0
+offset_top = 120.0
+offset_right = -120.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_x8cbg")
+
+[node name="Mouth" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 220.0
+offset_right = -100.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_10gnj")
+
+[node name="Chin" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 270.0
+offset_right = -100.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_q1t33")
+
+[node name="HairFront" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -100.0
+offset_right = 75.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ArmL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso"]
+layout_mode = 1
+offset_left = -200.0
+offset_bottom = 600.0
+texture = ExtResource("13_injrq")
+
+[node name="HandL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/ArmL"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = 580.0
+offset_right = -50.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_koh8k")
+
+[node name="ArmR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_right = 200.0
+offset_bottom = 600.0
+grow_horizontal = 0
+texture = ExtResource("13_injrq")
+flip_h = true
+
+[node name="HandR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/ArmR"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = 580.0
+offset_right = -50.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_koh8k")
+flip_h = true
+
+[node name="SpritePreviewLabel" type="Label" parent="CharacterPreview/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sprite Preview"
+horizontal_alignment = 1
+
+[node name="SpritePreview" type="GridContainer" parent="CharacterPreview/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 4
+
+[node name="Front" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/SpritePreview"]
+custom_minimum_size = Vector2(100, 200)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Go Back"
-icon_alignment = 1
-expand_icon = true
+size_flags_vertical = 3
+stretch_mode = 5
 
-[node name="RandomizeButton" type="Button" parent="ButtonPanel"]
+[node name="FrontLabel" type="Label" parent="CharacterPreview/MarginContainer/VBoxContainer/SpritePreview/Front"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Front"
+horizontal_alignment = 1
+
+[node name="Back" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/SpritePreview"]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Randomize"
-icon_alignment = 1
-expand_icon = true
+size_flags_vertical = 3
+stretch_mode = 5
 
-[node name="ConfirmButton" type="Button" parent="ButtonPanel"]
+[node name="BackLabel" type="Label" parent="CharacterPreview/MarginContainer/VBoxContainer/SpritePreview/Back"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Back"
+horizontal_alignment = 1
+
+[node name="Left" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/SpritePreview"]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Confirm"
-icon_alignment = 1
-expand_icon = true
+size_flags_vertical = 3
+stretch_mode = 5
+
+[node name="LeftLabel" type="Label" parent="CharacterPreview/MarginContainer/VBoxContainer/SpritePreview/Left"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Left"
+horizontal_alignment = 1
+
+[node name="Right" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/SpritePreview"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch_mode = 5
+
+[node name="RightLabel" type="Label" parent="CharacterPreview/MarginContainer/VBoxContainer/SpritePreview/Right"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Right"
+horizontal_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2
@@ -2706,393 +3059,40 @@ value = 50.0
 tick_count = 10
 ticks_on_borders = true
 
-[node name="CharacterPreview" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 305.0
-offset_top = 43.0
-offset_right = -955.0
-offset_bottom = -121.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 15
-
-[node name="MarginContainer" type="MarginContainer" parent="CharacterPreview"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CharacterPreview/MarginContainer"]
-layout_mode = 2
-
-[node name="CharacterName" type="Label" parent="CharacterPreview/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Character Appearance"
-horizontal_alignment = 1
-
-[node name="CharacterInfo" type="HBoxContainer" parent="CharacterPreview/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Portrait" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo"]
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
-size_flags_horizontal = 3
-stretch_mode = 5
-
-[node name="Belly" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 100.0
-offset_top = 200.0
-offset_right = -240.0
-offset_bottom = -208.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.33, 0.33)
-texture = ExtResource("3_injrq")
-
-[node name="LegL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = -175.0
-offset_top = -20.0
-offset_right = 125.0
-offset_bottom = 880.0
-grow_vertical = 0
-texture = ExtResource("4_hqoxt")
-
-[node name="FeetL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/LegL"]
+[node name="ButtonPanel" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = -20.0
-offset_right = 50.0
-offset_bottom = 80.0
+offset_left = -452.0
+offset_top = -96.0
+offset_right = 151.0
+offset_bottom = -46.0
 grow_horizontal = 2
 grow_vertical = 0
-texture = ExtResource("14_gucrx")
+scale = Vector2(1.5, 1.5)
+theme_override_constants/separation = 20
+alignment = 1
 
-[node name="LegR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -125.0
-offset_top = -20.0
-offset_right = 175.0
-offset_bottom = 880.0
-grow_horizontal = 0
-grow_vertical = 0
-texture = ExtResource("4_hqoxt")
-flip_h = true
-
-[node name="FeetR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/LegR"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = -20.0
-offset_right = 50.0
-offset_bottom = 80.0
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("14_gucrx")
-flip_h = true
-
-[node name="Torso" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -380.0
-offset_bottom = -180.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("6_dxrpx")
-
-[node name="Neck" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -80.0
-offset_bottom = -380.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_dxrpx")
-
-[node name="Head" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -75.0
-offset_top = -130.0
-offset_right = 225.0
-offset_bottom = 170.0
-grow_horizontal = 2
-scale = Vector2(0.5, 0.5)
-
-[node name="HairBack" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -75.0
-offset_top = -100.0
-offset_right = 75.0
-offset_bottom = 200.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="EarL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -139.0
-offset_top = 100.0
-offset_right = -280.0
-offset_bottom = -50.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("6_knhhn")
-
-[node name="EarR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 280.0
-offset_top = 100.0
-offset_right = 139.0
-offset_bottom = -50.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("6_knhhn")
-flip_h = true
-
-[node name="EyeL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = 120.0
-offset_right = -160.0
-offset_bottom = -120.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("7_tcm17")
-
-[node name="EyeR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 160.0
-offset_top = 120.0
-offset_right = -20.0
-offset_bottom = -120.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("7_tcm17")
-flip_h = true
-
-[node name="Nose" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 120.0
-offset_top = 120.0
-offset_right = -120.0
-offset_bottom = -90.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("8_x8cbg")
-
-[node name="Mouth" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 100.0
-offset_top = 220.0
-offset_right = -100.0
-offset_bottom = -30.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("9_10gnj")
-
-[node name="Chin" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 100.0
-offset_top = 270.0
-offset_right = -100.0
-offset_bottom = 30.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("10_q1t33")
-
-[node name="HairFront" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/Neck/Head"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -75.0
-offset_top = -100.0
-offset_right = 75.0
-offset_bottom = 200.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ArmL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso"]
-layout_mode = 1
-offset_left = -200.0
-offset_bottom = 600.0
-texture = ExtResource("13_injrq")
-
-[node name="HandL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/ArmL"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 50.0
-offset_top = 580.0
-offset_right = -50.0
-offset_bottom = 80.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("12_koh8k")
-
-[node name="ArmR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_right = 200.0
-offset_bottom = 600.0
-grow_horizontal = 0
-texture = ExtResource("13_injrq")
-flip_h = true
-
-[node name="HandR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/CharacterInfo/Portrait/Belly/Torso/ArmR"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 50.0
-offset_top = 580.0
-offset_right = -50.0
-offset_bottom = 80.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("12_koh8k")
-flip_h = true
-
-[node name="SpritePreviewLabel" type="Label" parent="CharacterPreview/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Sprite Preview"
-horizontal_alignment = 1
-
-[node name="SpritePreview" type="GridContainer" parent="CharacterPreview/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
-columns = 4
-
-[node name="Front" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/SpritePreview"]
-custom_minimum_size = Vector2(100, 200)
+[node name="BackButton" type="Button" parent="ButtonPanel"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-stretch_mode = 5
+text = "Go Back"
+icon_alignment = 1
+expand_icon = true
 
-[node name="FrontLabel" type="Label" parent="CharacterPreview/MarginContainer/VBoxContainer/SpritePreview/Front"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Front"
-horizontal_alignment = 1
-
-[node name="Back" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/SpritePreview"]
-custom_minimum_size = Vector2(100, 100)
+[node name="RandomizeButton" type="Button" parent="ButtonPanel"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-stretch_mode = 5
+text = "Randomize"
+icon_alignment = 1
+expand_icon = true
 
-[node name="BackLabel" type="Label" parent="CharacterPreview/MarginContainer/VBoxContainer/SpritePreview/Back"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Back"
-horizontal_alignment = 1
-
-[node name="Left" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/SpritePreview"]
-custom_minimum_size = Vector2(100, 100)
+[node name="ConfirmButton" type="Button" parent="ButtonPanel"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-stretch_mode = 5
-
-[node name="LeftLabel" type="Label" parent="CharacterPreview/MarginContainer/VBoxContainer/SpritePreview/Left"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Left"
-horizontal_alignment = 1
-
-[node name="Right" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/SpritePreview"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-stretch_mode = 5
-
-[node name="RightLabel" type="Label" parent="CharacterPreview/MarginContainer/VBoxContainer/SpritePreview/Right"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Right"
-horizontal_alignment = 1
+text = "Confirm"
+icon_alignment = 1
+expand_icon = true

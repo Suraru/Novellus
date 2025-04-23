@@ -32,6 +32,9 @@ func _ready():
 	# Connect all body part buttons to their respective handlers
 	_connect_body_part_buttons()
 	
+	# Connect edit separetely checkboxes to their bodyparts
+	_connect_edit_separately_checkboxes()
+	
 	# Hide all options containers initially
 	_hide_all_options_containers()
 	
@@ -68,6 +71,54 @@ func _connect_buttons_in_container(container):
 			if button:
 				# Store the section path for later use
 				button.pressed.connect(_on_body_part_button_pressed.bind(child))
+
+# Connect "Edit Separately" checkboxes
+func _connect_edit_separately_checkboxes():
+	# Find all checkboxes that control separate editing
+	var checkboxes = []
+	
+	# Search in Head tab
+	var head_tab = tab_container.get_node_or_null("Head")
+	if head_tab:
+		checkboxes.append_array(_find_edit_separately_checkboxes(head_tab))
+	
+	# Search in Body tab
+	var body_tab = tab_container.get_node_or_null("Body")
+	if body_tab:
+		checkboxes.append_array(_find_edit_separately_checkboxes(body_tab))
+	
+	# Connect each checkbox
+	for checkbox in checkboxes:
+		checkbox.toggled.connect(_on_edit_separately_toggled.bind(checkbox))
+		
+		# Make sure the separate containers are initially hidden
+		var options_container = checkbox.get_parent()
+		var body_part_name = _get_body_part_name_from_options(options_container)
+		
+		if !body_part_name.is_empty():
+			var separate_container = options_container.get_node_or_null(body_part_name + "SeparateContainer")
+			if separate_container:
+				separate_container.visible = false
+				
+			var style_separate_container = options_container.get_node_or_null(body_part_name + "StyleSeperateContainer")
+			if style_separate_container:
+				style_separate_container.visible = false
+
+# Find all "Edit Separately" checkboxes in a container
+func _find_edit_separately_checkboxes(container):
+	var checkboxes = []
+	
+	if !container:
+		return checkboxes
+	
+	# Recursively search for checkboxes with the name "EditSeparatelyBox"
+	for child in container.get_children():
+		if child is CheckBox and "EditSeparatelyBox" in child.name:
+			checkboxes.append(child)
+		elif child.get_child_count() > 0:
+			checkboxes.append_array(_find_edit_separately_checkboxes(child))
+	
+	return checkboxes
 
 # Find a button in a container
 func _find_button_in_container(container):
@@ -142,24 +193,41 @@ func _on_body_part_button_pressed(section_container):
 
 # Edit Separately checkbox handler
 func _on_edit_separately_toggled(toggled, checkbox):
-	# Find parent container
-	var parent_container = checkbox.get_parent()
+	# Get the body part name from the parent container
+	var options_container = checkbox.get_parent()
+	var body_part_name = _get_body_part_name_from_options(options_container)
 	
-	# Find combined and separate containers in the parent
-	var combined_container = null
-	var separate_container = null
+	if body_part_name.is_empty():
+		print("Could not determine body part name")
+		return
 	
-	for child in parent_container.get_children():
-		if child is Control:
-			if "Combined" in child.name:
-				combined_container = child
-			elif "Separate" in child.name:
-				separate_container = child
+	# Find the combined and separate containers using standardized naming
+	var combined_container = options_container.get_node_or_null(body_part_name + "CombinedContainer")
+	var separate_container = options_container.get_node_or_null(body_part_name + "SeparateContainer")
 	
-	# Toggle visibility based on checkbox state
+	# Toggle main settings containers
 	if combined_container and separate_container:
 		combined_container.visible = !toggled
 		separate_container.visible = toggled
+	
+	# Handle style containers if they exist
+	var style_combined_container = options_container.get_node_or_null(body_part_name + "StyleCombinedContainer")
+	var style_separate_container = options_container.get_node_or_null(body_part_name + "StyleSeparateContainer")
+	
+	# Toggle style containers if they exist
+	if style_combined_container and style_separate_container:
+		style_combined_container.visible = !toggled
+		style_separate_container.visible = toggled
+
+# Helper function to get the body part name from the options container
+func _get_body_part_name_from_options(options_container):
+	var name = options_container.name
+	
+	# Remove "Options" suffix to get the body part name
+	if name.ends_with("Options"):
+		return name.substr(0, name.length() - 7)
+	
+	return ""
 
 # Data handling functions
 func load_character_data():

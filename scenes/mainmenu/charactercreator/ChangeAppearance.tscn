@@ -976,66 +976,66 @@ layout_mode = 2
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="EyeStyleSeperateContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions"]
+[node name="EyesStyleSeparateContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions"]
 visible = false
 layout_mode = 2
 
-[node name="EyesStyleLeftContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyeStyleSeperateContainer"]
+[node name="EyesStyleLeftContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyesStyleSeparateContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="EyesStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyeStyleSeperateContainer/EyesStyleLeftContainer"]
+[node name="EyesStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyesStyleSeparateContainer/EyesStyleLeftContainer"]
 layout_mode = 2
 text = "Style:"
 vertical_alignment = 1
 
-[node name="EyesStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyeStyleSeperateContainer/EyesStyleLeftContainer"]
+[node name="EyesStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyesStyleSeparateContainer/EyesStyleLeftContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="EyesStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyeStyleSeperateContainer/EyesStyleLeftContainer/EyesStylePreview"]
+[node name="EyesStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyesStyleSeparateContainer/EyesStyleLeftContainer/EyesStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="EyesStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyeStyleSeperateContainer/EyesStyleLeftContainer/EyesStylePreview"]
+[node name="EyesStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyesStyleSeparateContainer/EyesStyleLeftContainer/EyesStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="EyesStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyeStyleSeperateContainer/EyesStyleLeftContainer/EyesStylePreview"]
+[node name="EyesStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyesStyleSeparateContainer/EyesStyleLeftContainer/EyesStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyeStyleSeperateContainer"]
+[node name="VSeparator" type="VSeparator" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyesStyleSeparateContainer"]
 layout_mode = 2
 
-[node name="EyesStyleRightContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyeStyleSeperateContainer"]
+[node name="EyesStyleRightContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyesStyleSeparateContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="EyesStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyeStyleSeperateContainer/EyesStyleRightContainer"]
+[node name="EyesStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyesStyleSeparateContainer/EyesStyleRightContainer"]
 layout_mode = 2
 text = "Style:"
 vertical_alignment = 1
 
-[node name="EyesStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyeStyleSeperateContainer/EyesStyleRightContainer"]
+[node name="EyesStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyesStyleSeparateContainer/EyesStyleRightContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="EyesStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyeStyleSeperateContainer/EyesStyleRightContainer/EyesStylePreview"]
+[node name="EyesStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyesStyleSeparateContainer/EyesStyleRightContainer/EyesStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="EyesStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyeStyleSeperateContainer/EyesStyleRightContainer/EyesStylePreview"]
+[node name="EyesStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyesStyleSeparateContainer/EyesStyleRightContainer/EyesStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="EyesStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyeStyleSeperateContainer/EyesStyleRightContainer/EyesStylePreview"]
+[node name="EyesStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EyesSection/EyesOptions/EyesStyleSeparateContainer/EyesStyleRightContainer/EyesStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
@@ -1230,66 +1230,66 @@ layout_mode = 2
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="EarstyleSeperateContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions"]
+[node name="EarsStyleSeparateContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions"]
 visible = false
 layout_mode = 2
 
-[node name="EarsStyleLeftContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarstyleSeperateContainer"]
+[node name="EarsStyleLeftContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarsStyleSeparateContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="EarsStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarstyleSeperateContainer/EarsStyleLeftContainer"]
+[node name="EarsStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarsStyleSeparateContainer/EarsStyleLeftContainer"]
 layout_mode = 2
 text = "Style:"
 vertical_alignment = 1
 
-[node name="EarsStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarstyleSeperateContainer/EarsStyleLeftContainer"]
+[node name="EarsStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarsStyleSeparateContainer/EarsStyleLeftContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="EarsStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarstyleSeperateContainer/EarsStyleLeftContainer/EarsStylePreview"]
+[node name="EarsStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarsStyleSeparateContainer/EarsStyleLeftContainer/EarsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="EarsStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarstyleSeperateContainer/EarsStyleLeftContainer/EarsStylePreview"]
+[node name="EarsStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarsStyleSeparateContainer/EarsStyleLeftContainer/EarsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="EarsStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarstyleSeperateContainer/EarsStyleLeftContainer/EarsStylePreview"]
+[node name="EarsStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarsStyleSeparateContainer/EarsStyleLeftContainer/EarsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarstyleSeperateContainer"]
+[node name="VSeparator" type="VSeparator" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarsStyleSeparateContainer"]
 layout_mode = 2
 
-[node name="EarsStyleRightContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarstyleSeperateContainer"]
+[node name="EarsStyleRightContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarsStyleSeparateContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="EarsStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarstyleSeperateContainer/EarsStyleRightContainer"]
+[node name="EarsStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarsStyleSeparateContainer/EarsStyleRightContainer"]
 layout_mode = 2
 text = "Style:"
 vertical_alignment = 1
 
-[node name="EarsStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarstyleSeperateContainer/EarsStyleRightContainer"]
+[node name="EarsStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarsStyleSeparateContainer/EarsStyleRightContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="EarsStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarstyleSeperateContainer/EarsStyleRightContainer/EarsStylePreview"]
+[node name="EarsStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarsStyleSeparateContainer/EarsStyleRightContainer/EarsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="EarsStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarstyleSeperateContainer/EarsStyleRightContainer/EarsStylePreview"]
+[node name="EarsStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarsStyleSeparateContainer/EarsStyleRightContainer/EarsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="EarsStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarstyleSeperateContainer/EarsStyleRightContainer/EarsStylePreview"]
+[node name="EarsStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Head/HeadPartsPanel/EarsSection/EarsOptions/EarsStyleSeparateContainer/EarsStyleRightContainer/EarsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
@@ -1934,66 +1934,66 @@ layout_mode = 2
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="ArmsStyleSeperateContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions"]
+[node name="ArmsStyleSeparateContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions"]
 visible = false
 layout_mode = 2
 
-[node name="LeftArmStyleContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeperateContainer"]
+[node name="LeftArmStyleContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeparateContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ArmsStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeperateContainer/LeftArmStyleContainer"]
+[node name="ArmsStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeparateContainer/LeftArmStyleContainer"]
 layout_mode = 2
 text = "Style:"
 vertical_alignment = 1
 
-[node name="ArmsStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeperateContainer/LeftArmStyleContainer"]
+[node name="ArmsStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeparateContainer/LeftArmStyleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="ArmsStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeperateContainer/LeftArmStyleContainer/ArmsStylePreview"]
+[node name="ArmsStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeparateContainer/LeftArmStyleContainer/ArmsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="ArmsStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeperateContainer/LeftArmStyleContainer/ArmsStylePreview"]
+[node name="ArmsStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeparateContainer/LeftArmStyleContainer/ArmsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="ArmsStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeperateContainer/LeftArmStyleContainer/ArmsStylePreview"]
+[node name="ArmsStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeparateContainer/LeftArmStyleContainer/ArmsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeperateContainer"]
+[node name="VSeparator" type="VSeparator" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeparateContainer"]
 layout_mode = 2
 
-[node name="RightArmStyleContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeperateContainer"]
+[node name="RightArmStyleContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeparateContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ArmsStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeperateContainer/RightArmStyleContainer"]
+[node name="ArmsStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeparateContainer/RightArmStyleContainer"]
 layout_mode = 2
 text = "Style:"
 vertical_alignment = 1
 
-[node name="ArmsStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeperateContainer/RightArmStyleContainer"]
+[node name="ArmsStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeparateContainer/RightArmStyleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="ArmsStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeperateContainer/RightArmStyleContainer/ArmsStylePreview"]
+[node name="ArmsStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeparateContainer/RightArmStyleContainer/ArmsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="ArmsStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeperateContainer/RightArmStyleContainer/ArmsStylePreview"]
+[node name="ArmsStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeparateContainer/RightArmStyleContainer/ArmsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="ArmsStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeperateContainer/RightArmStyleContainer/ArmsStylePreview"]
+[node name="ArmsStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/ArmsSection/ArmsOptions/ArmsStyleSeparateContainer/RightArmStyleContainer/ArmsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
@@ -2150,66 +2150,66 @@ layout_mode = 2
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="HandsStyleSeperateContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions"]
+[node name="HandsStyleSeparateContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions"]
 visible = false
 layout_mode = 2
 
-[node name="LeftHandstyleContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeperateContainer"]
+[node name="LeftHandstyleContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeparateContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HandsStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeperateContainer/LeftHandstyleContainer"]
+[node name="HandsStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeparateContainer/LeftHandstyleContainer"]
 layout_mode = 2
 text = "Style:"
 vertical_alignment = 1
 
-[node name="HandsStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeperateContainer/LeftHandstyleContainer"]
+[node name="HandsStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeparateContainer/LeftHandstyleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="HandsStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeperateContainer/LeftHandstyleContainer/HandsStylePreview"]
+[node name="HandsStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeparateContainer/LeftHandstyleContainer/HandsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="HandsStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeperateContainer/LeftHandstyleContainer/HandsStylePreview"]
+[node name="HandsStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeparateContainer/LeftHandstyleContainer/HandsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="HandsStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeperateContainer/LeftHandstyleContainer/HandsStylePreview"]
+[node name="HandsStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeparateContainer/LeftHandstyleContainer/HandsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeperateContainer"]
+[node name="VSeparator" type="VSeparator" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeparateContainer"]
 layout_mode = 2
 
-[node name="RightHandstyleContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeperateContainer"]
+[node name="RightHandstyleContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeparateContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HandsStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeperateContainer/RightHandstyleContainer"]
+[node name="HandsStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeparateContainer/RightHandstyleContainer"]
 layout_mode = 2
 text = "Style:"
 vertical_alignment = 1
 
-[node name="HandsStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeperateContainer/RightHandstyleContainer"]
+[node name="HandsStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeparateContainer/RightHandstyleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="HandsStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeperateContainer/RightHandstyleContainer/HandsStylePreview"]
+[node name="HandsStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeparateContainer/RightHandstyleContainer/HandsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="HandsStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeperateContainer/RightHandstyleContainer/HandsStylePreview"]
+[node name="HandsStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeparateContainer/RightHandstyleContainer/HandsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="HandsStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeperateContainer/RightHandstyleContainer/HandsStylePreview"]
+[node name="HandsStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/HandsSection/HandsOptions/HandsStyleSeparateContainer/RightHandstyleContainer/HandsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
@@ -2366,66 +2366,66 @@ layout_mode = 2
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="LegsStyleSeperateContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions"]
+[node name="LegsStyleSeparateContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions"]
 visible = false
 layout_mode = 2
 
-[node name="LeftLegstyleContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeperateContainer"]
+[node name="LeftLegstyleContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeparateContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LegsStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeperateContainer/LeftLegstyleContainer"]
+[node name="LegsStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeparateContainer/LeftLegstyleContainer"]
 layout_mode = 2
 text = "Style:"
 vertical_alignment = 1
 
-[node name="LegsStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeperateContainer/LeftLegstyleContainer"]
+[node name="LegsStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeparateContainer/LeftLegstyleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="LegsStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeperateContainer/LeftLegstyleContainer/LegsStylePreview"]
+[node name="LegsStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeparateContainer/LeftLegstyleContainer/LegsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="LegsStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeperateContainer/LeftLegstyleContainer/LegsStylePreview"]
+[node name="LegsStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeparateContainer/LeftLegstyleContainer/LegsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="LegsStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeperateContainer/LeftLegstyleContainer/LegsStylePreview"]
+[node name="LegsStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeparateContainer/LeftLegstyleContainer/LegsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeperateContainer"]
+[node name="VSeparator" type="VSeparator" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeparateContainer"]
 layout_mode = 2
 
-[node name="RightLegstyleContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeperateContainer"]
+[node name="RightLegstyleContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeparateContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LegsStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeperateContainer/RightLegstyleContainer"]
+[node name="LegsStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeparateContainer/RightLegstyleContainer"]
 layout_mode = 2
 text = "Style:"
 vertical_alignment = 1
 
-[node name="LegsStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeperateContainer/RightLegstyleContainer"]
+[node name="LegsStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeparateContainer/RightLegstyleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="LegsStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeperateContainer/RightLegstyleContainer/LegsStylePreview"]
+[node name="LegsStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeparateContainer/RightLegstyleContainer/LegsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="LegsStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeperateContainer/RightLegstyleContainer/LegsStylePreview"]
+[node name="LegsStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeparateContainer/RightLegstyleContainer/LegsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="LegsStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeperateContainer/RightLegstyleContainer/LegsStylePreview"]
+[node name="LegsStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/LegsSection/LegsOptions/LegsStyleSeparateContainer/RightLegstyleContainer/LegsStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
@@ -2582,66 +2582,66 @@ layout_mode = 2
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="FeetStyleSeperateContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions"]
+[node name="FeetStyleSeparateContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions"]
 visible = false
 layout_mode = 2
 
-[node name="LeftFeettyleContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeperateContainer"]
+[node name="LeftFeettyleContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeparateContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="FeetStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeperateContainer/LeftFeettyleContainer"]
+[node name="FeetStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeparateContainer/LeftFeettyleContainer"]
 layout_mode = 2
 text = "Style:"
 vertical_alignment = 1
 
-[node name="FeetStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeperateContainer/LeftFeettyleContainer"]
+[node name="FeetStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeparateContainer/LeftFeettyleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="FeetStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeperateContainer/LeftFeettyleContainer/FeetStylePreview"]
+[node name="FeetStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeparateContainer/LeftFeettyleContainer/FeetStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="FeetStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeperateContainer/LeftFeettyleContainer/FeetStylePreview"]
+[node name="FeetStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeparateContainer/LeftFeettyleContainer/FeetStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="FeetStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeperateContainer/LeftFeettyleContainer/FeetStylePreview"]
+[node name="FeetStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeparateContainer/LeftFeettyleContainer/FeetStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeperateContainer"]
+[node name="VSeparator" type="VSeparator" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeparateContainer"]
 layout_mode = 2
 
-[node name="RightFeettyleContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeperateContainer"]
+[node name="RightFeettyleContainer" type="HBoxContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeparateContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="FeetStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeperateContainer/RightFeettyleContainer"]
+[node name="FeetStyleLabel" type="Label" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeparateContainer/RightFeettyleContainer"]
 layout_mode = 2
 text = "Style:"
 vertical_alignment = 1
 
-[node name="FeetStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeperateContainer/RightFeettyleContainer"]
+[node name="FeetStylePreview" type="GridContainer" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeparateContainer/RightFeettyleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="FeetStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeperateContainer/RightFeettyleContainer/FeetStylePreview"]
+[node name="FeetStyle1" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeparateContainer/RightFeettyleContainer/FeetStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="FeetStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeperateContainer/RightFeettyleContainer/FeetStylePreview"]
+[node name="FeetStyle2" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeparateContainer/RightFeettyleContainer/FeetStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
-[node name="FeetStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeperateContainer/RightFeettyleContainer/FeetStylePreview"]
+[node name="FeetStyle3" type="TextureButton" parent="ScrollContainer/SelectionMargin/TabContainer/Body/BodyPartsPanel/FeetSection/FeetOptions/FeetStyleSeparateContainer/RightFeettyleContainer/FeetStylePreview"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 

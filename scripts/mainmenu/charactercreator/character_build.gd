@@ -39,13 +39,13 @@ const CHARACTER_SELECTION_SCENE = "res://scenes/mainmenu/charactercreator/Charac
 @onready var stubbornness_slider = $StatsScrollContainer/MarginContainer/Stats/PersonalityTable/StubbornnessSlider
 
 # Relationship section
-@onready var relationship_list = $MiddleContainer/ScrollContainer/Stats/RelationshipSection/RelationshipList
-@onready var relationship_creator = $MiddleContainer/ScrollContainer/Stats/RelationshipSection/RelationshipCreator
-@onready var character_selector = $MiddleContainer/ScrollContainer/Stats/RelationshipSection/RelationshipCreator/CharacterSelector
-@onready var relationship_type_selector = $MiddleContainer/ScrollContainer/Stats/RelationshipSection/RelationshipCreator/RelationshipTypeSelector
-@onready var confirm_relationship_button = $MiddleContainer/ScrollContainer/Stats/RelationshipSection/RelationshipCreator/ConfirmButton
-@onready var cancel_relationship_button = $MiddleContainer/ScrollContainer/Stats/RelationshipSection/RelationshipCreator/CancelButton
-@onready var new_relationship_button = $MiddleContainer/ScrollContainer/Stats/RelationshipSection/NewRelationshipButton
+@onready var relationship_list = $RelationshipsContainer/MarginContainer/Stats/RelationshipSection/RelationshipList
+@onready var relationship_creator = $RelationshipsContainer/MarginContainer/Stats/RelationshipSection/RelationshipCreator
+@onready var character_selector = $RelationshipsContainer/MarginContainer/Stats/RelationshipSection/RelationshipCreator/CharacterSelector
+@onready var relationship_type_selector = $RelationshipsContainer/MarginContainer/Stats/RelationshipSection/RelationshipCreator/RelationshipTypeSelector
+@onready var confirm_relationship_button = $RelationshipsContainer/MarginContainer/Stats/RelationshipSection/RelationshipCreator/ConfirmButton
+@onready var cancel_relationship_button = $RelationshipsContainer/MarginContainer/Stats/RelationshipSection/RelationshipCreator/CancelButton
+@onready var new_relationship_button = $RelationshipsContainer/MarginContainer/Stats/RelationshipSection/NewRelationshipButton
 
 # Bottom buttons
 @onready var back_button = $ButtonPanel/BackButton

@@ -93,7 +93,7 @@ offset_bottom = 880.0
 grow_vertical = 0
 texture = ExtResource("4_hqoxt")
 
-[node name="FeetL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/PortraitPreview/FullBodyView/Belly/LegL"]
+[node name="FootL" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/PortraitPreview/FullBodyView/Belly/LegL"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -124,7 +124,7 @@ grow_vertical = 0
 texture = ExtResource("4_hqoxt")
 flip_h = true
 
-[node name="FeetR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/PortraitPreview/FullBodyView/Belly/LegR"]
+[node name="FootR" type="TextureRect" parent="CharacterPreview/MarginContainer/VBoxContainer/PortraitPreview/FullBodyView/Belly/LegR"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

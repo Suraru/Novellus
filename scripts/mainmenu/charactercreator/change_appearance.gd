@@ -27,6 +27,22 @@ var original_positions = {}
 var min_scale = 0.5  # Minimum scale factor (half size)
 var max_scale = 2.0  # Maximum scale factor (double size)
 
+# Mapping between slider naming conventions and body part node naming
+var body_part_name_map = {
+	"LeftEye": "EyeL",
+	"RightEye": "EyeR",
+	"LeftEar": "EarL",
+	"RightEar": "EarR",
+	"LeftLeg": "LegL",
+	"RightLeg": "LegR",
+	"LeftArm": "ArmL",
+	"RightArm": "ArmR",
+	"LeftHand": "HandL",
+	"RightHand": "HandR",
+	"LeftFoot": "FootL",
+	"RightFoot": "FootR"
+}
+
 func _ready():
 	# Connect button signals
 	back_button.pressed.connect(_on_back_button_pressed)
@@ -301,27 +317,61 @@ func _get_slider_type(slider):
 func _on_slider_value_changed(value, slider):
 	# Get slider information
 	var slider_type = _get_slider_type(slider)
-	var body_part = _get_body_part_from_slider(slider)
-	
-	if body_part.is_empty() || slider_type.is_empty():
+	if slider_type.is_empty():
 		return
 	
-	# Update the character model based on slider type
-	if slider_type == "Width":
-		_adjust_body_part_width(body_part, value)
-	elif slider_type == "Height":
-		_adjust_body_part_height(body_part, value)
-	elif slider_type == "Position":
-		_adjust_body_part_position(body_part, value)
-	elif slider_type == "Spacing":
-		_adjust_body_part_spacing(body_part, value)
+	# Get the body part from the slider's parent containers
+	var options_container = _find_parent_options_container(slider)
+	if !options_container:
+		return
 	
-	# For eye/ear/etc. controls that can be edited separately
-	# Check if we need to sync values
-	_handle_separate_editing_sync(slider)
+	var body_part_name = _get_body_part_name_from_options(options_container)
+	if body_part_name.is_empty():
+		return
 	
-	# Update character appearance data for saving
-	_update_appearance_data(body_part, slider_type, value)
+	# Check if this is a left, right, or combined slider
+	var is_left = _is_in_left_container(slider)
+	var is_right = _is_in_right_container(slider)
+	
+	# Get the correct node name pattern based on our mapping
+	var node_pattern = _get_node_name_pattern(body_part_name, is_left, is_right)
+	
+	# Find the nodes to modify
+	var nodes_to_modify = []
+	
+	if slider_type == "Spacing" && !is_left && !is_right:
+		# Special handling for spacing (adjusts relative positions)
+		_adjust_body_part_spacing(body_part_name, value)
+		return
+	else:
+		# For all other properties, find matching nodes
+		nodes_to_modify = _find_nodes_by_partial_name(character_portrait, node_pattern)
+		nodes_to_modify.append_array(_find_nodes_by_partial_name(character_profile, node_pattern))
+		
+		# If this is a combined slider, also update separated sliders
+		if !is_left && !is_right:
+			_update_separated_sliders(options_container, slider_type, value)
+	
+	# Apply the change to each matching node
+	for node in nodes_to_modify:
+		if node is TextureRect:
+			if slider_type == "Width":
+				var scale_factor = _calculate_scale_factor(value)
+				var original_scale = original_sizes.get(node.get_path(), Vector2(1, 1))
+				node.scale.x = original_scale.x * scale_factor
+			elif slider_type == "Height":
+				var scale_factor = _calculate_scale_factor(value)
+				var original_scale = original_sizes.get(node.get_path(), Vector2(1, 1))
+				node.scale.y = original_scale.y * scale_factor
+			elif slider_type == "Position":
+				var position_offset = _calculate_position_offset(value)
+				var original_position = original_positions.get(node.get_path(), Vector2(0, 0))
+				node.position.y = original_position.y + position_offset
+			elif slider_type == "Size":
+				# Size affects both width and height
+				var scale_factor = _calculate_scale_factor(value)
+				var original_scale = original_sizes.get(node.get_path(), Vector2(1, 1))
+				node.scale = original_scale * scale_factor
 
 # Get the body part name from a slider
 func _get_body_part_from_slider(slider):
@@ -342,6 +392,102 @@ func _get_body_part_from_slider(slider):
 		current = current.get_parent()
 	
 	return body_part
+
+# Find the correct node name pattern based on slider information
+func _get_node_name_pattern(body_part, is_left, is_right):
+	# For combined sliders that affect both sides
+	if !is_left && !is_right:
+		return body_part
+	
+	# For left or right specific sliders
+	var side_prefix = "Left" if is_left else "Right"
+	var combo_name = side_prefix + body_part
+	
+	# Check if we have a mapping for this name
+	if body_part_name_map.has(combo_name):
+		return body_part_name_map[combo_name]
+	
+	# Default fallback pattern if no mapping exists
+	if is_left:
+		return body_part + "L"
+	else:
+		return body_part + "R"
+
+# Check if a slider is in a left container
+func _is_in_left_container(slider):
+	var current = slider
+	while current:
+		if "Left" in current.name:
+			return true
+		current = current.get_parent()
+	return false
+
+# Check if a slider is in a right container
+func _is_in_right_container(slider):
+	var current = slider
+	while current:
+		if "Right" in current.name:
+			return true
+		current = current.get_parent()
+	return false
+
+# Update separated sliders when combined slider changes
+func _update_separated_sliders(options_container, slider_type, value):
+	var body_part_name = _get_body_part_name_from_options(options_container)
+	
+	# Find separate container
+	var separate_container = options_container.get_node_or_null(body_part_name + "SeparateContainer")
+	if !separate_container:
+		return
+	
+	# Find left and right containers within the separate container
+	var left_container = null
+	var right_container = null
+	
+	for child in separate_container.get_children():
+		if "Left" in child.name:
+			left_container = child
+		elif "Right" in child.name:
+			right_container = child
+	
+	# Find and update sliders
+	if left_container:
+		var left_slider = _find_slider_by_type(left_container, slider_type)
+		if left_slider:
+			left_slider.value = value
+	
+	if right_container:
+		var right_slider = _find_slider_by_type(right_container, slider_type)
+		if right_slider:
+			right_slider.value = value
+
+# Find a slider by type in a container
+func _find_slider_by_type(container, slider_type):
+	# Search direct children first
+	for child in container.get_children():
+		if child is HSlider && slider_type in child.get_parent().name:
+			return child
+	
+	# Then search recursively in children
+	for child in container.get_children():
+		if child.get_child_count() > 0:
+			var result = _find_slider_by_type_recursive(child, slider_type)
+			if result:
+				return result
+	
+	return null
+
+# Recursively find a slider by type
+func _find_slider_by_type_recursive(container, slider_type):
+	for child in container.get_children():
+		if child is HSlider && slider_type in child.get_parent().name:
+			return child
+		elif child.get_child_count() > 0:
+			var result = _find_slider_by_type_recursive(child, slider_type)
+			if result:
+				return result
+	
+	return null
 
 # Find and adjust body part nodes by name
 func _find_body_part_nodes(body_part_name):
@@ -405,15 +551,24 @@ func _adjust_body_part_position(body_part, value):
 			var original_position = original_positions.get(node.get_path(), Vector2(0, 0))
 			node.position.y = original_position.y + position_offset
 
-# Adjust spacing between paired body parts (eyes, ears, etc.)
+# Adjust spacing between paired body parts
 func _adjust_body_part_spacing(body_part, value):
 	var spacing_factor = _calculate_spacing_factor(value)
-	var left_nodes = _find_nodes_by_partial_name(character_portrait, body_part + "L")
-	left_nodes.append_array(_find_nodes_by_partial_name(character_profile, body_part + "L"))
 	
-	var right_nodes = _find_nodes_by_partial_name(character_portrait, body_part + "R")
-	right_nodes.append_array(_find_nodes_by_partial_name(character_profile, body_part + "R"))
+	# Get the correct node patterns using our mapping
+	var left_pattern = _get_node_name_pattern(body_part, true, false)
+	var right_pattern = _get_node_name_pattern(body_part, false, true)
 	
+	# Find the nodes
+	var left_nodes = []
+	left_nodes.append_array(_find_nodes_by_partial_name(character_portrait, left_pattern))
+	left_nodes.append_array(_find_nodes_by_partial_name(character_profile, left_pattern))
+	
+	var right_nodes = []
+	right_nodes.append_array(_find_nodes_by_partial_name(character_portrait, right_pattern))
+	right_nodes.append_array(_find_nodes_by_partial_name(character_profile, right_pattern))
+	
+	# Adjust positions based on spacing factor
 	for node in left_nodes:
 		if node is TextureRect:
 			var original_position = original_positions.get(node.get_path(), Vector2(0, 0))
@@ -527,17 +682,6 @@ func _find_right_slider(separate_container, slider_type):
 	for child in separate_container.get_children():
 		if "Right" in child.name:
 			return _find_slider_by_type(child, slider_type)
-	return null
-
-# Find a slider by type in a container
-func _find_slider_by_type(container, slider_type):
-	for child in container.get_children():
-		if child is HSlider && slider_type in child.get_parent().name:
-			return child
-		elif child.get_child_count() > 0:
-			var slider = _find_slider_by_type(child, slider_type)
-			if slider:
-				return slider
 	return null
 
 # Find the opposite slider (left->right or right->left)
